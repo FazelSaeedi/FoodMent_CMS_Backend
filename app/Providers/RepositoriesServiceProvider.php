@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repository\CategoryRepositiry\CategoryRepositoryInterface;
+use App\Repository\CategoryRepositiry\ElequentsCategoryRepository;
 use App\Repository\ReportRepository\ElequentReportRepository;
 use App\Repository\ReportRepository\ReportRepositoryInterface;
 use App\Repository\TaskRepository\ElequentTaskRepository;
@@ -30,6 +32,9 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(UserRepositoryInterface::class , ElequentsUserRepository::class);
+
+
+        $this->app->bind(CategoryRepositoryInterface::class , ElequentsCategoryRepository::class);
 
     }
 }
