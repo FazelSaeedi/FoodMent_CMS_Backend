@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('phone')->unique()->nullable(false);
-            $table->string('token' , '1000')->unique()->nullable();
+            $table->string('token' , '1000')->nullable();
             $table->string('sms_code')->unique()->nullable(false);
             $table->boolean('registerd');
             $table->timestamps();

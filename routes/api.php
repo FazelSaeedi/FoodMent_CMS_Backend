@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,6 @@ Route::prefix('v1')->group(function () {
         Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
     });
 
+    Route::get('getcategorys' , [CategoryController::class , 'index']);
 });
 
