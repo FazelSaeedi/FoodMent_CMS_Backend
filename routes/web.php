@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    Artisan::call('migrate');
+    //Artisan::call('migrate');
     //return view('welcome');
-    //abort(404);
+    abort(404);
 });
