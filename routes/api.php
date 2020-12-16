@@ -27,12 +27,17 @@ Route::prefix('v1')->group(function () {
         return 'Welcome To foodment.ir' ;
     });
 
+
     Route::prefix('user')->group(function (){
         Route::post('register' , [UserController::class , 'register']);
         Route::post('checksmscode' , [UserController::class , 'confirmSmsCode']);
         Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
     });
 
-    Route::get('getcategorys' , [CategoryController::class , 'index']);
+
+    Route::get('getmaincategorylist' , [CategoryController::class , 'getMainCategoryList']);
+    Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
+    Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
+
 });
 

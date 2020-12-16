@@ -7,10 +7,10 @@ interface CategoryRepositoryInterface
     public function getCategory();
 
 
-    public function getChildren($categoryId);
+    public function getChildCategory($categoryId);
 
 
-    public function getParent($categoryId);
+    public function getParents($id);
 
 
     public function addCategory($parentId);
@@ -20,4 +20,8 @@ interface CategoryRepositoryInterface
 
 
     public function deleteCategory($id);
+
+
+    public function getCategoryInfo($id);
+
 }
