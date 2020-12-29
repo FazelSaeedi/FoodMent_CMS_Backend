@@ -60,8 +60,9 @@
 
 @section('js')
     <script>
+        let cookie = new Cookie();
 
-        if(getCookie('token') != "")
+        if(cookie.getCookie('token') != "")
         {
             window.location.href = "http://127.0.0.1:8000/v1/profile/home";
         }
@@ -112,7 +113,7 @@
             if (chertopert != undefined)
             {
                 var token = chertopert.data.token ;
-                setCookie('token' , token , 0.1);
+                cookie.setCookie('token' , token , 0.1);
                 console.log(token);
                 alert('every think is  ok ')
                 window.location.href = "http://127.0.0.1:8000/v1/profile/home";
@@ -125,30 +126,6 @@
         })
 
 
-        function setCookie(name , value , expire)
-        {
-            var d = new Date();
-            d.setTime(d.getTime() + (expire*24*60*60*1000));
-            var expires = "expires="+ d.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/";
-        }
-
-        function getCookie(cname)
-        {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
 
     </script>
 @endsection
