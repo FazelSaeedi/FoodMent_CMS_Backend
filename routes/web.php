@@ -15,7 +15,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    //Artisan::call('migrate');
-    //return view('welcome');
-    abort(404);
+    // Artisan::call('migrate');
+    // return view('welcome');
+     abort(404);
+});
+
+Route::prefix('v1')->group(function () {
+
+    Route::get('templateExample' , function (){return view('V1.templateExample');});
+
+    Route::prefix('auth')->group(function () {
+        Route::get('/login' , function (){return view('V1.auth.login');});
+        Route::get('/register' , function (){return view('V1.auth.login');});
+    });
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/home' , function (){return view('V1.profile.home');});
+        // Route::get('/home' , function (){return view('V1.templateExample');});
+    });
+
+
+
 });

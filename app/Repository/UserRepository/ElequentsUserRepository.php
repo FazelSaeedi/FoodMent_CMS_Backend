@@ -5,6 +5,7 @@ namespace App\Repository\UserRepository;
 
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ElequentsUserRepository implements UserRepositoryInterface
 {
@@ -112,5 +113,30 @@ class ElequentsUserRepository implements UserRepositoryInterface
         }
 
 
+    }
+
+
+
+    public function chechUserIsValid($phone, $password)
+    {
+
+        $user = DB::table('users')->where('phone', $phone)->first();
+
+
+        if ($user === null)
+            return false;
+        else
+            return $user->password;
+
+    }
+
+
+
+    public function setUserPassword($phone, $password)
+    {
+        $setUserPassword = User::where('phone', $phone)
+            ->update(['password' => $password]);
+
+        return $setUserPassword;
     }
 }

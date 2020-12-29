@@ -4,9 +4,12 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\ConfirmSmsCode;
+use App\Http\Requests\V1\loginRequest;
 use App\Http\Requests\V1\RegisterRequest;
+use App\Models\User;
 use App\Repository\UserRepository\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
@@ -153,4 +156,79 @@ class UserController extends Controller
             ]
         ],200);
     }
+
+
+
+    public function login(loginRequest $request)
+    {
+
+
+        $phone = $request->phone;
+        $password = $request->password;
+
+
+
+        $checkUserIsValid = $this->checkUserIsValid($phone , $password);
+
+
+
+        if ($checkUserIsValid)
+        {
+            $token = $this->genarateToken();
+            $this->userRepository->setTokenCode($phone , $token);
+            return response()->json([
+                'data' => [
+                    'token' => $token
+                ] ,
+                'message' => 'success'
+            ],200);
+        }
+        else
+            return response()->json([
+                'message' => 'your information is invalid'
+            ],422);
+
+    }
+
+
+
+    public function checkUserIsValid($phone , $password)
+    {
+
+        $validation = $this->userRepository->chechUserIsValid($phone , $password);
+
+
+
+        if (strlen($validation) > 1)
+        {
+            if (Hash::check($password, $validation) == 1)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+
+
+
+    }
+
+
+
+    public function setUserPassword(loginRequest $request)
+    {
+        $phone = $request->phone;
+        $password = $request->password ;
+
+
+        $hashPassword = Hash::make($password);
+
+        $setUserPassword = $this->userRepository->setUserPassword($phone , $hashPassword);
+
+        return response()->json([
+            'message' => 'success'
+        ],200);
+    }
+
+
 }
