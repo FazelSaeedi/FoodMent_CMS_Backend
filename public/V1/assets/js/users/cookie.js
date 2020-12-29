@@ -1,12 +1,12 @@
 class Cookie
 {
 
-
+    domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
     logout()
     {
         this.delete_cookie('token');
-        window.location = 'http://127.0.0.1:8000/v1/auth/login';
+        window.location = this.domainWithPort+'/v1/auth/login';
     }
 
 

@@ -60,11 +60,14 @@
 
 @section('js')
     <script>
+
         let cookie = new Cookie();
+        domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
 
         if(cookie.getCookie('token') != "")
         {
-            window.location.href = "http://127.0.0.1:8000/v1/profile/home";
+            window.location.href = domainWithPort+"/v1/profile/home";
         }
 
 
@@ -101,7 +104,7 @@
                 contentType: "application/json",
                 type: 'POST',
                 dataType: "json",
-                url: "http://127.0.0.1:8000/api/v1/user/login",
+                url: domainWithPort+"/api/v1/user/login",
                 success: function(resultData) {  chertopert = resultData} ,
                 error: function(data){
                     console.log(data.responseJSON);
@@ -116,7 +119,7 @@
                 cookie.setCookie('token' , token , 0.1);
                 console.log(token);
                 alert('every think is  ok ')
-                window.location.href = "http://127.0.0.1:8000/v1/profile/home";
+                window.location.href = domainWithPort+"/v1/profile/home";
 
             }else {
                 $('#alert').text('رمز عبور ویا شماره تلفن شما اشتباه است');
