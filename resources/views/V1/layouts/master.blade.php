@@ -35,6 +35,8 @@
     <script src="/V1/assets/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     <script src="/V1/assets/js/argon.js?v=1.2.0"></script>
+    <!-- Cookie JS -->
+    <script src="/V1/assets/js/users/cookie.js?v=1.2.0"></script>
     @yield('js')
 </body>
 </html>

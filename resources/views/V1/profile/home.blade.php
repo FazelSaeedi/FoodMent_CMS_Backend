@@ -280,7 +280,7 @@
                                     <span>Support</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a onclick="logout()" href="#!" class="dropdown-item">
+                                <a id="logout"  href="#!" class="dropdown-item">
                                     <i class="ni ni-user-run"></i>
                                     <span>Logout</span>
                                 </a>
@@ -305,16 +305,14 @@
 @section('js')
     <script>
 
-        function logout()
-        {
-            delete_cookie('token');
-            window.location = 'http://127.0.0.1:8000/v1/auth/login';
-        }
+        let cookie = new Cookie();
 
-        function delete_cookie(name)
-        {
-            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        }
+        $("#logout").click(function (){
+            cookie.logout()
+        })
+
+
+
 
     </script>
 @endsection
