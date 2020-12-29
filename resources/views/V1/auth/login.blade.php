@@ -62,7 +62,10 @@
     <script>
 
         let cookie = new Cookie();
+        let validation = new Validation();
+        var isValidateUI = false ;
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
 
 
         if(cookie.getCookie('token') != "")
@@ -78,52 +81,40 @@
             var phone = $('#phone').val()
             var password = $('#password').val()
 
-            if(phone && !password)
+
+            if (validation.loginValidation(phone , password))
             {
-                $('#alert').text('لطفا رمز عبور خود را وارد کنید')
-                $('#alert').css('display' , 'block');
-            }else if (!phone && password)
-            {
-                $('#alert').text('لطفا شماره تلفن خود را وارد کنید');
-                $('#alert').css('display' , 'block');
-            }else if (!phone && !password)
-            {
-                $('#alert').text('لطفا شماره تلفن  و رمز عبور خود را وارد کنید');
-                $('#alert').css('display' , 'block');
-            }else {
-                $('#alert').css('display' , 'none');
-            }
+                // 2. Post Form
 
+                data ={phone:phone, password:password};
+                var chertopert ;
+                var saveData = $.ajax({
+                    async : false,
+                    contentType: "application/json",
+                    type: 'POST',
+                    dataType: "json",
+                    url: domainWithPort+"/api/v1/user/login",
+                    success: function(resultData) {  chertopert = resultData} ,
+                    error: function(data){
+                        // console.log(data.responseJSON);
+                    },
+                    data: JSON.stringify(data),
+                });
 
-            // 2. Post Form
+                if (chertopert != undefined)
+                {
+                    var token = chertopert.data.token ;
+                    cookie.setCookie('token' , token , 0.1);
+                    // console.log(token);
+                    // alert('every think is  ok ')
+                    window.location.href = domainWithPort+"/v1/profile/home";
 
-            data ={phone:phone, password:password};
-            var chertopert ;
-            var saveData = $.ajax({
-                async : false,
-                contentType: "application/json",
-                type: 'POST',
-                dataType: "json",
-                url: domainWithPort+"/api/v1/user/login",
-                success: function(resultData) {  chertopert = resultData} ,
-                error: function(data){
-                    console.log(data.responseJSON);
-                },
-                data: JSON.stringify(data),
-            });
-
-
-            if (chertopert != undefined)
-            {
-                var token = chertopert.data.token ;
-                cookie.setCookie('token' , token , 0.1);
-                console.log(token);
-                alert('every think is  ok ')
-                window.location.href = domainWithPort+"/v1/profile/home";
-
-            }else {
-                $('#alert').text('رمز عبور ویا شماره تلفن شما اشتباه است');
-                $('#alert').css('display' , 'block');
+                }
+                else
+                {
+                    $('#alert').text('رمز عبور ویا شماره تلفن شما اشتباه است');
+                    $('#alert').css('display' , 'block');
+                }
             }
 
         })

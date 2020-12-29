@@ -37,6 +37,8 @@
     <script src="/V1/assets/js/argon.js?v=1.2.0"></script>
     <!-- Cookie JS -->
     <script src="/V1/assets/js/users/cookie.js?v=1.2.0"></script>
+    <!-- Validation JS -->
+    <script src="/V1/assets/js/validations/Validation.js?v=1.2.0"></script>
     @yield('js')
 </body>
 </html>
