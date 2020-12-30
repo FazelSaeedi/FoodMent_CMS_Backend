@@ -101,7 +101,7 @@ var NavbarCollapse = (function() {
 				 $('body').removeClass('nav-open');
 					navbar_menu_visible = 0;
 					$('.bodyClick').remove();
-					
+
 			 });
 
 		 $('body').addClass('nav-open');

@@ -17,14 +17,19 @@
 
 
 @section('content')
+
     <!-- Sidenav -->
     @include('V1.partials.menu')
     <!-- Main content -->
+
+
+
+
     <div class="main-content" id="panel">
         <!-- Topnav -->
-
+        @include('V1.partials.addRestrauntPopup')
+        @include('V1.partials.editRestrauntPopup')
         @include('V1.partials.topnav')
-
 
         <div class="header bg-primary pb-6">
 
@@ -41,7 +46,7 @@
                                     <h3 class="mb-0">رستوران ها</h3>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                                    <a id="addRestaurant" href="#!" class="btn btn-sm btn-primary">افزودن رستوران</a>
                                 </div>
                             </div>
                         </div>
@@ -53,80 +58,12 @@
                                     <th scope="col">Page name</th>
                                     <th scope="col">Visitors</th>
                                     <th scope="col">Unique users</th>
-                                    <th scope="col">Bounce rate</th>
+                                    <th scope="col">ویرایش</th>
+                                    <th scope="col">حذف</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/
-                                    </th>
-                                    <td>
-                                        4,569
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/index.html
-                                    </th>
-                                    <td>
-                                        3,985
-                                    </td>
-                                    <td>
-                                        319
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/charts.html
-                                    </th>
-                                    <td>
-                                        3,513
-                                    </td>
-                                    <td>
-                                        294
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/tables.html
-                                    </th>
-                                    <td>
-                                        2,050
-                                    </td>
-                                    <td>
-                                        147
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/profile.html
-                                    </th>
-                                    <td>
-                                        1,795
-                                    </td>
-                                    <td>
-                                        190
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -137,6 +74,8 @@
 
         </div>
 
+
+        </div>
     </div>
 @endsection
 
@@ -157,6 +96,174 @@
             cookie.logout()
         })
 
+
+
+
+
+
+        /*--------------------------------------------*
+        *                                             *
+        *                                             *
+        * Start----------- addRestaurantsPopup        *
+        *                                             *
+        *                                             *
+        * --------------------------------------------*/
+
+
+
+        // buttom close-add-restaurant
+        $("#close-add-restaurant").click(function (){
+            $(".add-restaurant-Popup").fadeOut(200)
+
+              // for menu
+              // $('.sidenav').css('transform' , "translateX(0px)")
+              // $('.main-content').css('margin-left' , "255px")
+
+        })
+
+
+        // button add restraun
+        $("#addRestaurant").click(function (){
+            $(".add-restaurant-Popup").fadeIn(200)
+
+
+
+             // for menu
+             //$('.sidenav').css('transform', "translateX(-250px)")
+             //$('.main-content').css('margin-left' , "0px")
+
+        })
+
+
+        // button submit add restraun
+        $("#submit-add-restaurant").click(function (){
+
+            var name = $('#name-restaurant-Popup').val();
+            var address = $('#address-restaurant-Popup').val();
+            var phone = $('#phone-restaurant-Popup').val();
+
+            console.log({
+                name : name ,
+                address : address ,
+                phone : phone
+            })
+
+             var random = Math.floor((Math.random() * 100) + 1);
+
+            $(".add-restaurant-Popup").fadeOut(200)
+            $("tbody").append(
+                "<tr id='"+random+"'>" +
+                "<th class='name'>"+name+"</th>" +
+                "<th class='phone'>"+phone+"</th>" +
+                "<th class='address d-inline-block text-truncate' style='direction: rtl ; max-width: 220px'>"+address+"</th>" +
+                "<th onclick='editRow(this)'>ویرایش</th>" +
+                "<th onclick='deleteRow(this)'>حذف</th>" +
+                "</tr>");
+
+
+
+             // for menu
+             //$('.sidenav').css('transform' , "translateX(0px)")
+
+        })
+
+
+
+
+
+        /*--------------------------------------------*
+        *                                             *
+        *                                             *
+        *  Start----------- editRestaurantsPopup      *
+        *                                             *
+        *                                             *
+        * --------------------------------------------*/
+
+
+
+        // buttom close-edit-restaurant
+        $("#close-edit-restaurant").click(function (){
+            $(".edit-restaurant-Popup").fadeOut(200)
+
+            // for menu
+            // $('.sidenav').css('transform' , "translateX(0px)")
+            // $('.main-content').css('margin-left' , "255px")
+
+        })
+
+
+        // button submit edit restraun
+        $("#submit-edit-restaurant").click(function (){
+
+            var id = $('.edit-restaurant-Popup').attr('id');
+            var name = $('#edit-name-restaurant-Popup').val();
+            var address = $('#edit-address-restaurant-Popup').val();
+            var phone = $('#edit-phone-restaurant-Popup').val();
+
+            console.log({
+                id : id,
+                name : name ,
+                address : address ,
+                phone : phone
+            })
+
+
+
+            $(`tr#${id} .name`).html(name)
+            $(`tr#${id} .phone`).html(phone)
+            $(`tr#${id} .address`).html(address)
+
+            $(".edit-restaurant-Popup").fadeOut(200)
+
+        })
+
+
+
+        function editRow(e)
+        {
+
+            var tr = $(e).closest('tr');
+            var phone = tr.find('.phone').text();
+            var name = tr.find('.name').text();
+            var address = tr.find('.address').text();
+
+
+             $('#edit-name-restaurant-Popup').val(name)
+             $('#edit-address-restaurant-Popup').val(address)
+             $('#edit-phone-restaurant-Popup').val(phone)
+
+
+            $(".edit-restaurant-Popup").fadeIn(200)
+
+
+            // alert("open edit Page")
+            // return trId;
+        }
+
+
+
+
+
+        /*--------------------------------------------*
+        *                                             *
+        *                                             *
+        *  Start----------- deleteRestaurant          *
+        *                                             *
+        *                                             *
+        * --------------------------------------------*/
+
+
+        function deleteRow(e)
+        {
+
+
+            var tr = $(e).closest('tr');
+            var trId = tr.attr('id');
+
+
+            $(`tr#${trId}`).remove();
+            alert(trId)
+        }
 
 
 
