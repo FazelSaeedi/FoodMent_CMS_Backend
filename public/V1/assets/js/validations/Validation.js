@@ -1,12 +1,6 @@
 class Validation
 {
 
-    test()
-    {
-        alert("test")
-    }
-
-
 
     loginValidation(phone , password)
     {

@@ -49,10 +49,10 @@
 
         @media (max-width:500px){
             .main-conteiner {
-                width: 500px;
+                width: 80%;
                 margin: auto;
-                margin-top: 0px;
-                padding: 72px;
+                margin-top: 20%;
+                /*padding: 72px;*/
             }
         }
     </style>

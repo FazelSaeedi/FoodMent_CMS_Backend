@@ -32,6 +32,10 @@ Route::prefix('v1')->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/home' , function (){return view('V1.profile.home');});
         // Route::get('/home' , function (){return view('V1.templateExample');});
+
+        Route::get('/categorys' , function (){return view('V1.profile.categorys.category');});
+        Route::get('/restraunts' , function (){return view('V1.profile.restraunts.restraunt');});
+
     });
 
 
