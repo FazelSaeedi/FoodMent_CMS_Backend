@@ -39,6 +39,8 @@
     <script src="/V1/assets/js/users/cookie.js?v=1.2.0"></script>
     <!-- Validation JS -->
     <script src="/V1/assets/js/validations/Validation.js?v=1.2.0"></script>
+    <!-- Ajax JS -->
+    <script src="/V1/assets/js/ajax/ajax.js?v=1.2.0"></script>
     @yield('js')
 </body>
 </html>

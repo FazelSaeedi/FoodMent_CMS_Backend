@@ -13,7 +13,7 @@ interface CategoryRepositoryInterface
     public function getParents($id);
 
 
-    public function addCategory($parentId);
+    public function addCategory($title ,$parentId);
 
 
     public function editCategory($id);

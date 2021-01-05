@@ -66,5 +66,12 @@ class CategoryController extends Controller
 
 
 
+    public function addCategory()
+    {
+         // $this->categoryRepository->addCategory('test', 'test');
+    }
+
+
+
 
 }

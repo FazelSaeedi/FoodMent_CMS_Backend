@@ -40,9 +40,10 @@
                                 <div class="col">
                                     <h3 class="mb-0">دسته بندی ها</h3>
                                 </div>
-                                <div class="col text-right">
-                                    <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                                <div class="col text-right" id="addCategory">
+                                    <a href="#!" class="btn btn-sm btn-primary">افزودن دسته</a>
                                 </div>
+
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -50,83 +51,12 @@
                             <table id="category_table" class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Page name</th>
-                                    <th scope="col">Visitors</th>
-                                    <th scope="col">Unique users</th>
-                                    <th scope="col">Bounce rate</th>
+                                    <th scope="col">نام دسته</th>
+                                    <th scope="col">ویرایش</th>
+                                    <th scope="col">حذف</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/
-                                    </th>
-                                    <td>
-                                        4,569
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/index.html
-                                    </th>
-                                    <td>
-                                        3,985
-                                    </td>
-                                    <td>
-                                        319
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/charts.html
-                                    </th>
-                                    <td>
-                                        3,513
-                                    </td>
-                                    <td>
-                                        294
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/tables.html
-                                    </th>
-                                    <td>
-                                        2,050
-                                    </td>
-                                    <td>
-                                        147
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/profile.html
-                                    </th>
-                                    <td>
-                                        1,795
-                                    </td>
-                                    <td>
-                                        190
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -134,7 +64,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 
@@ -143,20 +72,64 @@
     <script>
 
         let cookie = new Cookie();
+        var token = cookie.getCookie('token') ;
+        let ajax = new Ajax(token);
+
+
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
+
         // check cookie and token for get Information
-        if(cookie.getCookie('token') == "")
-        {
+        if(token == "")
             window.location.href = domainWithPort+"/v1/auth/login";
+        else
+        {
+            if(!ajax.checkToken())
+               cookie.logout()
         }
+
 
         $("#logout").click(function (){
             cookie.logout()
         })
 
 
-        $('#category_table tbody').empty();
+        var categoryParent = 0 ;
+        fillCategoryTable(ajax.getMainCategory())
+
+
+
+
+        $('#addCategory').click(function (){
+            alert('category add');
+            ajax.addCategory('sss');
+            fillCategoryTable(ajax.getMainCategory())
+        })
+
+
+
+        function emptyTable(id)
+        {
+            $('#'+ id).empty();
+        }
+
+        function fillCategoryTable(mainCategoryList)
+        {
+
+            emptyTable("category_table tbody");
+            $.each(mainCategoryList.data, function(i, val) {
+                console.log(val['title']);
+
+                $("tbody").append("<tr id='"+val['id']+"'>" +
+                    "<th>"+val['title']+"</th>" +
+                    "<th>ویرایش</th>" +
+                    "<th>حذف</th>" +
+                    "</tr>"
+                );
+            })
+
+        }
+
 
 
     </script>

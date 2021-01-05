@@ -79,9 +79,9 @@ class ElequentsCategoryRepository implements CategoryRepositoryInterface
 
 
 
-    public function addCategory($parentId)
+    public function addCategory( $title , $parentId )
     {
-        // TODO: Implement addCategory() method.
+        Category::insert(['title' => $title, 'parent_Id' => $parentId]);
     }
 
 

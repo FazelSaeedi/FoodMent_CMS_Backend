@@ -34,14 +34,16 @@ Route::prefix('v1')->group(function () {
         Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
         Route::post('login' , [UserController::class , 'login']);
         Route::post('setuserpassword' , [UserController::class , 'setUserPassword']);
-        //Route::post('login' , function (){return 'hi'; });
     });
 
+    Route::prefix('category')->middleware('authentication')->group(function (){
 
-    Route::get('getmaincategorylist' , [CategoryController::class , 'getMainCategoryList']);
-    Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
-    Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
+        Route::get('getmaincategorylist' , [CategoryController::class , 'getMainCategoryList']);
+        Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
+        Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
+        Route::post('addCategory' , [CategoryController::class , 'addCategory']);
 
+    });
 
 
     // Test upload

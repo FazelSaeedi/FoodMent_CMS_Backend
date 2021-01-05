@@ -64,20 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>4</th>
-                                        <th>5</th>
-                                        <th>
-                                            <div class="row">
-                                            <div class="col-md-4"><img style="background-color: yellow ; width: 35px; height: 35px ; margin-top: 4px ;" src="https://sample-videos.com/img/Sample-jpg-image-50kb.jpg" class="img-responsive"></div>
-                                            <div class="col-md-4"><img style="background-color: yellow ; width: 35px; height: 35px ; margin-top: 4px ;" src="https://sample-videos.com/img/Sample-jpg-image-50kb.jpg" class="img-responsive"></div>
-                                            <div class="col-md-4"><img style="background-color: yellow ; width: 35px; height: 35px ; margin-top: 4px ;" src="https://sample-videos.com/img/Sample-jpg-image-50kb.jpg" class="img-responsive"></div>
-                                            </div>
-                                        </th>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -95,14 +82,20 @@
 
 
         let cookie = new Cookie();
+        var token = cookie.getCookie('token') ;
+        let ajax = new Ajax(token);
         let validation = new Validation();
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
 
+
         // check cookie and token for get Information
-        if(cookie.getCookie('token') == "")
+        if(token == "")
         {
             window.location.href = domainWithPort+"/v1/auth/login";
+        }else{
+            if(!ajax.checkToken())
+                cookie.logout()
         }
 
         $("#logout").click(function (){

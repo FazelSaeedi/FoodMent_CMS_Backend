@@ -94,7 +94,7 @@
                     type: 'POST',
                     dataType: "json",
                     url: domainWithPort+"/api/v1/user/login",
-                    success: function(resultData) {  chertopert = resultData} ,
+                    success: function(resultData) {  chertopert = resultData } ,
                     error: function(data){
                         // console.log(data.responseJSON);
                     },

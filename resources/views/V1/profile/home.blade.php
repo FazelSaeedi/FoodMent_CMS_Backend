@@ -45,12 +45,17 @@
     <script>
 
         let cookie = new Cookie();
+        var token = cookie.getCookie('token') ;
+        let ajax = new Ajax(token);
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
         // check cookie and token for get Information
-        if(cookie.getCookie('token') == "")
+        if(token == "")
         {
             window.location.href = domainWithPort+"/v1/auth/login";
+        }else{
+            if(!ajax.checkToken())
+                cookie.logout()
         }
 
         $("#logout").click(function (){
