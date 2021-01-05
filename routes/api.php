@@ -42,5 +42,16 @@ Route::prefix('v1')->group(function () {
     Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
     Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
 
+
+
+    // Test upload
+    Route::post('upload/image' , function (Request $request){
+
+        echo $request-> file('edit-file1');
+        echo $request['edit-restaurant-Popup'];
+        echo 'hi';
+
+    });
+
 });
 

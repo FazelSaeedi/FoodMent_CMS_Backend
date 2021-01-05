@@ -58,19 +58,58 @@
         <div class="container " dir="rtl">
             <h2 style="text-align: center">ویرایش رستوران</h2>
 
-                <div class="form-group">
-                    <label >نام </label>
-                    <input id="edit-name-restaurant-Popup" type="text" class="form-control"  placeholder="نام  را وارد کنید" >
+            <div class="form-group" id="edit-name-input">
+                <label >نام </label>
+                <input id="edit-name-restaurant-Popup" type="text" class="form-control"  placeholder="نام  را وارد کنید" >
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
                 </div>
-                <div class="form-group">
-                    <label >آدرس</label>
-                    <input id="edit-address-restaurant-Popup" type="text" class="form-control"  placeholder="آدرس را وارد کنید" >
-                </div>
-            <div class="form-group">
-                <label >شماره تلفن</label>
-                <input id="edit-phone-restaurant-Popup" type="text" class="form-control"  placeholder="شماره تلفن را وارد کنید" >
             </div>
 
+            <div class="form-group" id="edit-address-input">
+                <label >آدرس</label>
+                <input id="edit-address-restaurant-Popup" type="text" class="form-control"  placeholder="آدرس را وارد کنید" >
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+            <div class="form-group" id="edit-phone-input">
+                <label >شماره تلفن</label>
+                <input id="edit-phone-restaurant-Popup" type="text" class="form-control"  placeholder="شماره تلفن را وارد کنید" >
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+
+            <div class="form-group" id="edit-firstFile-input">
+                <label >عکس اول</label>
+                <input type="file" class="form-control-file" id="edit-file1">
+                <img id="edit-img1" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+
+            <div class="form-group" id="edit-secondFile-input">
+                <label >عکس دوم</label>
+                <input type="file" class="form-control-file" id="edit-file2">
+                <img id="edit-img2" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+            <div class="form-group" id="edit-thirdFile-input">
+                <label >عکس سوم</label>
+                <input type="file" class="form-control-file" id="edit-file3">
+                <img id="edit-img3" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
 
             <button id="submit-edit-restaurant" class="btn btn-default">ثبت</button>
         </div>

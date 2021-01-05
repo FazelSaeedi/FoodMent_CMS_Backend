@@ -47,7 +47,7 @@
                         </div>
                         <div class="table-responsive">
                             <!-- Projects table -->
-                            <table class="table align-items-center table-flush">
+                            <table id="category_table" class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Page name</th>
@@ -133,8 +133,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
     </div>
@@ -158,7 +156,7 @@
         })
 
 
-
+        $('#category_table tbody').empty();
 
 
     </script>

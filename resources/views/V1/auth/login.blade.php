@@ -82,7 +82,7 @@
             var password = $('#password').val()
 
 
-            if (validation.loginValidation(phone , password))
+            if (validation.isValidLoginInformation(phone , password))
             {
                 // 2. Post Form
 

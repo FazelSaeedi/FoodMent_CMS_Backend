@@ -1,4 +1,14 @@
 <style>
+    #add-img1{
+        display: none;
+    }
+    #add-img2{
+        display: none;
+    }
+    #add-img3{
+        display: none;
+    }
+
     .add-restaurant-Popup{
         position: fixed;
         top: 0;
@@ -58,17 +68,57 @@
         <div class="container " dir="rtl">
             <h2 style="text-align: center">افزودن رستوران</h2>
 
-                <div class="form-group">
+                <div class="form-group" id="add-name-input">
                     <label >نام </label>
-                    <input id="name-restaurant-Popup" type="text" class="form-control"  placeholder="نام  را وارد کنید" >
+                    <input id="add-name-restaurant-Popup" type="text" class="form-control"  placeholder="نام  را وارد کنید" >
+                    <div class="alert alert-danger" role="alert" style="display:none;">
+                        فیلد مورد نظر الزامی است
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label >آدرس</label>
-                    <input id="address-restaurant-Popup" type="text" class="form-control"  placeholder="آدرس را وارد کنید" >
+
+            <div class="form-group" id="add-address-input">
+                <label >آدرس</label>
+                <input id="add-address-restaurant-Popup" type="text" class="form-control"  placeholder="آدرس را وارد کنید" >
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    فیلد مورد نظر الزامی است
                 </div>
-            <div class="form-group">
+            </div>
+
+            <div class="form-group" id="add-phone-input">
                 <label >شماره تلفن</label>
-                <input id="phone-restaurant-Popup" type="text" class="form-control"  placeholder="شماره تلفن را وارد کنید" >
+                <input id="add-phone-restaurant-Popup" type="text" class="form-control"  placeholder="شماره تلفن را وارد کنید" >
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    فیلد مورد نظر الزامی است
+                </div>
+            </div>
+
+
+            <div class="form-group" id="add-firstFile-input">
+                <label >عکس اول</label>
+                <input type="file" class="form-control-file" id="add-file1">
+                <img id="add-img1" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+
+            <div class="form-group" id="add-secondFile-input">
+                <label >عکس دوم</label>
+                <input type="file" class="form-control-file" id="add-file2">
+                <img id="add-img2" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
+            </div>
+
+            <div class="form-group" id="add-thirdFile-input">
+                <label >عکس سوم</label>
+                <input type="file" class="form-control-file" id="add-file3">
+                <img id="add-img3" src="#/" style="width: 100px; height: 100px">
+                <div class="alert alert-danger" role="alert" style="display:none;">
+                    عکس انتخاب شده معتبر نیست
+                </div>
             </div>
 
 
