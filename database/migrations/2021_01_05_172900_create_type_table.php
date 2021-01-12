@@ -17,8 +17,11 @@ class CreateTypeTable extends Migration
     {
 
         Schema::create('types', function (Blueprint $table) {
-            $table->integer("id" , false)->primary();
-            $table->string("title" , '25')->nullable(false);
+
+            $table->integer("id" , true)->unique();
+            $table->string("name" , '25')->nullable(false);
+            $table->integer("code" );
+
         });
 
     }

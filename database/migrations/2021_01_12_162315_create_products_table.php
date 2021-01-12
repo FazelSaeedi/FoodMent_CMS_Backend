@@ -15,10 +15,9 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
 
-            $table->integer("id" , false)->primary();
+            $table->integer("id" , true)->unique();
             $table->string("name" , '25');
-
-
+            $table->integer("code");
             $table->integer("type");
             $table->integer("maingroup");
             $table->integer("subgroup");

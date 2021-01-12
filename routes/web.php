@@ -29,12 +29,20 @@ Route::prefix('v1')->group(function () {
         Route::get('/register' , function (){return view('V1.auth.login');});
     });
 
-    Route::prefix('profile')->group(function () {
+
+        Route::prefix('profile')->group(function () {
         Route::get('/home' , function (){return view('V1.profile.home');});
         // Route::get('/home' , function (){return view('V1.templateExample');});
 
-        Route::get('/categorys' , function (){return view('V1.profile.categorys.category');});
+
+        Route::get('/types' , function (){return view('V1.profile.types.type');});
+        Route::get('/maingroups' , function (){return view('V1.profile.mainGroups.mainGroup');});
+        Route::get('/subgroups' , function (){return view('V1.profile.subGroups.subGroup');});
+        Route::get('/products' , function (){return view('V1.profile.products.product');});
+
+
         Route::get('/restraunts' , function (){return view('V1.profile.restraunts.restraunt');});
+
 
     });
 

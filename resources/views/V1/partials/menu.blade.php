@@ -3,7 +3,7 @@
 
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="javascript:void(0)">
+            <a class = "navbar-brand" href="javascript:void(0)">
                 <img src="/V1/assets/img/brand/foodment.png" class="navbar-brand-img" alt="...">
             </a>
         </div>
@@ -20,9 +20,27 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/v1/profile/categorys">
+                        <a class="nav-link" href="/v1/profile/types">
                             <i class="ni ni-planet text-orange"></i>
                             <span class="nav-link-text"> دسته بندی ها</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/v1/profile/maingroups">
+                            <i class="ni ni-planet text-orange"></i>
+                            <span class="nav-link-text">گروه ها</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/v1/profile/subgroups">
+                            <i class="ni ni-planet text-orange"></i>
+                            <span class="nav-link-text"> زیر گروه ها</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/v1/profile/products">
+                            <i class="ni ni-planet text-orange"></i>
+                            <span class="nav-link-text"> محصولات ها</span>
                         </a>
                     </li>
                     <li class="nav-item">

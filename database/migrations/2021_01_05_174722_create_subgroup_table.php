@@ -14,15 +14,11 @@ class CreateSubgroupTable extends Migration
     public function up()
     {
         Schema::create('subgroups', function (Blueprint $table) {
-            $table->integer("id" , false)->primary();
-            $table->string("title" , '25');
 
-            // $table->integer("maingroup");
+            $table->integer("id" , true)->unique();
+            $table->string("name" , '25');
+            $table->integer("code");
 
-
-
-            // $table->foreign('maingroup')
-            //     ->references('id')->on('maingroup');
 
         });
     }

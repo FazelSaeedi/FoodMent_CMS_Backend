@@ -14,15 +14,10 @@ class CreateMaingroupTable extends Migration
     public function up()
     {
         Schema::create('maingroups', function (Blueprint $table) {
-            $table->integer("id" , false)->primary();
-            $table->string("title" , '25');
 
-            // $table->integer("typeid");
-
-
-
-            // $table->foreign('typeid')
-            //     ->references('id')->on('type');
+            $table->integer("id" , true)->unique();
+            $table->string("name" , '25');
+            $table->integer("code");
 
         });
     }
