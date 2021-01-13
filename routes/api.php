@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\typeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\MainGroupController;
+use App\Http\Controllers\V1\SubGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +51,12 @@ Route::prefix('v1')->group(function () {
 
         Route::post('addtype' , [typeController::class , 'addType']);
         Route::post('edittype' , [typeController::class , 'editType']);
+
         Route::post('addmaingroup' , [MainGroupController::class , 'addMainGroup']);
         Route::post('editmaingroup' , [MainGroupController::class , 'editMainGroup']);
+
+        Route::post('addsubgroup' , [SubGroupController::class , 'addSubGroup']);
+        Route::post('editsubgroup' , [SubGroupController::class , 'editSubGroup']);
 
 
 

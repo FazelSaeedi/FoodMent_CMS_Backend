@@ -8,6 +8,8 @@ use App\Repository\MainGroupRepository\ElequentMainGroupRepository;
 use App\Repository\MainGroupRepository\MainGroupRepositoryInterface;
 use App\Repository\ReportRepository\ElequentReportRepository;
 use App\Repository\ReportRepository\ReportRepositoryInterface;
+use App\Repository\SubGroupRepository\ElequentSubGroupRepository;
+use App\Repository\SubGroupRepository\SubGroupRepositoryInterface;
 use App\Repository\TaskRepository\ElequentTaskRepository;
 use App\Repository\TaskRepository\TaskRepositoryInterface;
 use App\Repository\TypeRepository\ElequentTypeRepository;
@@ -43,6 +45,8 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(TypeRepositoryInterface::class , ElequentTypeRepository::class);
 
         $this->app->bind(MainGroupRepositoryInterface::class , ElequentMainGroupRepository::class);
+
+        $this->app->bind(SubGroupRepositoryInterface::class , ElequentSubGroupRepository::class);
 
     }
 }
