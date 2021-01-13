@@ -20,7 +20,7 @@ class CreateTypeTable extends Migration
 
             $table->integer("id" , true)->unique();
             $table->string("name" , '25')->nullable(false);
-            $table->integer("code" );
+            $table->integer("code" )->unique();
 
         });
 

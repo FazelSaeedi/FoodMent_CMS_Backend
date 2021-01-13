@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\V1\UserController;
+use App\Http\Controllers\V1\typeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,15 @@ Route::prefix('v1')->group(function () {
         Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
         Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
         Route::post('addCategory' , [CategoryController::class , 'addCategory']);
+
+
+        Route::post('addtypes' , [typeController::class , 'addType']);
+        Route::post('edittype' , [typeController::class , 'editType']);
+
+        Route::post('test' , function (){
+            return "h" ;
+        });
+
 
     });
 

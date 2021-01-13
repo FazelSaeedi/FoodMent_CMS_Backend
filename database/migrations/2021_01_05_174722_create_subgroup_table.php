@@ -17,7 +17,7 @@ class CreateSubgroupTable extends Migration
 
             $table->integer("id" , true)->unique();
             $table->string("name" , '25');
-            $table->integer("code");
+            $table->integer("code")->unique();
 
 
         });
