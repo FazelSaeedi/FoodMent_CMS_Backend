@@ -5,6 +5,7 @@ use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\typeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\V1\MainGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,18 +40,20 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('category')->middleware('authentication')->group(function (){
 
+
         Route::get('getmaincategorylist' , [CategoryController::class , 'getMainCategoryList']);
         Route::get('getchild/{id}' , [CategoryController::class , 'getChild']);
         Route::get('getparents/{id}' , [CategoryController::class , 'getParents']);
         Route::post('addCategory' , [CategoryController::class , 'addCategory']);
 
 
-        Route::post('addtypes' , [typeController::class , 'addType']);
-        Route::post('edittype' , [typeController::class , 'editType']);
 
-        Route::post('test' , function (){
-            return "h" ;
-        });
+        Route::post('addtype' , [typeController::class , 'addType']);
+        Route::post('edittype' , [typeController::class , 'editType']);
+        Route::post('addmaingroup' , [MainGroupController::class , 'addMainGroup']);
+        Route::post('editmaingroup' , [MainGroupController::class , 'editMainGroup']);
+
+
 
 
     });
