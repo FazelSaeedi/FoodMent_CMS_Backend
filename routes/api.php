@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\v1\CategoryController;
+use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\typeController;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ Route::prefix('v1')->group(function () {
         Route::post('setuserpassword' , [UserController::class , 'setUserPassword']);
     });
 
+
     Route::prefix('category')->middleware('authentication')->group(function (){
 
 
@@ -63,6 +65,13 @@ Route::prefix('v1')->group(function () {
 
     });
 
+
+    Route::prefix('product')->middleware('authentication')->group(function (){
+
+        Route::post('addproduct'  , [ProductController::class , 'addProduct']);
+        Route::post('editproduct' , [ProductController::class , 'editProduct']);
+
+    });
 
     // Test upload
     Route::post('upload/image' , function (Request $request){
