@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddMainGroupRequest;
+use App\Http\Requests\V1\DeleteMainGroupRequest;
 use App\Http\Requests\V1\EditMainGroupRequest;
 use App\Repository\MainGroupRepository\MainGroupRepositoryInterface;
 use Illuminate\Http\Request;
@@ -53,4 +54,27 @@ class MainGroupController extends Controller
 
     }
 
+
+    public function getMainGroupTable($paginationnumber)
+    {
+        $mainGroupTableList =  $this->mainGroupRepository->getMainGroupTable( $paginationnumber );
+
+
+        return response()->json([
+            'data' => $mainGroupTableList ,
+            'message' => 'success'
+        ],200);
+    }
+
+
+    public function deleteMainGroup(DeleteMainGroupRequest $id)
+    {
+        $deleteMainGroup =  $this->mainGroupRepository->deleteMainGroup($id->id);
+
+        if ($deleteMainGroup) {
+            return response()->json([
+                'message' => 'success'
+            ],200);
+        }
+    }
 }

@@ -10,6 +10,8 @@ use App\Repository\ProductRepository\ElequentProductRepository;
 use App\Repository\ProductRepository\ProductRepositoryInterface;
 use App\Repository\ReportRepository\ElequentReportRepository;
 use App\Repository\ReportRepository\ReportRepositoryInterface;
+use App\Repository\RestrauntRepository\EloquentRestrauntRepository;
+use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use App\Repository\SubGroupRepository\ElequentSubGroupRepository;
 use App\Repository\SubGroupRepository\SubGroupRepositoryInterface;
 use App\Repository\TaskRepository\ElequentTaskRepository;
@@ -52,6 +54,7 @@ class RepositoriesServiceProvider extends ServiceProvider
 
         $this->app->bind(ProductRepositoryInterface::class , ElequentProductRepository::class);
 
+        $this->app->bind(RestrauntRepositoryInterface::class , EloquentRestrauntRepository::class);
 
     }
 }

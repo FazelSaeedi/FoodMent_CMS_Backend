@@ -3,6 +3,8 @@
 namespace App\Repository\MainGroupRepository;
 
 use App\Models\MainGroup;
+use App\Models\type;
+use Illuminate\Support\Facades\DB;
 
 class ElequentMainGroupRepository implements MainGroupRepositoryInterface
 {
@@ -27,7 +29,6 @@ class ElequentMainGroupRepository implements MainGroupRepositoryInterface
         else
             return false;
     }
-
 
 
     public function editMainGroup( $id , $name , $code )
@@ -56,6 +57,16 @@ class ElequentMainGroupRepository implements MainGroupRepositoryInterface
     }
 
 
+    public function getMainGroupTable($paginationNumber)
+    {
+        return DB::table('maingroups')->orderBy('code', 'asc')->paginate($paginationNumber);
+    }
+
+    public function deleteMainGroup($id)
+    {
+        $deleteMainGroup = MainGroup::destroy(intval($id));
+        return $deleteMainGroup ;
+    }
 
 }
 

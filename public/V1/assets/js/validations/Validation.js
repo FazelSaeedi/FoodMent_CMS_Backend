@@ -51,4 +51,110 @@ class Validation
     }
 
 
+    isValidAddType( code , name )
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+            if (code.length < 1)
+            {
+                validation.error.codeLenght = "کد الزامی است" ;
+                validation.valid = false ;
+            }
+
+            if (name.length < 1)
+            {
+                validation.error.nameLenght = "نام الزامی است" ;
+                validation.valid = false ;
+            }
+
+            if (code.length > 0 && !this.isNumber(code))
+            {
+                validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+                validation.valid = false ;
+            }
+
+        return validation ;
+
+    }
+
+
+    isValidAddMainGroup( code , name )
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+        if (code.length < 1)
+        {
+            validation.error.codeLenght = "کد الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (name.length < 1)
+        {
+            validation.error.nameLenght = "نام الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (code.length > 0 && !this.isNumber(code))
+        {
+            validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        return validation ;
+
+    }
+
+
+    isValidAddSubGroup( code , name )
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+        if (code.length < 1)
+        {
+            validation.error.codeLenght = "کد الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (name.length < 1)
+        {
+            validation.error.nameLenght = "نام الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (code.length > 0 && !this.isNumber(code))
+        {
+            validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        return validation ;
+
+    }
+
+
+    isNumber(n)
+    {
+        return !isNaN(parseFloat(n)) && !isNaN(n - 0)
+    }
+
+
+
 }

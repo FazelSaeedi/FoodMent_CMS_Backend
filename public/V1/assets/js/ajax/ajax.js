@@ -103,4 +103,32 @@ class Ajax
         }
     }
 
+    addType(name , code)
+    {
+
+        var data;
+        var statusCode ;
+
+        $.ajax({
+            type: 'POST',
+            async : false ,
+            headers: { "Authorization": 'Bearer '+this.Token } ,
+            url: "http://127.0.0.1:8000/api/v1/category/addtype",
+            data: 'data to send',
+            success: function (resp) {
+                data = resp;
+            },
+            error: function () {},
+            statusCode: {
+                200: function (response) {
+                    statusCode = 200 ;
+                },
+                401: function (response) {
+                    statusCode = 401 ;
+                }
+            }
+        });
+
+    }
+
 }

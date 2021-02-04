@@ -18,6 +18,8 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="/V1/assets/css/argon.css?v=1.2.0" type="text/css">
+    <link href='http://www.fontonline.ir/css/BYekan.css' rel='stylesheet' type='text/css'>
+    <link href='http://cdn.font-store.ir/behdad.css' rel='stylesheet' type='text/css'>
 
 
 </head>
@@ -42,5 +44,6 @@
     <!-- Ajax JS -->
     <script src="/V1/assets/js/ajax/ajax.js?v=1.2.0"></script>
     @yield('js')
+    @yield('menujs')
 </body>
 </html>

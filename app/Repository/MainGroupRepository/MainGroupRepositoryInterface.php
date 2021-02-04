@@ -9,4 +9,8 @@ interface MainGroupRepositoryInterface
 
     public function editMainGroup( $id , $name , $code );
 
+    public function getMainGroupTable( $paginationNumber );
+
+    public function deleteMainGroup( $id );
+
 }

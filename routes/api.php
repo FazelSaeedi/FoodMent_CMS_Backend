@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\V1\ProductController;
+use App\Http\Controllers\V1\RestrauntController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\typeController;
 use Illuminate\Http\Request;
@@ -27,17 +28,20 @@ use App\Http\Controllers\V1\SubGroupController;
 
 Route::prefix('v1')->group(function () {
 
+
     Route::get('/welcome', function (){
         return 'Welcome To foodment.ir' ;
     });
 
 
     Route::prefix('user')->group(function (){
+
         Route::post('register' , [UserController::class , 'register']);
         Route::post('checksmscode' , [UserController::class , 'confirmSmsCode']);
         Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
         Route::post('login' , [UserController::class , 'login']);
         Route::post('setuserpassword' , [UserController::class , 'setUserPassword']);
+
     });
 
 
@@ -53,12 +57,21 @@ Route::prefix('v1')->group(function () {
 
         Route::post('addtype' , [typeController::class , 'addType']);
         Route::post('edittype' , [typeController::class , 'editType']);
+        Route::post('deletetype' , [typeController::class , 'deleteType']);
+        Route::get( 'gettypestable/{paginationNumber}' , [typeController::class , 'getTypesTable']);
+
 
         Route::post('addmaingroup' , [MainGroupController::class , 'addMainGroup']);
         Route::post('editmaingroup' , [MainGroupController::class , 'editMainGroup']);
+        Route::get( 'getmaingrouptable/{paginationNumber}' , [MainGroupController::class , 'getMainGroupTable']);
+        Route::post('deletemaingroup' , [MainGroupController::class , 'deleteMainGroup']);
+
 
         Route::post('addsubgroup' , [SubGroupController::class , 'addSubGroup']);
         Route::post('editsubgroup' , [SubGroupController::class , 'editSubGroup']);
+        Route::get( 'getsubgrouptable/{paginationNumber}' , [SubGroupController::class , 'getSubGroupTable']);
+        Route::post('deletesubgroup' , [SubGroupController::class , 'deleteSubGroup']);
+
 
 
 
@@ -71,6 +84,32 @@ Route::prefix('v1')->group(function () {
         Route::post('addproduct'  , [ProductController::class , 'addProduct']);
         Route::post('editproduct' , [ProductController::class , 'editProduct']);
 
+    });
+
+
+    Route::prefix('restraunt')->middleware('authentication')->group(function (){
+
+        Route::post('addrestraunt'  , [RestrauntController::class , 'addRestraunt']);
+        Route::post('editrestraunt' , [RestrauntController::class , 'editRestraunt']);
+
+    });
+
+
+
+
+
+
+    // Get Test Ajax JavaScript
+    Route::get('testgetajax' , function (Request $request){
+        return 'get test is ok ' ;
+    });
+
+    // Post Test Ajax JavaScript
+    Route::post('testpostajax' , function (Request $request){
+        return response([
+            'code' => $request->code ,
+            'name' => $request->name
+        ]);
     });
 
     // Test upload

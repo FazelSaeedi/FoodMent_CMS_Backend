@@ -2,12 +2,14 @@
 
 namespace App\Repository\SubGroupRepository;
 
+use App\Models\MainGroup;
 use App\Models\SubGroup;
+use Illuminate\Support\Facades\DB;
 
 class ElequentSubGroupRepository implements SubGroupRepositoryInterface
 {
 
-  public function addSubGroup($name, $code)
+    public function addSubGroup($name, $code)
   {
       $addSubGroup = new SubGroup();
 
@@ -27,7 +29,7 @@ class ElequentSubGroupRepository implements SubGroupRepositoryInterface
           return false;
   }
 
-  public function editSubGroup($id, $name, $code)
+    public function editSubGroup($id, $name, $code)
   {
       $editSubGroup = SubGroup::find($id);
 
@@ -49,4 +51,15 @@ class ElequentSubGroupRepository implements SubGroupRepositoryInterface
       else
           return false;
   }
+
+    public function getSubGroupTable($paginationNumber)
+    {
+        return DB::table('subgroups')->orderBy('code', 'asc')->paginate($paginationNumber);
+    }
+
+    public function deleteSubGroup($id)
+    {
+        $deleteSubGroup = SubGroup::destroy(intval($id));
+        return $deleteSubGroup ;
+    }
 }

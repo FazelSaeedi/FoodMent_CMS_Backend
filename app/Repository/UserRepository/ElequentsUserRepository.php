@@ -90,7 +90,8 @@ class ElequentsUserRepository implements UserRepositoryInterface
         $NewUser = User::create([
             'phone' => $phoneNumber,
             'sms_code' => 'NULL',
-            'registerd' => 0
+            'registerd' => 0 ,
+            'level_id' => 1
         ]);
 
         return $NewUser;

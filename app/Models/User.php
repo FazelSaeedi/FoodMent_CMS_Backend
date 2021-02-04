@@ -22,6 +22,7 @@ class User extends Authenticatable
          'token',
          'sms_code',
          'registerd',
+         'level_id' ,
     ];
 
     /**

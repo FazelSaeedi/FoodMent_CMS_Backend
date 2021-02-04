@@ -4,6 +4,8 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddSubGroupRequest;
+use App\Http\Requests\V1\DeleteMainGroupRequest;
+use App\Http\Requests\V1\DeleteSubGroupRequest;
 use App\Http\Requests\V1\EditSubGroupRequest;
 use App\Repository\SubGroupRepository\SubGroupRepositoryInterface;
 use Illuminate\Http\Request;
@@ -19,8 +21,6 @@ class SubGroupController extends Controller
     {
         $this->subGroupRepository = $subGroupRepository ;
     }
-
-
 
     public function addSubGroup(AddSubGroupRequest $addSubGroupRequest)
     {
@@ -39,8 +39,6 @@ class SubGroupController extends Controller
 
     }
 
-
-
     public function editSubGroup(EditSubGroupRequest $editSubGroupRequest)
     {
         $editSubGroup = $this->subGroupRepository->editSubGroup($editSubGroupRequest->id , $editSubGroupRequest->name , $editSubGroupRequest->code);
@@ -57,4 +55,28 @@ class SubGroupController extends Controller
             ],200);
 
     }
+
+    public function getSubGroupTable($paginationnumber)
+    {
+        $subGroupTableList =  $this->subGroupRepository->getSubGroupTable( $paginationnumber );
+
+
+        return response()->json([
+            'data' => $subGroupTableList ,
+            'message' => 'success'
+        ],200);
+    }
+
+    public function deleteSubGroup(DeleteSubGroupRequest $id)
+    {
+        $deleteSubGroup =  $this->subGroupRepository->deleteSubGroup($id->id);
+
+        if ($deleteSubGroup) {
+            return response()->json([
+                'message' => 'success'
+            ],200);
+        }
+    }
+
+
 }

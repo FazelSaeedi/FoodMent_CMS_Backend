@@ -27,6 +27,7 @@ class EditSubGroupRequest extends FormRequest
             'id' => 'required|numeric|exists:subgroups',
             'name' => 'required',
             'code' => 'required|numeric',
+            //'code' => 'required|numeric|unique:subgroups,code',
         ];
     }
 
@@ -40,6 +41,7 @@ class EditSubGroupRequest extends FormRequest
             'code.required' => 'کد الزامی میباشد',
             'code.numeric' => 'کد شما الزاما باید عدد باشد',
             'code.exists' => 'کد انتخابی شما موجود نمیباشد ',
+            // 'code.unique' => 'کد انتخابی شما تکراری میباشد ',
         ];
     }
 }

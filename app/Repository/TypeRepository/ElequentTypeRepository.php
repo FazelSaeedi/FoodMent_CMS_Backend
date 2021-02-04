@@ -3,11 +3,13 @@
 namespace App\Repository\TypeRepository;
 
 use App\Models\type;
+use Illuminate\Support\Facades\DB;
 
 class ElequentTypeRepository implements TypeRepositoryInterface
 {
 
-  public function addType($name, $code)
+
+    public function addType($name, $code)
   {
     // TODO: Implement addType() method.
 
@@ -36,6 +38,7 @@ class ElequentTypeRepository implements TypeRepositoryInterface
 
   }
 
+
     public function editType( $id , $name, $code)
     {
 
@@ -59,4 +62,21 @@ class ElequentTypeRepository implements TypeRepositoryInterface
         else
             return false;
     }
+
+
+    public function getTypeTable( $paginationNumber )
+    {
+       // return type::get();
+        return DB::table('types')->orderBy('code', 'asc')->paginate($paginationNumber);
+
+    }
+
+
+    public function deleteType($id)
+    {
+         $type = type::destroy(intval($id));
+         return $type ;
+    }
+
+
 }

@@ -9,5 +9,9 @@ interface TypeRepositoryInterface
 
     public function editType( $id , $name , $code );
 
+    public function getTypeTable( $paginationNumber );
+
+    public function deleteType( $id );
+
 
 }

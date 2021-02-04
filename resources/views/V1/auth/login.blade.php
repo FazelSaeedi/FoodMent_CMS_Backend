@@ -6,40 +6,53 @@
     <div class="main-conteiner">
 
         <div class="form-group">
-            <label >Phone Number</label>
-            <input type="text" id="phone" class="form-control" placeholder="Enter PhoneNumber" autocomplete="off">
+            <input type="number"  id="phone" class="form-control" placeholder="تلفن همراه" autocomplete="off">
         </div>
 
         <div class="form-group">
-            <label >Password</label>
-            <input type="password" id="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" id="password" class="form-control" id="exampleInputPassword1" placeholder="کلمه عبور">
         </div>
         <div id="alert" class="alert alert-danger" role="alert" >
             This is a warning alert—check it out!
         </div>
         <br>
-        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex justify-content-center ">
+            <button id="submit" type="submit" class="btn  col-md-6">ورود</button>
+        </div>
     </div>
 
 @endsection
 
 @section('css')
     <style>
-        .g-sidenav-show{
-            background-color: yellow;
+
+        .form-group {
+            margin-bottom: 0.7rem !important;;
         }
-        .g-sidenav-hidden{
-            background-color: yellow;
+
+        #password ,#phone{
+            text-align: center;
+            font-family:BYekan,'BYekan',tahoma;
+            font-size: 39px;
         }
+
+        #submit{
+            font-family:BYekan,'BYekan',tahoma;
+            font-size: 28px;
+            background-color: #d6bd25;
+            color: black;
+        }
+
         body{
-            background-color: yellow;
+            background-color:transparent !important;
         }
+
         html{
-            background-color: yellow;
+            background-image: url('https://wallup.net/wp-content/uploads/2017/03/29/490310-Fries-tomatoes-food.jpg');
         }
         .main-conteiner {
 
-            width: 500px;
+            width: 330px;
             margin: auto;
             margin-top: 200px;
         }
@@ -55,7 +68,20 @@
                 /*padding: 72px;*/
             }
         }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
+
 @endsection
 
 @section('js')
@@ -105,6 +131,8 @@
                 {
                     var token = chertopert.data.token ;
                     cookie.setCookie('token' , token , 0.1);
+                    cookie.setCookie('phone' , phone , 0.1);
+
                     // console.log(token);
                     // alert('every think is  ok ')
                     window.location.href = domainWithPort+"/v1/profile/home";

@@ -9,4 +9,9 @@ interface SubGroupRepositoryInterface
 
     public function editSubGroup( $id , $name , $code );
 
+    public function getSubGroupTable( $paginationNumber );
+
+    public function deleteSubGroup($id);
+
+
 }

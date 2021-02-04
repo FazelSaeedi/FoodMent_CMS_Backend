@@ -21,8 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('token' , '1000')->nullable();
             $table->string('sms_code')->unique()->nullable(false);
             $table->boolean('registerd');
-            $table->bigInteger('level_id')->default(1);
+            $table->integer('level_id');
             $table->timestamps();
+
 
         });
     }

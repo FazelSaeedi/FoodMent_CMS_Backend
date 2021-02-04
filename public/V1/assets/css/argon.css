@@ -8769,7 +8769,8 @@ a.close.disabled
 
 .bg-primary
 {
-    background-color: #5e72e4 !important;
+    /*background-color: #5e72e4 !important;*/
+    background-image: url(https://th.bing.com/th/id/R9bb2d87ff597ffe9d973b92440dd5649?rik=WjFKGKHcYzQhyw&riu=http%3a%2f%2f3.bp.blogspot.com%2f-DxA22mFAShs%2fUiFk67Xx8ZI%2fAAAAAAAAALs%2fOlmr48jv8oY%2fs1600%2fBanner-Pizza-Restaurants.jpg&ehk=ZSntunSo%2fR%2b8efzDoTCYbhfgHPWATPglMCjJQ%2f3pZL0%3d&risl=&pid=ImgRaw);
 }
 
 a.bg-primary:hover,
@@ -21397,7 +21398,7 @@ textarea[resize='horizontal']
 .navbar-vertical .navbar-brand > img
 {
     max-width: 100%;
-    max-height: 2rem;
+    max-height: 3rem;
 }
 @media (min-width: 768px)
 {
@@ -21422,8 +21423,8 @@ textarea[resize='horizontal']
 }
 .navbar-vertical .navbar-nav .nav-link
 {
-    font-size: .875rem;
-    font-weight: 500;
+    /*font-size: .875rem;*/
+    /*font-weight: 500;*/
 
     padding-right: 1rem;
     padding-left: 1rem;
