@@ -22,8 +22,20 @@ class RestrauntController extends Controller
     public function addRestraunt(AddRestrauntRequest $request)
     {
 
-         $this->restrauntRepository->addRestraunt();
-         return 'addRestraunt';
+        $photo1 =  $request->file('photo1');
+        $photo2 =  $request->file('photo2');
+        $photo3 =  $request->file('photo3');
+
+        $code = $request->code;
+        $name = $request->name;
+        $address = $request->address;
+        $phone = $request->phone;
+        $adminId = $request->adminid;
+
+
+
+        return $this->restrauntRepository->addRestraunt($photo1 , $photo2 , $photo3 , $code , $name , $address , $phone , $adminId);
+
 
     }
 
