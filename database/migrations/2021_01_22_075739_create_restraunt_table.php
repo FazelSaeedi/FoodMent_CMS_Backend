@@ -17,13 +17,14 @@ class CreateRestrauntTable extends Migration
 
             $table->integer("id" , true)->unique();
             $table->string("name" , '25');
-            $table->bigInteger("user")->unsigned();
+            $table->bigInteger("adminid")->unsigned();
             $table->integer("code")->unique();
             $table->string("address" , '225');
-            $table->string("gallery" , '225');
-            $table->bigInteger("update_at");
+            $table->bigInteger("phone");
+            $table->bigInteger("update_at")->nullable();
 
-            $table->foreign('user')
+
+            $table->foreign('adminid')
                 ->references('id')->on('users');
 
 
