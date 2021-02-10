@@ -13,4 +13,9 @@ interface ProductRepositoryInterface
 
     public function selectOneProduct( $byID = false , $id = 0 , $detailArray = []);
 
+
+    public function getProductTable( $paginationNumber ) ;
+
+
+    public function deleteProduct( $id );
 }
