@@ -41,7 +41,7 @@ class Validation
 
         for(var i = 0; i <= allowed_extensions.length; i++)
         {
-            if(allowed_extensions[i]==file_extension)
+            if(allowed_extensions[i] == file_extension)
             {
                 return true; // valid file extension
             }
@@ -148,6 +148,160 @@ class Validation
         return validation ;
 
     }
+
+
+    isValidAddProduct( code , name , typeID , typeValue , mainGroupID , mainGroupValue , subGroupID , subGroupValue )
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+        if (code.length < 1)
+        {
+            validation.error.codeLenght = "کد الزامی است" ;
+            validation.valid = false ;
+        }
+        if (name.length < 1)
+        {
+            validation.error.nameLenght = "نام الزامی است" ;
+            validation.valid = false ;
+        }
+        if (code.length > 0 && !this.isNumber(code))
+        {
+            validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if (typeID == null )
+        {
+            validation.error.typeIdUndefined = "لطفا کد دسته را وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( typeID != null && !this.isNumber(typeID))
+        {
+            validation.error.typeIDNumber = "لطفا کد دسته را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( typeValue.length < 1)
+        {
+            validation.error.typeValuelength = "دسته الزامی است" ;
+            validation.valid = false ;
+        }
+        if (mainGroupID == null )
+        {
+            validation.error.mainGroupIDUndefined = "لطفا کد  گروه اصلی را وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( mainGroupID != null && !this.isNumber(mainGroupID))
+        {
+            validation.error.mainGroupIDNumber = "لطفا کد گروه اصلی را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( mainGroupValue.length < 1)
+        {
+            validation.error.mainGroupValuelength = " گروه اصلی الزامی است" ;
+            validation.valid = false ;
+        }
+        if (subGroupID == null )
+        {
+            validation.error.subGroupIDUndefined = "لطفا کد  گروه فرعی را وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( subGroupID != null && !this.isNumber(subGroupID))
+        {
+            validation.error.subGroupIDNumber = "لطفا کد گروه فرعی را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+        if ( subGroupValue.length < 1)
+        {
+            validation.error.subGroupIDValuelength = " گروه فرعی الزامی است" ;
+            validation.valid = false ;
+        }
+
+        // console.log(validation)
+
+
+        return validation ;
+
+    }
+
+    isValidAddRestraunt ( code , name , address , phone  , admin , image1 , image2  , image3)
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+        if (code.length<1)
+        {
+            validation.error.codeLenght = "کد الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (name.length < 1)
+        {
+            validation.error.nameLenght = "نام الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (address.length < 1)
+        {
+            validation.error.addressLenght = "آدرس الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (phone.length < 1)
+        {
+            validation.error.phoneLenght = "تلفن الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (admin.length < 1)
+        {
+            validation.error.adminLenght = "مدیر الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (code.length > 0 && !this.isNumber(code))
+        {
+            validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (phone.length > 0 && !this.isNumber(phone))
+        {
+            validation.error.phoneNumber = "لطفا شماره تلفن را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (!this.isValidAddRestrauntPhoto(image1))
+        {
+            validation.error.photo1Invalid = "لطفا فایل اول را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (!this.isValidAddRestrauntPhoto(image2))
+        {
+            validation.error.photo2Invalid = "لطفا فایل دوم را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (!this.isValidAddRestrauntPhoto(image3))
+        {
+            validation.error.photo3Invalid = "لطفا فایل سوم را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+        return validation ;
+    }
+
+
 
 
     isNumber(n)

@@ -47,5 +47,20 @@ class Cookie
     }
 
 
+    setObjectLocalStorage(key , value)
+    {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+
+    getObjectLocalStorage(key)
+    {
+
+        var retrievedObject = localStorage.getItem(key);
+        var json = JSON.parse(retrievedObject);
+
+        return json
+    }
+
 
 }
