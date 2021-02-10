@@ -34,8 +34,11 @@ class AddProductRequest extends FormRequest
         return [
             'name.required' => 'نام الزامی میباشد',
             'code.required' => 'کد الزامی میباشد',
-            'code.numeric' => 'کد شما الزاما باید عدد باشد',
-            'code.unique' => 'کد انتخابی شما تکراری است',
+            'code.numeric'  => 'کد شما الزاما باید عدد باشد',
+            'code.unique'   => 'کد انتخابی شما تکراری است',
+            'type.exists'   => 'دسته شما موجود نمیباشد',
+            'maingroup.exists'   => 'گروه اصلی شما موجود نمیباشد',
+            'subgroup.exists'   => 'گروه فرعی شما موجود نمیباشد',
         ];
     }
 }
