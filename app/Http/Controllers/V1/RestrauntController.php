@@ -34,8 +34,22 @@ class RestrauntController extends Controller
 
 
 
-        return $this->restrauntRepository->addRestraunt($photo1 , $photo2 , $photo3 , $code , $name , $address , $phone , $adminId);
+        $addRestraunt =  $this->restrauntRepository->addRestraunt($photo1 , $photo2 , $photo3 , $code , $name , $address , $phone , $adminId);
 
+
+
+        if ($addRestraunt)
+        {
+            return response()->json([
+                'data' => $addRestraunt
+                ,
+                'message' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ],409);
+        }
 
     }
 

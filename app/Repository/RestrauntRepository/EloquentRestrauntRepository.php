@@ -18,7 +18,6 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
         $addRestraunt->address = $address ;
         $addRestraunt->adminid = $adminId ;
         $addRestraunt->phone = $phone ;
-        $addRestraunt->code = $code ;
 
 
 
@@ -27,7 +26,14 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             $uploadPhoto = $this->uploadRestrauntPhoto($addRestraunt->id, $photo1, $photo2, $photo3);
             if ($uploadPhoto)
             {
-                return 'succusesful';
+                return [
+                    'id' =>   $addRestraunt->id ,
+                    'name' =>   $addRestraunt->id ,
+                    'code' =>   $addRestraunt->id ,
+                    'address' =>   $addRestraunt->id ,
+                    'adminid' =>   $addRestraunt->id ,
+                    'phone' =>   $addRestraunt->id ,
+                ];
             }
             else
                 return false;
