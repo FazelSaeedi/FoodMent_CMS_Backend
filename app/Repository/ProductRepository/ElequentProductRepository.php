@@ -2,6 +2,7 @@
 
 namespace App\Repository\ProductRepository;
 
+
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,6 @@ class ElequentProductRepository implements ProductRepositoryInterface
     {
 
         $addProduct = new Product();
-
 
 
         $addProduct->name = $name ;
@@ -46,6 +46,9 @@ class ElequentProductRepository implements ProductRepositoryInterface
         $editProduct->code = $code ;
 
 
+        $editProduct->save();
+        return $editProduct ;
+
 
         $isValidEdit =  Product::where('type' , $typeID )
                         ->where('name' , $name )
@@ -54,12 +57,12 @@ class ElequentProductRepository implements ProductRepositoryInterface
                         ->where('code' , $code )
                         ->get()->first();
 
-        if($isValidEdit)
+        /*if($isValidEdit)
             return false;
         else{
             $editProduct->save();
             return $editProduct ;
-        }
+        }*/
 
 
 
@@ -86,5 +89,39 @@ class ElequentProductRepository implements ProductRepositoryInterface
                       ->where('code' , $detailArray['code'])
                       ->get()->first();
 
+    }
+
+
+    public function getProductTable($paginationNumber)
+    {
+        /*return DB::table('products')
+            ->join('types', 'products.type', '=', 'types.id')
+            ->orderBy('code', 'asc')->paginate($paginationNumber);*/
+
+        return DB::table('products')
+            ->join('types', 'types.id', '=', 'products.type')
+            ->join('maingroups', 'maingroups.id', '=', 'products.maingroup')
+            ->join('subgroups', 'subgroups.id', '=', 'products.subgroup')
+            ->select([
+                'products.id as productid' ,
+                'products.name as productname' ,
+                'products.code as productcode' ,
+                'types.name as typename' ,
+                'maingroups.name as maingroupname' ,
+                'subgroups.name as subgroupname' ,
+                'types.id as typeid' ,
+                'maingroups.id as maingroupid' ,
+                'subgroups.id as subgroupid'
+            ])
+            ->orderBy('products.code', 'asc')
+            ->paginate($paginationNumber);
+
+    }
+
+
+    public function deleteProduct($id)
+    {
+        $deleteProdcut = Product::destroy(intval($id));
+        return $deleteProdcut ;
     }
 }
