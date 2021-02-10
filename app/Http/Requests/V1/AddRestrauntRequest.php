@@ -26,13 +26,14 @@ class AddRestrauntRequest extends FormRequest
         return [
 
             'name' => 'required',
-            'user' => 'required',
+            'adminid' => 'required|exists:users,id',
             'code' => 'required|numeric|unique:restraunts',
             'address' => 'required',
+            'phone' => 'required|numeric',
           // banner => '',
-          // image1 => '',
-          // image2 => '',
-          // image3 => '',
+            'photo1' => 'required|mimes:jpeg,png,jpg',
+            'photo2' => 'required|mimes:jpeg,png,jpg',
+            'photo3' => 'required|mimes:jpeg,png,jpg',
 
         ];
     }
