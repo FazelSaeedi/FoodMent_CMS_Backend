@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\ArtisanCommand;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\RestrauntController;
@@ -83,6 +84,9 @@ Route::prefix('v1')->group(function () {
 
         Route::post('addproduct'  , [ProductController::class , 'addProduct']);
         Route::post('editproduct' , [ProductController::class , 'editProduct']);
+        Route::get( 'getproducttable/{paginationNumber}' , [ProductController::class , 'getProductTable']);
+        Route::post('deleteproduct' , [ProductController::class , 'deleteProduct']);
+
 
     });
 
@@ -97,13 +101,10 @@ Route::prefix('v1')->group(function () {
 
 
 
-
-
     // Get Test Ajax JavaScript
     Route::get('testgetajax' , function (Request $request){
         return 'get test is ok ' ;
     });
-
     // Post Test Ajax JavaScript
     Route::post('testpostajax' , function (Request $request){
         return response([
@@ -111,13 +112,34 @@ Route::prefix('v1')->group(function () {
             'name' => $request->name
         ]);
     });
-
     // Test upload
     Route::post('upload/image' , function (Request $request){
 
-        echo $request-> file('edit-file1');
-        echo $request['edit-restaurant-Popup'];
-        echo 'hi';
+
+         $photo1 =  $request->file('photo1');
+         $photo2 =  $request->file('photo2');
+         $photo3 =  $request->file('photo3');
+
+         $code = $request->code;
+         $name = $request->name;
+         $address = $request->address;
+         $phone = $request->phone;
+
+         return  print_r([$photo1 , $photo2 , $photo3 , $code , $name , $address , $phone]);
+
+    });
+
+
+
+
+    Route::get('test' , function (Request $request){
+        return 'get test is ok ' ;
+    });
+
+    Route::prefix('artisan')->group(function (){
+
+        Route::get('initialize'  , [ArtisanCommand::class , 'initialize']);
+        Route::get('reinitialize'  , [ArtisanCommand::class , 'reInitialize']);
 
     });
 
