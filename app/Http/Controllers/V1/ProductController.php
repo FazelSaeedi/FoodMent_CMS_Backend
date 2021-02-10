@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddProductRequest;
+use App\Http\Requests\V1\DeleteProductRequest;
 use App\Http\Requests\V1\EditProductRequest;
 use App\Repository\ProductRepository\ProductRepositoryInterface;
 use Illuminate\Http\Request;
@@ -21,9 +22,9 @@ class ProductController extends Controller
     }
 
 
-
     public function addProduct(AddProductRequest $addProductRequest)
     {
+
 
         $addProductIsValid = $this->addProductIsValid($addProductRequest) ;
 
@@ -41,7 +42,8 @@ class ProductController extends Controller
             return response()->json([
                 'data' => [
                     'id' =>  $addProduct->id ,
-                    'typeiD' =>  $addProduct->type ,
+                    'name' =>  $addProduct->name ,
+                    'typeid' =>  $addProduct->type ,
                     'maingroupid' => $addProduct->mainGroup ,
                     'subgroupid' => $addProduct->subGroup ,
                     'code' => $addProduct->code ,
@@ -55,7 +57,6 @@ class ProductController extends Controller
         }
 
     }
-
 
 
     public function editProduct(EditProductRequest $editProductRequest)
@@ -77,7 +78,7 @@ class ProductController extends Controller
                 'data' => [
                     'id' =>  $editProduct->id ,
                     'name' =>  $editProduct->name ,
-                    'typeiD' =>  $editProduct->type ,
+                    'typeid' =>  $editProduct->type ,
                     'maingroupid' => $editProduct->maingroup ,
                     'subgroupid' => $editProduct->subgroup ,
                     'code' => $editProduct->code ,
@@ -93,7 +94,6 @@ class ProductController extends Controller
         }
 
     }
-
 
 
     public function addProductIsValid(AddProductRequest $addProductRequest)
@@ -120,5 +120,33 @@ class ProductController extends Controller
             return true;     // it is a new Row
 
     }
+
+
+    public function getProductTable($paginationnumber)
+    {
+
+        $productTableList =  $this->productRepository->getProductTable( $paginationnumber );
+
+        return response()->json([
+            'data' => $productTableList ,
+            'message' => 'success'
+        ],200);
+    }
+
+
+    public function deleteProduct(DeleteProductRequest $id)
+    {
+
+        $deleteProduct =  $this->productRepository->deleteProduct($id->id);
+
+        if ($deleteProduct) {
+            return response()->json([
+                'message' => 'success'
+            ],200);
+        }
+
+    }
+
+
 
 }
