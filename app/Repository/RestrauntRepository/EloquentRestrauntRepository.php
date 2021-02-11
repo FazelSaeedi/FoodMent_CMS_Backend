@@ -37,6 +37,7 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             }
             else
                 return false;
+                //todo : remove form database
         }
         else
             return false;
@@ -45,9 +46,43 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
 
     }
 
-    public function editRestraunt()
+
+
+    public function editRestraunt($id , $code , $name , $address , $phone , $adminId , $editgalleryRestraunt)
     {
-        // TODO: Implement editRestraunt() method.
+        $editRestraunt = Restraunt::find($id);
+
+        $editRestraunt->name = $name ;
+        $editRestraunt->code = $code ;
+        $editRestraunt->address = $address ;
+        $editRestraunt->adminid = $adminId ;
+        $editRestraunt->phone = $phone ;
+
+
+        if($editRestraunt->save())
+        {
+            $uploadPhoto = $this->uploadeditRestraunt($editRestraunt->id, $editgalleryRestraunt);
+
+            if ($uploadPhoto)
+            {
+                return [
+                    'id' =>   $editRestraunt->id ,
+                    'name' =>   $editRestraunt->name ,
+                    'code' =>   $editRestraunt->code ,
+                    'address' =>   $editRestraunt->address ,
+                    'adminid' =>   $editRestraunt->adminid ,
+                    'phone' =>   $editRestraunt->phone ,
+                ];
+            }
+            else
+                return false;
+            //todo : remove form database
+        }
+        else
+            return false;
+
+
+        return $editgalleryRestraunt->photo1;
     }
 
 
@@ -65,5 +100,26 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             return true ;
         else
             return false;
+    }
+
+    public function uploadeditRestraunt($restrauntId, $editgalleryRestraunt)
+    {
+
+        $imagePath = "/images/{$restrauntId}/banner/";
+
+        $gallery = [ 'photo1' , 'photo2' , 'photo3' ];
+
+        $uploadStatus = true ;
+        foreach ($gallery as $key => $value)
+        {
+            if (property_exists($editgalleryRestraunt , $value))
+            {
+                $MP1 = $editgalleryRestraunt->$value->move(public_path($imagePath) , 'banner'.($key+1).'.jpg');
+                if(!$MP1) $uploadStatus = false ;
+            }
+        }
+
+        return $uploadStatus ;
+
     }
 }
