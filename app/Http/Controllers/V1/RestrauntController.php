@@ -4,8 +4,10 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddRestrauntRequest;
+use App\Http\Requests\V1\EditRestrauntRequest;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Object_;
 
 class RestrauntController extends Controller
 {
@@ -77,9 +79,80 @@ class RestrauntController extends Controller
     }
 
 
-    public function editRestraunt()
+    public function editRestraunt(EditRestrauntRequest $request)
+    {
+        $galleryPhoto = [$request->file('photo1') ,$request->file('photo2') ,$request->file('photo3') ];
+        $gallerySrC   = [$request->srcphoto1 ,$request->srcphoto2 ,$request->srcphoto3 ];
+        $ValidateEditRestrauntArray = $this->editPhotoRestrauntValidate($galleryPhoto , $gallerySrC);
+
+        $editgalleryRestraunt = new Object_();
+
+        if ($ValidateEditRestrauntArray['status'] == true )
+        {
+            foreach ($ValidateEditRestrauntArray['data'] as $key => $value){
+                if (isset($value['file']))
+                    $editgalleryRestraunt->$key = $value['file'] ;
+            }
+
+            $id = $request->id;
+            $code = $request->code;
+            $name = $request->name;
+            $address = $request->address;
+            $phone = $request->phone;
+            $adminId = $request->adminid;
+
+            $editRestrant = $this->restrauntRepository->editRestraunt($id , $code , $name , $address , $phone , $adminId , $editgalleryRestraunt);
+
+
+            if ($editRestrant)
+            {
+                return response()->json([
+                    'data' => $editRestrant
+                    ,
+                    'message' => 'success'
+                ],200);
+            }else{
+                return response()->json([
+                    'message' => 'Error'
+                ],409);
+            }
+
+        }
+
+
+
+
+
+    }
+
+
+    public function editPhotoRestrauntValidate($galleryPhoto , $gallerySrC)
     {
 
+        $ValidateEditRestrauntArray = [
+            'status' => true ,
+            'data' => [
+                'photo1' => [] ,
+                'photo2' => [] ,
+                'photo3' => [] ,
+            ],
+            'message' => ''
+        ];
+
+
+
+        for ($i = 0 ; $i < 3 ; $i++)
+        {
+            if (file_exists($galleryPhoto[$i]))
+                $ValidateEditRestrauntArray['data']['photo'.($i+1)]['file'] = $galleryPhoto[$i];
+            else if (isset($gallerySrC[$i]))
+                $ValidateEditRestrauntArray['data']['photo'.($i+1)]['src'] = $gallerySrC[$i];
+            else
+                $ValidateEditRestrauntArray['status'] = false ;
+        }
+
+
+        return $ValidateEditRestrauntArray;
     }
 
 
