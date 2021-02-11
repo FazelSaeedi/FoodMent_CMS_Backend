@@ -28,11 +28,11 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             {
                 return [
                     'id' =>   $addRestraunt->id ,
-                    'name' =>   $addRestraunt->id ,
-                    'code' =>   $addRestraunt->id ,
-                    'address' =>   $addRestraunt->id ,
-                    'adminid' =>   $addRestraunt->id ,
-                    'phone' =>   $addRestraunt->id ,
+                    'name' =>   $addRestraunt->name ,
+                    'code' =>   $addRestraunt->code ,
+                    'address' =>   $addRestraunt->address ,
+                    'adminid' =>   $addRestraunt->adminid ,
+                    'phone' =>   $addRestraunt->phone ,
                 ];
             }
             else
