@@ -852,22 +852,23 @@
 
         function clearInputPopup()
         {
-            $('#product-code > input').val('');
-            $('#product-name > input').val('');
+            $('#restraunt-code > input').val('');
+            $('#restraunt-name > input').val('');
+            $('#restraunt-address > input').val('');
+            $('#restraunt-phone > input').val('');
+            $('#restraunt-admin > input').val('');
 
-            $('#type > input').val('');
-            $('#mainGroup > input').val('');
-            $('#subGroup > input').val('');
+
+            $('#restraunt-admin > input').removeAttr("adminid");
+
+            $('#restraunt-photo1 > input').val(null) ;
+            $('#restraunt-photo2 > input').val(null) ;
+            $('#restraunt-photo3 > input').val(null) ;
 
 
-            $('#type > input').removeAttr("id");
-            $('#type > input').removeAttr("code");
-
-            $('#mainGroup > input').removeAttr("id");
-            $('#mainGroup > input').removeAttr("code");
-
-            $('#subGroup > input').removeAttr("id");
-            $('#subGroup > input').removeAttr("code");
+            $('#restraunt-photo1 > img').hide();
+            $('#restraunt-photo2 > img').hide();
+            $('#restraunt-photo3 > img').hide();
 
         }
 
@@ -928,8 +929,6 @@
 
             if(addRestrauntValidation.valid)
             {
-                //var random = Math.floor((Math.random() * 100) + 1);
-                //addRestraunt( random,restraunt_code_value,restraunt_name_value,restraunt_address_value,restraunt_phone_value,restraunt_admin_value );
 
 
                 var fd = new FormData();
@@ -957,17 +956,25 @@
                     data: fd,
                     contentType: false,
                     processData: false,
-                    success: function(response){
-                        console.log(response)
+                    success: function(resp){
+                        console.log(resp)
+
+                        addRestraunt(resp.data.id , resp.data.code , resp.data.name , resp.data.address ,  resp.data.phone , restraunt_name_value  ,resp.data.adminid)
+                        collapsePopup(false)
+                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+restraunt_name_value+' با موفقیت افزوده شد ' , 3000);
+
                     },
                     error: function (error){
-                        console.log(error);
+
+                        for ( var key in error.responseJSON.errors )
+                        {
+                            addErrorToPopup(error.responseJSON.errors[key][0])
+                        }
+
                     }
                 });
 
 
-                //console.log(files);
-                //collapsePopup(false)
 
             }
             else
@@ -1046,10 +1053,7 @@
         function clearErrorsInPopup()
         {
             $('#error div').each(
-                function(element)
-                {
-                    this.remove();
-                }
+                function(element) { this.remove(); }
             );
         }
 
@@ -1058,7 +1062,7 @@
             $("#error").append("<div class='alert alert-danger' style='display: block'>"+message+"</div>")
         }
 
-        function addRestraunt(id  , code , name ,address , phone , adminName )
+        function addRestraunt(id  , code , name ,address , phone , adminName , adminId )
         {
 
 
@@ -1070,7 +1074,7 @@
                 "<th onclick='deleteRow(this)'><img onclick='deleteRow(this)' style='width: 1.375rem;' src='"+trushIconeURL+"'> </th>" +
                 "<th onclick='editRow(this)'><img onclick='editRow(this)' style='width: 1.375rem;' src='"+editIconeURL+"'> </th>" +
                 "<th class='gallery'>...</th>" +
-                "<th class='admin'>"+adminName+"</th>" +
+                "<th class='admin' adminid='"+adminId+"'>"+adminName+"</th>" +
                 "<th class='phone'>"+phone+"</th>" +
                 "<th class='address'>"+address+"</th>" +
                 "<th class='name'>"+name+"</th>" +
@@ -1079,7 +1083,45 @@
 
         }
 
+        function AddCardHeaderAlerts( AlertClass  ,  message , time )
+        {
+            let Randomkey = Math.random().toString(36).substring(7);
 
+            $('#card-header-Alerts').append(
+                '<div id="'+Randomkey+'" class="alert '+AlertClass+'">' +
+                ''+message+''+
+                '<button style="float: left;" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
+
+                '</div>' +
+                '')
+
+
+            $("#"+Randomkey).delay(time).fadeOut(800);
+
+        }
+
+        function getTables( name , url , paginationBatchNumber)
+        {
+            $.ajax({
+                async : false ,
+                headers: { "Authorization": 'Bearer '+ token } ,
+                url: url + paginationBatchNumber ,
+                contentType: "application/json" ,
+                type: 'GET' ,
+                dataType: "json",
+                success: function (resp) {
+
+
+                    console.log(resp.data.data);
+                    cookie.setObjectLocalStorage(name, resp.data.data)
+
+
+                },
+                error: function (error) {
+                    // console.log(resp);
+                },
+            });
+        }
 
     </script>
 @endsection
