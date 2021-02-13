@@ -96,6 +96,7 @@ Route::prefix('v1')->group(function () {
 
         Route::post('addrestraunt'  , [RestrauntController::class , 'addRestraunt']);
         Route::post('editrestraunt' , [RestrauntController::class , 'editRestraunt']);
+        Route::get( 'getrestraunttable/{paginationNumber}' , [RestrauntController::class , 'getrestraunttable']);
 
     });
 
