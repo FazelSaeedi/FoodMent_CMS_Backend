@@ -231,4 +231,16 @@ class UserController extends Controller
     }
 
 
+
+    public function getusers()
+    {
+        $getUsers = $this->userRepository->getusers();
+
+
+        return response()->json([
+            'data' => $getUsers
+            ,'message' => 'success'
+        ],200);
+    }
+
 }
