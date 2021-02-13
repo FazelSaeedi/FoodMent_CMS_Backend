@@ -28,4 +28,7 @@ interface UserRepositoryInterface
 
     public function setUserPassword($phone , $password);
 
+
+    public function getusers();
+
 }

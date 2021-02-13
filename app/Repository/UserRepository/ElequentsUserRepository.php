@@ -140,4 +140,9 @@ class ElequentsUserRepository implements UserRepositoryInterface
 
         return $setUserPassword;
     }
+
+    public function getusers()
+    {
+        return User::get(['id' , 'phone'])->all();
+    }
 }
