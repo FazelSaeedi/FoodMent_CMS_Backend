@@ -42,6 +42,7 @@ Route::prefix('v1')->group(function () {
         Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
         Route::post('login' , [UserController::class , 'login']);
         Route::post('setuserpassword' , [UserController::class , 'setUserPassword']);
+        Route::post('getusers' , [UserController::class , 'getusers']);
 
     });
 
