@@ -156,4 +156,17 @@ class RestrauntController extends Controller
     }
 
 
+
+    public function getrestraunttable($paginationnumber)
+    {
+        $restrauntTableList =  $this->restrauntRepository->getRestrauntTable( $paginationnumber );
+
+        return response()->json([
+            'data' => $restrauntTableList ,
+            'message' => 'success'
+        ],200);
+    }
+
+
+
 }

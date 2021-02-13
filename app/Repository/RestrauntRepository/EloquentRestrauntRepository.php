@@ -3,6 +3,7 @@
 namespace App\Repository\RestrauntRepository;
 
 use App\Models\Restraunt;
+use Illuminate\Support\Facades\DB;
 
 class EloquentRestrauntRepository implements RestrauntRepositoryInterface
 {
@@ -120,6 +121,25 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
         }
 
         return $uploadStatus ;
+
+    }
+
+
+    public function getRestrauntTable($paginationNumber)
+    {
+
+        return DB::table('restraunts')
+            ->join('users', 'users.id', '=', 'restraunts.adminid')
+            ->orderBy('restraunts.code', 'asc')
+            ->select([
+                'restraunts.id as id' ,
+                'restraunts.name as name' ,
+                'users.phone as adminName' ,
+                'restraunts.adminid as adminid',
+                'restraunts.code as code',
+                'restraunts.address as address',
+            ])
+            ->paginate($paginationNumber);
 
     }
 }

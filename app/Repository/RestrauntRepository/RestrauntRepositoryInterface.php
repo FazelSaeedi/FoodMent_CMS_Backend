@@ -13,5 +13,5 @@ interface RestrauntRepositoryInterface
 
     public function uploadeditRestraunt( $restrauntId , $editgalleryRestraunt);
 
-
+    public function getRestrauntTable($paginationNumber);
 }
