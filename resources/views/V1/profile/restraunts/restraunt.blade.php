@@ -79,7 +79,7 @@
                                     <h3 style="text-align: right;" class="mb-0">رستوران ها</h3>
                                 </div>
                                 <div class="col text-right" >
-                                    <a href="" class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
+                                    <a  class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
                                 </div>
 
                             </div>
@@ -151,6 +151,8 @@
         let routs = {
             getRestrauntTable :  domainWithPort +'/api/v1/restraunt/getrestraunttable/',
             getUserTable :  domainWithPort +'/api/v1/user/getusers',
+            getRestrauntId :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
+            editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
         }
 
 
@@ -1065,7 +1067,182 @@
 
         }
 
+        function submitEditProductPopup()
+        {
 
+            clearErrorsInPopup()
+
+            var restraunt_code_div      =  $("#restraunt-code")
+            var restraunt_name_div      =  $("#restraunt-name")
+            var restraunt_id            =  $(".main-content-popup").attr('rowId');
+            var restraunt_phone      =  $("#restraunt-phone")
+            var restraunt_address_div =  $("#restraunt-address")
+            var restraunt_admin_div  =  $("#restraunt-admin")
+
+            var restraunt_photo1_div =   $("#restraunt-photo1")
+            var restraunt_photo2_div =   $("#restraunt-photo2")
+            var restraunt_photo3_div =   $("#restraunt-photo3")
+
+            var restraunt_code_value = restraunt_code_div.find("input").val() ;
+            var restraunt_name_value = restraunt_name_div.find("input").val() ;
+
+
+            var restraunt_phone = restraunt_phone.find("input").val() ;
+            var restraunt_address = restraunt_address_div.find("input").val() ;
+
+            var restraunt_admin_Name =  restraunt_admin_div.find("input").val();
+            var restraunt_admin_ID   =  restraunt_admin_div.find("input").attr('id');
+
+            var restraunt_photo1 =    restraunt_photo1_div.find("input").val()   ;
+            var restraunt_photo2 =    restraunt_photo2_div.find("input").val()   ;
+            var restraunt_photo3 =    restraunt_photo3_div.find("input").val()   ;
+
+            var restraunt_img1 =    restraunt_photo1_div.find("img").attr("src")   ;
+            var restraunt_img2 =    restraunt_photo2_div.find("img").attr("src")   ;
+            var restraunt_img3 =    restraunt_photo3_div.find("img").attr("src")   ;
+
+
+
+            var editRestrauntValidation = validation.isValidEditRestraunt(
+                restraunt_code_value, restraunt_name_value ,
+                restraunt_address , restraunt_phone,
+                restraunt_admin_Name ,
+            )
+
+            console.log(editRestrauntValidation);
+
+            data = {
+                id : restraunt_id ,
+                name:restraunt_name_value,
+                code:restraunt_code_value,
+                adminid : restraunt_admin_ID ,
+                phone : restraunt_phone ,
+                address : restraunt_address,
+            };
+
+            if(editRestrauntValidation.valid)
+            {
+
+                var fd = new FormData();
+
+                var photo1 = $(restraunt_photo1_div.find("input"))[0].files[0];
+                var photo2 = $(restraunt_photo2_div.find("input"))[0].files[0];
+                var photo3 = $(restraunt_photo3_div.find("input"))[0].files[0];
+
+
+                if (restraunt_photo1)
+                    fd.append('photo1',photo1);
+                else
+                    fd.append('srcphoto1' , restraunt_img1)
+
+
+                if (restraunt_photo2)
+                    fd.append('photo2',photo2);
+                else
+                    fd.append('srcphoto2' , restraunt_img2)
+
+
+                if (restraunt_photo3)
+                    fd.append('photo3',photo3);
+                else
+                    fd.append('srcphoto3' , restraunt_img3)
+
+
+                fd.append('code',    restraunt_code_value );
+                fd.append('id',    restraunt_id );
+                fd.append('name',    restraunt_name_value );
+                fd.append('address', restraunt_address );
+                fd.append('phone',   restraunt_phone );
+                fd.append('adminid',   restraunt_admin_ID );
+
+                $.ajax({
+                    type: 'POST',
+                    headers: { "Authorization": 'Bearer '+ token } ,
+                    url: routs.editRestraunt,
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(resp){
+
+                        console.log(resp)
+
+                        editRestraunt(
+                            resp.data.id , resp.data.code ,
+                            resp.data.name , resp.data.address ,
+                            resp.data.phone , restraunt_admin_Name  ,
+                            resp.data.adminid
+                        )
+
+
+                        collapsePopup(false)
+                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+resp.data.name+' با موفقیت ویرایش شد ' , 3000)
+
+                    },
+                    error: function (error) {
+
+                        console.log(error)
+
+                        for ( var key in error.responseJSON.errors )
+                        {
+                            addErrorToPopup(error.responseJSON.errors[key])
+                        }
+
+                    },
+                });
+
+
+            }else {
+                for (var key in editRestrauntValidation.error)
+                {
+                    addErrorToPopup(editRestrauntValidation.error[key])
+                }
+            }
+        }
+
+        function editRow(e)
+        {
+
+
+            var tr = $(e).closest('tr');
+            var trId = $(e).closest('tr').attr('id');
+
+            var code = tr.find('.code').text();
+            var name = tr.find('.name').text();
+            var address = tr.find('.address').text();
+            var phone = tr.find('.phone').text();
+
+            var adminName = tr.find('.admin').text();
+            var adminId = tr.find('.admin').attr('adminid');
+
+
+
+            collapsePopup( true , 'ویرایش رستوران' , 'edit')
+
+
+            $('#restraunt-code > input').val(code);
+            $('#restraunt-name > input').val(name);
+
+            $('#restraunt-address > input ' ).val(address);
+            $('#restraunt-phone > input ' ).val(phone);
+            $('#restraunt-admin > input ' ).val(adminName);
+
+
+            $('#restraunt-admin > input ' ).attr('id' , adminId);
+
+            $('#restraunt-photo1 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '1'))
+            $('#restraunt-photo1 > img').show()
+
+            $('#restraunt-photo2 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '2'))
+            $('#restraunt-photo2 > img').show()
+
+
+            $('#restraunt-photo3 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '3'))
+            $('#restraunt-photo3 > img').show()
+
+
+            $(".main-content-popup").attr("rowId",trId);
+
+        }
 
         function clearErrorsInPopup()
         {
@@ -1097,6 +1274,30 @@
                 "<th class='name'>"+name+"</th>" +
                 "<th class='code'>"+code+"</th>" +
                 "</tr>")
+
+        }
+
+        function editRestraunt( rowId  , code , name ,address , phone , adminName , adminId )
+        {
+
+            var tr = $('#'+rowId)
+            var codeth = tr.find('.code');
+            var nameth = tr.find('.name');
+            var addressth = tr.find('.address');
+            var phoneth = tr.find('.phoneth');
+            var adminth = tr.find('.adminth');
+
+
+
+            codeth.text(code)
+            nameth.text(name)
+
+            addressth.text(address)
+            phoneth.text(phone)
+            adminth.text(adminName)
+
+            adminth.attr("adminid",adminId);
+
 
         }
 
