@@ -117,6 +117,13 @@ class RestrauntController extends Controller
                 ],409);
             }
 
+        }else{
+            return response()->json([
+                'message' => 'Error' ,
+                'errors' => [
+                    'photo' => "خطا در آ‍پلود عکس" ,
+                ]
+            ],409);
         }
 
 
