@@ -138,6 +138,7 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
                 'restraunts.adminid as adminid',
                 'restraunts.code as code',
                 'restraunts.address as address',
+                'restraunts.phone as phone'
             ])
             ->paginate($paginationNumber);
 
