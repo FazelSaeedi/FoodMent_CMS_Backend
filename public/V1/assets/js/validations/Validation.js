@@ -302,6 +302,66 @@ class Validation
     }
 
 
+    isValidEditRestraunt ( code , name , address , phone  , adminName )
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+        if (code.length<1)
+        {
+            validation.error.codeLenght = "کد الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (name.length < 1)
+        {
+            validation.error.nameLenght = "نام الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (address.length < 1)
+        {
+            validation.error.addressLenght = "آدرس الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (phone.length < 1)
+        {
+            validation.error.phoneLenght = "تلفن الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (adminName.length < 1)
+        {
+            validation.error.adminNameLenght = " نام مدیر الزامی است" ;
+            validation.valid = false ;
+        }
+
+        if (code.length > 0 && !this.isNumber(code))
+        {
+            validation.error.codeNumber = "لطفا کد را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (phone.length > 0 && !this.isNumber(phone))
+        {
+            validation.error.phoneNumber = "لطفا شماره تلفن را به صورت عددی وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+
+
+
+        return validation ;
+
+    }
+
 
 
     isNumber(n)
