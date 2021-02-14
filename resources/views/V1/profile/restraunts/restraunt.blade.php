@@ -79,7 +79,7 @@
                                     <h3 style="text-align: right;" class="mb-0">رستوران ها</h3>
                                 </div>
                                 <div class="col text-right" >
-                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
+                                    <a href="" class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
                                 </div>
 
                             </div>
@@ -148,7 +148,16 @@
         })
 
 
-        getTables('usersCanBeRestrauntAdmin' , 'http://127.0.0.1:8000/api/v1/user/getusers' )
+        let routs = {
+            getRestrauntTable :  domainWithPort +'/api/v1/restraunt/getrestraunttable/',
+            getUserTable :  domainWithPort +'/api/v1/user/getusers',
+        }
+
+
+        getRestrauntTable(paginationBatchNumber)
+
+
+        getTables('usersCanBeRestrauntAdmin' , routs.getUserTable )
 
         var getUsersTable = cookie.getObjectLocalStorage('usersCanBeRestrauntAdmin')
 
@@ -1284,6 +1293,69 @@
             document.addEventListener("click", function (e) {
                 closeAllLists(e.target);
             });
+
+        }
+
+
+        function getRestrauntTable(paginationBatchNumber)
+        {
+
+            $.ajax({
+                headers: { "Authorization": 'Bearer '+ token } ,
+                url: routs.getRestrauntTable + paginationBatchNumber ,
+                contentType: "application/json" ,
+                type: 'GET' ,
+                dataType: "json",
+                success: function (resp) {
+                    console.log(resp.data);
+                    for ( var key in resp.data.data )
+                    {
+                        var Restraunts = resp.data.data[key]
+
+                        addRestraunt(
+                            Restraunts.id , Restraunts.code , Restraunts.name ,
+                            Restraunts.address , Restraunts.phone,
+                            Restraunts.adminName , Restraunts.adminid
+                        );
+
+                    }
+
+                    AddPagination( resp.data )
+
+                },
+                error: function (error) {
+                    // console.log(resp);
+                },
+            });
+        }
+
+        function AddPagination( paginationInfo )
+        {
+            console.log( paginationInfo )
+            var next_page_url =  paginationInfo['next_page_url'];
+            var prev_page_url =  paginationInfo['prev_page_url'];
+            var current_page =  paginationInfo['current_page'];
+            var total = paginationInfo.total ;
+            var per_page = paginationInfo['per_page'] ;
+            var path = paginationInfo.path ;
+            var pagesNumbers = Math.ceil(total / per_page)
+
+
+
+            $('.pagination').append('<li onclick="paginationItemClick(this)" class="page-item" Url="'+prev_page_url+'"> <a class="page-link" href="#" tabindex="-1">قبل</a> </li>')
+            for (var i = 1 ; i <= pagesNumbers ; i++ )
+            {
+                var pageActive ;
+
+                if (i == current_page )
+                    pageActive = 'active' ;
+                else
+                    pageActive = '' ;
+
+                $('.pagination').append('<li onclick="paginationItemClick(this)" class="page-item ' + pageActive + '" url = "'+path+'?page='+i+'"><a class="page-link" href="#">' + i + '</a></li>')
+            }
+            $('.pagination').append('<li onclick="paginationItemClick(this)" class="page-item" Url="'+next_page_url+'"> <a class="page-link" href="#" tabindex="-1">بعد</a> </li>')
+
 
         }
 
