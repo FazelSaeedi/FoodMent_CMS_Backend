@@ -1359,6 +1359,58 @@
 
         }
 
+        function paginationItemClick(e)
+        {
+            var url = $(e).attr('url');
+
+            if (url != 'null')
+            {
+
+                $.ajax({
+                    headers: { "Authorization": 'Bearer '+ token } ,
+                    url: url ,
+                    contentType: "application/json" ,
+                    type: 'GET' ,
+                    dataType: "json",
+                    success: function (resp) {
+                        console.log(resp.data);
+                        emptyTable("category_table tbody");
+
+                        for ( var key in resp.data.data )
+                        {
+                            var restraunt = resp.data.data[key]
+                            addRestraunt(
+                                restraunt.id , restraunt.code ,
+                                restraunt.name , restraunt.address ,
+                                restraunt.phone , restraunt.adminName
+                                , restraunt.adminid
+                            )
+
+                        }
+
+                        clearPagination()
+                        AddPagination( resp.data )
+
+                    },
+                    error: function (error) {
+                        // console.log(resp);
+                    },
+                });
+
+            }
+
+        }
+
+        function clearPagination()
+        {
+            $('.pagination').empty();
+        }
+
+        function emptyTable(id)
+        {
+            $('#'+ id).empty();
+        }
+
     </script>
 @endsection
 
