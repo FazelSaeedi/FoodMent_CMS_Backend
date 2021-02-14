@@ -153,6 +153,7 @@
             getUserTable :  domainWithPort +'/api/v1/user/getusers',
             getRestrauntId :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
+            deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
         }
 
 
@@ -674,12 +675,36 @@
         function deleteRow(e)
         {
 
+            console.log('are')
             var tr = $(e).closest('tr');
             var trId = tr.attr('id');
 
 
             $(`tr#${trId}`).remove();
-            alert(trId)
+
+            data ={id : trId };
+
+            $.ajax({
+                type: 'POST',
+                headers: { "Authorization": 'Bearer '+ token } ,
+                url: routs.deleteRestraunt,
+                contentType: "application/json",
+                type: 'POST',
+                dataType: "json",
+                data: JSON.stringify(data),
+                success: function (resp) {
+                    console.log(resp)
+                    AddCardHeaderAlerts( 'alert-success' , 'محصول شما با موفقیت حذف گردید' , 3000)
+                    tr.remove();
+                },
+                error: function (error) {
+
+                    for ( var key in error.responseJSON.errors )
+                    {
+                        AddCardHeaderAlerts( 'alert-danger' , error.responseJSON.errors[key] , 3000)
+                    }
+                },
+            });
         }
 
         function editRow(e)
@@ -1265,8 +1290,8 @@
 
             $("tbody").append(
                 "<tr id='"+id+"'>" +
-                "<th onclick='deleteRow(this)'><img onclick='deleteRow(this)' style='width: 1.375rem;' src='"+trushIconeURL+"'> </th>" +
-                "<th onclick='editRow(this)'><img onclick='editRow(this)' style='width: 1.375rem;' src='"+editIconeURL+"'> </th>" +
+                "<th><img onclick='deleteRow(this)' style='width: 1.375rem;' src='"+trushIconeURL+"'> </th>" +
+                "<th><img onclick='editRow(this)' style='width: 1.375rem;' src='"+editIconeURL+"'> </th>" +
                 "<th class='gallery'>...</th>" +
                 "<th class='admin' adminid='"+adminId+"'>"+adminName+"</th>" +
                 "<th class='phone'>"+phone+"</th>" +
@@ -1274,6 +1299,7 @@
                 "<th class='name'>"+name+"</th>" +
                 "<th class='code'>"+code+"</th>" +
                 "</tr>")
+
 
         }
 
