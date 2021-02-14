@@ -3,7 +3,10 @@
 namespace App\Repository\RestrauntRepository;
 
 use App\Models\Restraunt;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class EloquentRestrauntRepository implements RestrauntRepositoryInterface
 {
@@ -143,4 +146,39 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             ->paginate($paginationNumber);
 
     }
+
+
+    public function deleteRestraunt($id)
+    {
+        $deleteRestraunt = Restraunt::destroy(intval($id));
+
+        $restrauntDir = public_path("/images/{$id}");
+
+
+
+        if ($deleteRestraunt)
+        {
+            if (file_exists(public_path("/images/{$id}"))) {
+                $it = new RecursiveDirectoryIterator($restrauntDir, RecursiveDirectoryIterator::SKIP_DOTS);
+                $files = new RecursiveIteratorIterator($it,
+                    RecursiveIteratorIterator::CHILD_FIRST);
+
+                foreach($files as $file) {
+                    if ($file->isDir()){
+                        rmdir($file->getRealPath());
+                    } else {
+                        unlink($file->getRealPath());
+                    }
+                }
+                rmdir($restrauntDir);
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
+
+    }
+
 }
