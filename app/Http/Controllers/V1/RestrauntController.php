@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddRestrauntRequest;
+use App\Http\Requests\V1\DeleteRestrauntRequest;
 use App\Http\Requests\V1\EditRestrauntRequest;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use Illuminate\Http\Request;
@@ -162,6 +163,24 @@ class RestrauntController extends Controller
         return $ValidateEditRestrauntArray;
     }
 
+
+    public function deleteRestraunt(DeleteRestrauntRequest $request)
+    {
+        $deleteRestraunt =  $this->restrauntRepository->deleteRestraunt($request->id);
+
+
+       if ($deleteRestraunt)
+        {
+            return response()->json([
+                'message' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ],409);
+        }
+
+    }
 
 
     public function getrestraunttable($paginationnumber)
