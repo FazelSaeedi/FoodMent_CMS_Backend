@@ -91,4 +91,61 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         else
             return true ;
     }
+
+    public function editMenuProduct($menuProductId, $productId, $restrauntId, $price, $discount, $makeups, $editgalleryRestraunt)
+    {
+
+          $editMenuProduct = Menu::find($menuProductId);
+
+
+          $editMenuProduct->product_id = $productId ;
+          $editMenuProduct->restraunt_id = $restrauntId ;
+          $editMenuProduct->price = $price ;
+          $editMenuProduct->discount = $discount ;
+          $editMenuProduct->makeup = $makeups ;
+
+          if($editMenuProduct->save())
+          {
+              $uploadPhoto = $this->uploadEditMenuProduct($restrauntId , $menuProductId , $editgalleryRestraunt);
+
+              if ($uploadPhoto)
+              {
+                  return [
+                      'id' => $editMenuProduct->id ,
+                      'productid' => $editMenuProduct->product_id ,
+                      'restrauntid' => $editMenuProduct->restraunt_id ,
+                      'price' => $editMenuProduct->price ,
+                      'discount' => $editMenuProduct->discount ,
+                      'makeup' => $editMenuProduct->makeup ,
+                  ];
+              }
+              else
+                  return false;
+              //todo : remove form database
+          }
+          else
+              return false;
+
+    }
+
+    public function uploadEditMenuProduct($restrauntId , $productMenuId ,  $editgalleryMenuProduct)
+    {
+        $imagePath = "/images/{$restrauntId}/food/{$productMenuId}/" ;
+
+        $gallery = [ 'photo1' ];
+
+        $uploadStatus = true ;
+
+        foreach ($gallery as $key => $value)
+        {
+            if (property_exists($editgalleryMenuProduct , $value))
+            {
+                $MP1 = $editgalleryMenuProduct->$value->move(public_path($imagePath) , ($key+1).'.jpg');
+                if(!$MP1) $uploadStatus = false ;
+            }
+        }
+
+        return $uploadStatus ;
+
+    }
 }
