@@ -20,7 +20,20 @@ class MenuController extends Controller
 
     public function addMenuProduct(AddMenuProductRequest $request)
     {
-        return 'addmenuproduct' ;
+        $addMenuProduct = $this->menuRepository->addProductMenu($request->productid , $request->restrauntid , $request->price , $request->discount , $request->makeups) ;
+
+
+        if ($addMenuProduct)
+            return response()->json([
+                'data' => [
+                    $addMenuProduct['data']
+                ],
+                'message' => 'success'
+            ],200);
+        else
+            return response()->json([
+                'message' => 'محصول مورد نظر موجود میباشد'
+            ],409);
     }
 
     public function editMenuProduct()

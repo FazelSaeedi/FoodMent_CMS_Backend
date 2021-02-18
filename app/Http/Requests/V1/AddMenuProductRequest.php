@@ -24,7 +24,11 @@ class AddMenuProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'productid' => 'required|exists:products,id',
+            'restrauntid' => 'required|exists:restraunts,id',
+            'price' => 'required|numeric',
+            'discount' => 'required|numeric|max:99',
+            'makeups' => 'required',
         ];
     }
 }
