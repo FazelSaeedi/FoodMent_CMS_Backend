@@ -105,10 +105,10 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('menu')->middleware('authentication')->group(function (){
 
-        Route::post('addmenuproduct ' , [MenuController::class , 'addmenuproduct']);
-        Route::post('editmenuproduct ' , [MenuController::class , 'editmenuproduct']);
-        Route::post('deletemenuproduct ' , [MenuController::class , 'deletemenuproduct']);
-        Route::post('getrestrauntmenu ' , [MenuController::class , 'getrestrauntmenu']);
+        Route::post('addmenuproduct ' , [MenuController::class , 'addMenuProduct']);
+        Route::post('editmenuproduct ' , [MenuController::class , 'editMenuProduct']);
+        Route::post('deletemenuproduct ' , [MenuController::class , 'deleteMenuProduct']);
+        Route::post('getrestrauntmenu ' , [MenuController::class , 'getRestrauntMenu']);
 
     });
 

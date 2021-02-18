@@ -14,22 +14,22 @@ class MenuController extends Controller
     }
 
 
-    public function addmenuproduct()
+    public function addMenuProduct()
     {
         return 'addmenuproduct' ;
     }
 
-    public function editmenuproduct()
+    public function editMenuProduct()
     {
         return 'editmenuproduct' ;
     }
 
-    public function deletemenuproduct()
+    public function deleteMenuProduct()
     {
         return 'deletemenuproduct' ;
     }
 
-    public function getrestrauntmenu()
+    public function getRestrauntMenu()
     {
         return 'getrestrauntmenu' ;
     }
