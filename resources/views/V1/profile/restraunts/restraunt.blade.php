@@ -79,7 +79,7 @@
                                     <h3 style="text-align: right;" class="mb-0">رستوران ها</h3>
                                 </div>
                                 <div class="col text-right" >
-                                    <a  class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
                                 </div>
 
                             </div>
