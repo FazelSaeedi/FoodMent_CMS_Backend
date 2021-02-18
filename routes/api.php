@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\ArtisanCommand;
 use App\Http\Controllers\v1\CategoryController;
+use App\Http\Controllers\V1\MenuController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\RestrauntController;
 use App\Http\Controllers\V1\UserController;
@@ -102,6 +103,11 @@ Route::prefix('v1')->group(function () {
     });
 
 
+    Route::prefix('menu')->middleware('authentication')->group(function (){
+
+        Route::post('addmenuproduct ' , [MenuController::class , 'addmenuproduct']);
+
+    });
 
 
     // Get Test Ajax JavaScript
