@@ -28,4 +28,9 @@ class MenuController extends Controller
     {
         return 'deletemenuproduct' ;
     }
+
+    public function getrestrauntmenu()
+    {
+        return 'getrestrauntmenu' ;
+    }
 }

@@ -108,6 +108,7 @@ Route::prefix('v1')->group(function () {
         Route::post('addmenuproduct ' , [MenuController::class , 'addmenuproduct']);
         Route::post('editmenuproduct ' , [MenuController::class , 'editmenuproduct']);
         Route::post('deletemenuproduct ' , [MenuController::class , 'deletemenuproduct']);
+        Route::post('getrestrauntmenu ' , [MenuController::class , 'getrestrauntmenu']);
 
     });
 
