@@ -23,4 +23,9 @@ class MenuController extends Controller
     {
         return 'editmenuproduct' ;
     }
+
+    public function deletemenuproduct()
+    {
+        return 'deletemenuproduct' ;
+    }
 }
