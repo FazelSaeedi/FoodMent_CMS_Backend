@@ -16,4 +16,6 @@ interface MenuRepositoryInterface
 
     public function deleteMenuProduct($menuProductId);
 
+    public function getRestrauntMenuTable( $restrauntId );
+
 }

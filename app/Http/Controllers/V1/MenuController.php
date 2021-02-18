@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddMenuProductRequest;
 use App\Http\Requests\V1\DeleteMenuProductRequest;
 use App\Http\Requests\V1\EditMenuProductRequest;
+use App\Http\Requests\V1\getRestrauntMenuTable;
+use App\Http\Requests\V1\getRestrauntMenuTableRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
@@ -117,9 +119,25 @@ class MenuController extends Controller
         }
     }
 
-    public function getRestrauntMenu()
+    public function getRestrauntMenuTable(getRestrauntMenuTableRequest $request )
     {
-        return 'getrestrauntmenu' ;
+        $getRestrauntMenuTable =  $this->menuRepository->getRestrauntMenuTable($request->restrauntid);
+
+
+
+
+        if ($getRestrauntMenuTable)
+        {
+            return response()->json([
+                'data' => $getRestrauntMenuTable,
+                'message' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ],409);
+        }
+
     }
 
 

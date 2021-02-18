@@ -28,8 +28,8 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
 
         $isProductExist = Menu::where( 'product_id'   ,  '='  , $productId  )
-                              ->where( 'restraunt_id' ,  '='  , $restrauntId)
-                              ->get();
+            ->where( 'restraunt_id' ,  '='  , $restrauntId)
+            ->get();
 
 
 
@@ -98,36 +98,36 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     public function editMenuProduct($menuProductId, $productId, $restrauntId, $price, $discount, $makeups, $editgalleryRestraunt)
     {
 
-          $editMenuProduct = Menu::find($menuProductId);
+        $editMenuProduct = Menu::find($menuProductId);
 
 
-          $editMenuProduct->product_id = $productId ;
-          $editMenuProduct->restraunt_id = $restrauntId ;
-          $editMenuProduct->price = $price ;
-          $editMenuProduct->discount = $discount ;
-          $editMenuProduct->makeup = $makeups ;
+        $editMenuProduct->product_id = $productId ;
+        $editMenuProduct->restraunt_id = $restrauntId ;
+        $editMenuProduct->price = $price ;
+        $editMenuProduct->discount = $discount ;
+        $editMenuProduct->makeup = $makeups ;
 
-          if($editMenuProduct->save())
-          {
-              $uploadPhoto = $this->uploadEditMenuProduct($restrauntId , $menuProductId , $editgalleryRestraunt);
+        if($editMenuProduct->save())
+        {
+            $uploadPhoto = $this->uploadEditMenuProduct($restrauntId , $menuProductId , $editgalleryRestraunt);
 
-              if ($uploadPhoto)
-              {
-                  return [
-                      'id' => $editMenuProduct->id ,
-                      'productid' => $editMenuProduct->product_id ,
-                      'restrauntid' => $editMenuProduct->restraunt_id ,
-                      'price' => $editMenuProduct->price ,
-                      'discount' => $editMenuProduct->discount ,
-                      'makeup' => $editMenuProduct->makeup ,
-                  ];
-              }
-              else
-                  return false;
-              //todo : remove form database
-          }
-          else
-              return false;
+            if ($uploadPhoto)
+            {
+                return [
+                    'id' => $editMenuProduct->id ,
+                    'productid' => $editMenuProduct->product_id ,
+                    'restrauntid' => $editMenuProduct->restraunt_id ,
+                    'price' => $editMenuProduct->price ,
+                    'discount' => $editMenuProduct->discount ,
+                    'makeup' => $editMenuProduct->makeup ,
+                ];
+            }
+            else
+                return false;
+            //todo : remove form database
+        }
+        else
+            return false;
 
     }
 
@@ -187,4 +187,32 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
 
     }
+
+    public function getRestrauntMenuTable($restrauntId)
+    {
+
+        return DB::select(
+            "select
+                        `menu`.`id`  as `menuId`,
+                        `menu`.`price` as `menuprice`,
+                        `menu`.`discount` as `menudiscount`,
+                        `menu`.`makeup` as `menumakeup`,
+                        `products`.`name` as `productname`,
+                        `types`.`name` as `typename`,
+                        `maingroups`.`name` as `maingroupname`,
+                        `subgroups`.`name` as `subgroupname` ,
+                        `menu`.`price` - ((`menu`.`price` * `menu`.`discount`)/100) as `finalprice`
+
+                    from `menu`
+
+                    inner join `products` on `products`.`id` = `menu`.`product_id`
+                    inner join `types` on `types`.`id` = `products`.`type`
+                    inner join `maingroups` on `maingroups`.`id` = `products`.`maingroup`
+                    inner join `subgroups` on `subgroups`.`id` = `products`.`subgroup`
+
+                    WHERE `menu`.`restraunt_id` = ?"
+            , ["{$restrauntId}"]);
+
+    }
+
 }
