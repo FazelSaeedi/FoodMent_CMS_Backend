@@ -6,6 +6,8 @@ use App\Repository\CategoryRepositiry\CategoryRepositoryInterface;
 use App\Repository\CategoryRepositiry\ElequentsCategoryRepository;
 use App\Repository\MainGroupRepository\ElequentMainGroupRepository;
 use App\Repository\MainGroupRepository\MainGroupRepositoryInterface;
+use App\Repository\MenuRepository\EloquentMenuRepository;
+use App\Repository\MenuRepository\MenuRepositoryInterface;
 use App\Repository\ProductRepository\ElequentProductRepository;
 use App\Repository\ProductRepository\ProductRepositoryInterface;
 use App\Repository\ReportRepository\ElequentReportRepository;
@@ -55,6 +57,9 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class , ElequentProductRepository::class);
 
         $this->app->bind(RestrauntRepositoryInterface::class , EloquentRestrauntRepository::class);
+
+        $this->app->bind(MenuRepositoryInterface::class , EloquentMenuRepository::class);
+
 
     }
 }
