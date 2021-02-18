@@ -29,6 +29,7 @@ class AddMenuProductRequest extends FormRequest
             'price' => 'required|numeric',
             'discount' => 'required|numeric|max:99',
             'makeups' => 'required',
+            'photo' => 'required|mimes:jpeg,png,jpg',
         ];
     }
 }

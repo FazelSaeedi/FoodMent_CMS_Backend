@@ -20,7 +20,10 @@ class MenuController extends Controller
 
     public function addMenuProduct(AddMenuProductRequest $request)
     {
-        $addMenuProduct = $this->menuRepository->addProductMenu($request->productid , $request->restrauntid , $request->price , $request->discount , $request->makeups) ;
+
+
+
+        $addMenuProduct = $this->menuRepository->addProductMenu($request->productid , $request->restrauntid , $request->price , $request->discount , $request->makeups , $request->file('photo')) ;
 
 
         if ($addMenuProduct)
