@@ -6,7 +6,10 @@ namespace App\Repository\MenuRepository;
 
 use App\Models\Menu;
 use App\Models\Product;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use function Symfony\Component\Translation\t;
 
 class EloquentMenuRepository implements MenuRepositoryInterface
@@ -146,6 +149,42 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         }
 
         return $uploadStatus ;
+
+    }
+
+    public function deleteMenuProduct($menuProductId)
+    {
+
+
+        $menuRestraunt =  Menu::find($menuProductId);
+        $deleteMenuProduct = Menu::destroy(intval($menuProductId));
+
+
+        $menuRestrauntDir = "/images/{$menuRestraunt->restraunt_id}/food/{$menuProductId}" ;
+
+        if ($deleteMenuProduct)
+        {
+            if (file_exists(public_path($menuRestrauntDir))) {
+                $it = new RecursiveDirectoryIterator(public_path($menuRestrauntDir), RecursiveDirectoryIterator::SKIP_DOTS);
+                $files = new RecursiveIteratorIterator($it,
+                    RecursiveIteratorIterator::CHILD_FIRST);
+
+                foreach($files as $file) {
+                    if ($file->isDir()){
+                        rmdir($file->getRealPath());
+                    } else {
+                        unlink($file->getRealPath());
+                    }
+                }
+                rmdir(public_path($menuRestrauntDir));
+                return true;
+            }
+
+            return false ;
+        }
+
+        return false ;
+
 
     }
 }

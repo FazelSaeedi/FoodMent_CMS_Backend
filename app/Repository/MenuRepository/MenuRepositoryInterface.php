@@ -14,4 +14,6 @@ interface MenuRepositoryInterface
 
     public function uploadEditMenuProduct($restrauntId , $productMenuId , $editgalleryMenuProduct);
 
+    public function deleteMenuProduct($menuProductId);
+
 }

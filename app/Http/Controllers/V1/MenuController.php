@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddMenuProductRequest;
+use App\Http\Requests\V1\DeleteMenuProductRequest;
 use App\Http\Requests\V1\EditMenuProductRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
 use Illuminate\Http\Request;
@@ -100,9 +101,20 @@ class MenuController extends Controller
 
     }
 
-    public function deleteMenuProduct()
+    public function deleteMenuProduct(DeleteMenuProductRequest $request)
     {
-        return 'deletemenuproduct' ;
+        $deleteMenuRestraunt =  $this->menuRepository->deleteMenuProduct($request->id) ;
+
+        if ($deleteMenuRestraunt)
+        {
+            return response()->json([
+                'message' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ],409);
+        }
     }
 
     public function getRestrauntMenu()
