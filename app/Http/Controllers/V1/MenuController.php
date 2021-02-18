@@ -18,4 +18,9 @@ class MenuController extends Controller
     {
         return 'addmenuproduct' ;
     }
+
+    public function editmenuproduct()
+    {
+        return 'editmenuproduct' ;
+    }
 }
