@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddMenuProductRequest;
+use App\Http\Requests\V1\CreateMenuJsonRequest;
 use App\Http\Requests\V1\DeleteMenuProductRequest;
 use App\Http\Requests\V1\EditMenuProductRequest;
 use App\Http\Requests\V1\getRestrauntMenuTable;
@@ -192,4 +193,29 @@ class MenuController extends Controller
         return json_encode($menuJson);
 
     }
+
+
+
+    public function createMenuJson(CreateMenuJsonRequest $request)
+    {
+        $menuJson = $this->getMenuJson($request->restrauntid);
+
+        $data = [
+            'information' => [
+                'restrauntid' => 1 ,
+                'create_at' => 132654984,
+                'key' => '$851das2e12651'
+            ],
+            'data' => json_decode($menuJson)
+        ];
+
+
+        $fp = fopen("../public/images/{$request->restrauntid}/menu.json", 'w');
+        fwrite($fp, json_encode($data) );
+        fclose($fp);
+
+        return $data ;
+
+    }
+
 }
