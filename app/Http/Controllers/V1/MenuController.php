@@ -188,7 +188,8 @@ class MenuController extends Controller
             $menuJson[$value->typename][$value->maingroupname][$value->subgroupname][$value->menuId] = $value ;
          }
 
-        return response()->json($menuJson);
+
+        return json_encode($menuJson);
 
     }
 }
