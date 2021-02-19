@@ -6,9 +6,9 @@ namespace App\Repository\MenuRepository;
 
 interface MenuRepositoryInterface
 {
-    public function addProductMenu($productId , $restrauntId , $price , $discount , $makeups , $photo1 );
+    public function addProductMenu($productId , $restrauntId , $price , $discount , $makeups , $photo1 , $photo2 , $photo3 );
 
-    public function uploadAddProductMenu( $restrauntId , $productMenuId , $photo1 ) ;
+    public function uploadAddProductMenu( $restrauntId , $productMenuId , $photo1 , $photo2 , $photo3 ) ;
 
     public function editMenuProduct($menuProductId , $productId , $restrauntId , $price , $discount , $makeups , $editgalleryRestraunt );
 

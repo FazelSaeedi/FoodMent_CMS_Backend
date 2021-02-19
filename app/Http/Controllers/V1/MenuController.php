@@ -32,7 +32,7 @@ class MenuController extends Controller
 
 
 
-        $addMenuProduct = $this->menuRepository->addProductMenu($request->productid , $request->restrauntid , $request->price , $request->discount , $request->makeups , $request->file('photo')) ;
+        $addMenuProduct = $this->menuRepository->addProductMenu($request->productid , $request->restrauntid , $request->price , $request->discount , $request->makeups , $request->file('photo1') , $request->file('photo2') , $request->file('photo3')) ;
 
 
         if ($addMenuProduct)

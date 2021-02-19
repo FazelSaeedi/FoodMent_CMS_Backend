@@ -15,7 +15,7 @@ use function Symfony\Component\Translation\t;
 class EloquentMenuRepository implements MenuRepositoryInterface
 {
 
-    public function addProductMenu($productId, $restrauntId, $price, $discount, $makeups , $photo1)
+    public function addProductMenu($productId, $restrauntId, $price, $discount, $makeups , $photo1 , $photo2 , $photo3)
     {
 
         $addProductMenu = new Menu();
@@ -39,7 +39,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         if ($isProductExist->isEmpty())
             if($addProductMenu->save())
             {
-                $this->uploadAddProductMenu($restrauntId , $addProductMenu->id , $photo1 );
+                $this->uploadAddProductMenu($restrauntId , $addProductMenu->id , $photo1 , $photo2 , $photo3 );
 
                 $prodcutInfo =  DB::table('products')
                     ->join('types', 'types.id', '=', 'products.type')
@@ -79,7 +79,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     }
 
 
-    public function uploadAddProductMenu( $restrauntId , $productMenuId , $photo1 )
+    public function uploadAddProductMenu( $restrauntId , $productMenuId , $photo1 , $photo2 , $photo3 )
     {
         // Pattern
         //http://127.0.0.1:8000/images/{$restrauntId}/food/{$productMenuId}/1.jpg
@@ -88,8 +88,10 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
         // move photo
         $MP1 = $photo1->move(public_path($imagePath) , '1.jpg');
+        $MP2 = $photo2->move(public_path($imagePath) , '2.jpg');
+        $MP3 = $photo3->move(public_path($imagePath) , '3.jpg');
 
-        if ($MP1)
+        if($MP1 && $MP2 && $MP3)
             return true ;
         else
             return true ;
