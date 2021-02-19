@@ -17,6 +17,8 @@ class MenuController extends Controller
 
     protected $menuRepository ;
 
+
+
     public function __construct(MenuRepositoryInterface $menuRepository)
     {
         $this->menuRepository = $menuRepository ;
@@ -103,6 +105,8 @@ class MenuController extends Controller
 
     }
 
+
+
     public function deleteMenuProduct(DeleteMenuProductRequest $request)
     {
         $deleteMenuRestraunt =  $this->menuRepository->deleteMenuProduct($request->id) ;
@@ -118,6 +122,8 @@ class MenuController extends Controller
             ],409);
         }
     }
+
+
 
     public function getRestrauntMenuTable(getRestrauntMenuTableRequest $request )
     {
@@ -139,6 +145,7 @@ class MenuController extends Controller
         }
 
     }
+
 
 
     public function editPhotoMenuProductValidate($galleryPhoto , $gallerySrC)
@@ -166,5 +173,22 @@ class MenuController extends Controller
 
 
         return $ValidateEditMenuProductArray;
+    }
+
+
+
+    public function getMenuJson( $restrauntid )
+    {
+
+         $getRestrauntMenuTable =  $this->menuRepository->getRestrauntMenuTable($restrauntid);
+
+         $menuJson = [];
+
+        foreach ($getRestrauntMenuTable as $key => $value ){
+            $menuJson[$value->typename][$value->maingroupname][$value->subgroupname][$value->menuId] = $value ;
+         }
+
+        return response()->json($menuJson);
+
     }
 }
