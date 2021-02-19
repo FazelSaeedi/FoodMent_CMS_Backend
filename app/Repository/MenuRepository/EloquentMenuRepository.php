@@ -137,7 +137,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     {
         $imagePath = "/images/{$restrauntId}/food/{$productMenuId}/" ;
 
-        $gallery = [ 'photo1' ];
+        $gallery = [ 'photo1' , 'photo2' , 'photo3'];
 
         $uploadStatus = true ;
 

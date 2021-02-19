@@ -55,8 +55,8 @@ class MenuController extends Controller
 
 
 
-        $galleryPhoto = [$request->file('photo1')];
-        $gallerySrC   = [$request->srcphoto1 ];
+        $galleryPhoto = [$request->file('photo1') , $request->file('photo2') ,$request->file('photo3')];
+        $gallerySrC   = [$request->srcphoto1  , $request->srcphoto2  , $request->srcphoto3 ];
         $ValidateEditMenuProductArray = $this->editPhotoMenuProductValidate($galleryPhoto , $gallerySrC);
 
         $editgalleryMenuProduct = new Object_();
@@ -156,6 +156,8 @@ class MenuController extends Controller
             'status' => true ,
             'data' => [
                 'photo1' => [] ,
+                'photo2' => [] ,
+                'photo3' => [] ,
             ],
             'message' => ''
         ];
