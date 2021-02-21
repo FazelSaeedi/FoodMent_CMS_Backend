@@ -56,6 +56,7 @@
         <!-- Topnav -->
         @include('V1.partials.topnav')
         @include('V1.partials.popups.restrauntOperationPopup')
+        @include('V1.partials.popups.MenuOperationPopup')
 
         <style>
             .deactive{
@@ -82,8 +83,8 @@
                                     <h3 style="text-align: right;" class="mb-0">رستوران ها</h3>
                                 </div>
                                 <div class="col text-right" >
-                                    <a href="#!" class="btn btn-sm btn-primary  seeMenuButton deactive" onclick="collapseMenuPopup(true)" >مشاهده منو</a>
-                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePopup(true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
+                                    <a href="#!" class="btn btn-sm btn-primary  seeMenuButton deactive" onclick="collapsePage(true)" >مشاهده منو</a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePopup('container-popup' , true , 'افزودن رستوران' , 'add')" >افزودن رستوران</a>
                                 </div>
 
                             </div>
@@ -132,8 +133,8 @@
                                     <h3 style="text-align: right;" class="mb-0">منو</h3>
                                 </div>
                                 <div class="col text-right" >
-                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapseMenuPopup(false)" >بازگشت</a>
-                                    <a href="#!" class="btn btn-sm btn-primary" onclick="alert()" >افزودن محصول </a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePage(false)" >بازگشت</a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="collapsePopup('container-popup-menu' , true , 'افزودن محصول' , 'add')" >افزودن محصول </a>
                                     <a href="#!" class="btn btn-sm btn-primary" onclick="alert()" >درخواست ساخت منو جدید </a>
 
                                 </div>
@@ -441,18 +442,19 @@
 
 
 
-        function collapsePopup(status , title , submitfunction)
+        function collapsePopup( namePopup , status , title , submitfunction)
         {
+
             if (status)
             {
                 clearInputPopup()
                 changeTitlePopup(title)
                 changeSubmitOnclick(submitfunction)
-                $(".container-popup").css('display' , 'block')
-
+                changeSubmitOnclickMenu(submitfunction)
+                $("."+namePopup).css('display' , 'block')
             }
             else
-                $(".container-popup").css('display' , 'none')
+                $("."+namePopup).css('display' , 'none')
         }
 
         function clearInputPopup()
@@ -491,12 +493,12 @@
         function submitPopup(status)
         {
             if (status == 'add')
-                submitAddProductPopup()
+                submitAddRestrauntPopup()
             else if (status == 'edit')
-                submitEditProductPopup()
+                submitEditRestrauntPopup()
         }
 
-        function submitAddProductPopup()
+        function submitAddRestrauntPopup()
         {
 
             clearErrorsInPopup()
@@ -567,7 +569,7 @@
                         console.log(resp)
 
                         addRestraunt(resp.data.id , resp.data.code , resp.data.name , resp.data.address ,  resp.data.phone , restraunt_name_value  , resp.data.adminid)
-                        collapsePopup(false)
+                        collapsePopup( 'container-popup' , false)
                         AddCardHeaderAlerts( 'alert-success' , ' رستوران '+restraunt_name_value+' با موفقیت افزوده شد ' , 3000);
 
                     },
@@ -655,7 +657,7 @@
 
         }
 
-        function submitEditProductPopup()
+        function submitEditRestrauntPopup()
         {
 
             clearErrorsInPopup()
@@ -762,7 +764,7 @@
                         )
 
 
-                        collapsePopup(false)
+                        collapsePopup( 'container-popup', false)
                         AddCardHeaderAlerts( 'alert-success' , ' رستوران '+resp.data.name+' با موفقیت ویرایش شد ' , 3000)
 
                     },
@@ -804,7 +806,7 @@
 
 
 
-            collapsePopup( true , 'ویرایش رستوران' , 'edit')
+            collapsePopup( 'container-popup', true , 'ویرایش رستوران' , 'edit')
 
 
             $('#restraunt-code > input').val(code);
@@ -1202,6 +1204,8 @@
             $('#'+ id).empty();
         }
 
+
+
     </script>
 
     <script>
@@ -1260,10 +1264,13 @@
 
        });
 
+       $('.seeMenuButton').click(function (){
+           getRestrauntMenu(data.rowClickedInformation.id , 100);
+       });
 
-       function collapseMenuPopup(status)
+
+       function collapsePage(status)
        {
-
            if (status == true)
            {
                $('.menuPopup').removeClass('deactive')
@@ -1285,8 +1292,8 @@
            $("#menu_table  > tbody").append(
                "<tr class='click' id='"+id+"'>" +
                "<th><input type='checkbox' value='checked'/></th>" +
-               "<th><img onclick='deleteRow(this)' style='width: 1.375rem;' src='"+trushIconeURL+"'> </th>" +
-               "<th><img onclick='editRow(this)' style='width: 1.375rem;' src='"+editIconeURL+"'> </th>" +
+               "<th><img onclick='deleteRowMenu(this)' style='width: 1.375rem;' src='"+trushIconeURL+"'> </th>" +
+               "<th><img onclick='editRowMenu(this)' style='width: 1.375rem;' src='"+editIconeURL+"'> </th>" +
                "<th class='makeup' >"+makeup+"</th>" +
                "<th class='finalprice' >"+finalprice+"</th>" +
                "<th class='discount' >"+discount+"</th>" +
@@ -1299,11 +1306,6 @@
 
 
        }
-
-
-       $('.seeMenuButton').click(function (){
-           getRestrauntMenu(data.rowClickedInformation.id , 100);
-       });
 
        function getRestrauntMenu(restrauntid , paginationnumber)
        {
@@ -1342,6 +1344,40 @@
 
        }
 
+       function changeSubmitOnclickMenu(status)
+       {
+           // edit or add
+           $("#submit-popup-menu").attr("onclick","submitPopupMenu('"+status+"')");
+       }
+
+       function submitPopupMenu(status)
+       {
+
+           if (status == 'add')
+               submitAddMenuPopup()
+           else if (status == 'edit')
+               submitEditMenuPopup()
+       }
+
+       function submitAddMenuPopup()
+       {
+           alert('added')
+       }
+
+       function submitEditMenuPopup()
+       {
+           alert('edited')
+       }
+
+       function editRowMenu(e)
+       {
+           alert('menu edited')
+       }
+
+       function deleteRowMenu(e)
+       {
+           alert('menu delete')
+       }
 
     </script>
 @endsection

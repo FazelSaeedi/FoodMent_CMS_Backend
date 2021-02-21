@@ -56,7 +56,7 @@
 
     <div class="content-popup" dir="rtl">
 
-        <button id="close-popup" type="button" class="close" aria-label="Close" onclick="collapsePopup(false)">
+        <button id="close-popup" type="button" class="close" aria-label="Close" onclick="collapsePopup( 'container-popup', false)">
             <span style="font-size: 34px;" aria-hidden="true">&times;</span>
         </button>
 
