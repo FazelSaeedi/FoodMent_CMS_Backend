@@ -126,6 +126,7 @@ class MenuController extends Controller
 
 
 
+    // this is for create menu json
     public function getRestrauntMenuTable(getRestrauntMenuTableRequest $request )
     {
         $getRestrauntMenuTable =  $this->menuRepository->getRestrauntMenuTable($request->restrauntid);
@@ -147,6 +148,17 @@ class MenuController extends Controller
 
     }
 
+
+    // this is for CMS that return with pagination
+    public function getMenuTable( $restrauntid , $paginationnumber )
+    {
+        $restrauntMenuTable =   $this->menuRepository->getMenuTable( $restrauntid , $paginationnumber );
+
+        return response()->json([
+            'data' => $restrauntMenuTable ,
+            'message' => 'success'
+        ],200);
+    }
 
 
     public function editPhotoMenuProductValidate($galleryPhoto , $gallerySrC)

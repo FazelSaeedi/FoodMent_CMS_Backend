@@ -217,4 +217,22 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
     }
 
+    public function getMenuTable($restrauntId, $paginationnumber)
+    {
+        return DB::table('menu')
+            ->join('products', 'products.id', '=', 'menu.product_id')
+            ->join('types', 'types.id', '=', 'products.type')
+            ->join('maingroups', 'maingroups.id', '=', 'products.maingroup')
+            ->join('subgroups', 'subgroups.id', '=', 'products.subgroup')
+            ->select([
+                'menu.id as menuid' ,
+                'menu.price as menuprice' ,
+                'menu.discount as menudiscount',
+                'menu.makeup as menumakeup',
+                'products.name as productname' ,
+                'maingroups.name as maingroupname',
+                'subgroups.name as subgroupname ' ,
+            ])->where('restraunt_id' ,'=' , $restrauntId)
+            ->paginate($paginationnumber);
+    }
 }

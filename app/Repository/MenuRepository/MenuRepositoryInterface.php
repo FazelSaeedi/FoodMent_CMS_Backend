@@ -16,6 +16,11 @@ interface MenuRepositoryInterface
 
     public function deleteMenuProduct($menuProductId);
 
+    // this is for create menu json
     public function getRestrauntMenuTable( $restrauntId );
+
+
+    // this is for CMS that return with pagination
+    public function getMenuTable($restrauntId , $paginationnumber );
 
 }
