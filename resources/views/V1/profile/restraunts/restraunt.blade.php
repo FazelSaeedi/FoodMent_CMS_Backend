@@ -211,6 +211,7 @@
             getRestrauntId :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
             deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
+            getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}'
         }
 
 
@@ -1270,7 +1271,7 @@
 
        }
 
-       function addRestrauntMenu(id  , name ,type ,maingroup , subgroup  , price , discount , finalprice ,  makeup )
+       function addRestrauntMenu( id  , name ,type ,maingroup , subgroup  , price , discount , finalprice ,  makeup )
        {
 
 
@@ -1294,6 +1295,49 @@
 
 
        }
+
+
+       $('.seeMenuButton').click(function (){
+           getRestrauntMenu(data.rowClickedInformation.id , 5);
+       });
+
+       function getRestrauntMenu(restrauntid , paginationnumber)
+       {
+           emptyTable('menu_table tbody')
+
+           var menuURL = routs.getMenuRestraunt.replace('{restrauntid}' , restrauntid ).replace( '{paginationnumber}' , paginationnumber ) ;
+
+           $.ajax({
+               headers: { "Authorization": 'Bearer '+ token } ,
+               url: menuURL ,
+               contentType: "application/json" ,
+               type: 'GET' ,
+               dataType: "json",
+               success: function (resp) {
+                   // console.log(resp.data.data);
+
+                   for ( var key in resp.data.data )
+                   {
+                       var MenuItem = resp.data.data[key]
+                       var discount = MenuItem.menuprice-(( MenuItem.menuprice * MenuItem.menudiscount ) / 100)
+
+                       addRestrauntMenu(
+                           MenuItem.menuid , MenuItem.productname , MenuItem.typename ,
+                           MenuItem.maingroupname , MenuItem.subgroupname,
+                           MenuItem.menuprice , MenuItem.menudiscount ,
+                           discount , MenuItem.menumakeup
+                       );
+                   }
+
+                   // AddPagination( resp.data )
+               },
+               error: function (error) {
+                   // console.log(resp);
+               },
+           });
+
+       }
+
 
     </script>
 @endsection
