@@ -594,66 +594,6 @@
                 }
             }
 
-            /*
-                        var addProdcutIsValid = validation.isValidAddProduct(
-                            product_code_value, product_name_value ,
-                            product_type_id , product_type_Value ,
-                            product_mainGroup_id , product_mainGroup_Value ,
-                            product_subGroup_id , product_subGroup_Value
-                        )
-
-                        data ={
-                            name :product_name_value ,
-                            code :product_code_value ,
-                            type :product_type_id ,
-                            subgroup :product_subGroup_id ,
-                            maingroup :product_mainGroup_id ,
-                        } ;
-
-                        console.log(data);
-
-                        if(addProdcutIsValid.valid)
-                        {
-
-                            $.ajax({
-                                type: 'POST',
-                                headers: { "Authorization": 'Bearer '+ token } ,
-                                url: routs.addProduct,
-                                contentType: "application/json",
-                                type: 'POST',
-                                dataType: "json",
-                                data: JSON.stringify(data),
-                                success: function (resp) {
-                                    console.log(resp)
-
-                                    addProduct(
-                                        resp.data.id , resp.data.code , resp.data.name ,
-                                        product_type_Value , product_mainGroup_Value , product_subGroup_Value ,
-                                        resp.data.typeid , resp.data.maingroupid , resp.data.subgroupid
-                                    )
-
-
-                                    collapsePopup(false)
-                                    AddCardHeaderAlerts( 'alert-success' , ' گروه '+resp.data.name+' با موفقیت افزوده شد ' , 3000)
-                                },
-                                error: function (error) {
-
-                                    for ( var key in error.responseJSON.errors )
-                                    {
-                                        addErrorToPopup(error.responseJSON.errors[key][0])
-                                    }
-
-                                },
-                            });
-
-
-                        }else {
-                            for (var key in addProdcutIsValid.error)
-                            {
-                                addErrorToPopup(addProdcutIsValid.error[key])
-                            }
-                        }*/
-
 
         }
 
