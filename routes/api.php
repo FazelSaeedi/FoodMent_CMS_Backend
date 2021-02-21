@@ -110,6 +110,7 @@ Route::prefix('v1')->group(function () {
         Route::post('deletemenuproduct ' , [MenuController::class , 'deleteMenuProduct']);
         Route::post('getrestrauntmenutable ' , [MenuController::class , 'getRestrauntMenuTable']);
         Route::post('createmenujson' , [MenuController::class , 'createMenuJson']);
+        Route::get( 'getmenutable/{restrauntid}/{paginationNumber}' , [MenuController::class , 'getMenuTable']);
 
     });
 
