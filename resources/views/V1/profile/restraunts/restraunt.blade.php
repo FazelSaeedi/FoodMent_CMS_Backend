@@ -133,7 +133,11 @@
                                 </div>
                                 <div class="col text-right" >
                                     <a href="#!" class="btn btn-sm btn-primary" onclick="collapseMenuPopup(false)" >بازگشت</a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="alert()" >افزودن محصول </a>
+                                    <a href="#!" class="btn btn-sm btn-primary" onclick="alert()" >درخواست ساخت منو جدید </a>
+
                                 </div>
+
 
                             </div>
                         </div>
@@ -1298,7 +1302,7 @@
 
 
        $('.seeMenuButton').click(function (){
-           getRestrauntMenu(data.rowClickedInformation.id , 5);
+           getRestrauntMenu(data.rowClickedInformation.id , 100);
        });
 
        function getRestrauntMenu(restrauntid , paginationnumber)
