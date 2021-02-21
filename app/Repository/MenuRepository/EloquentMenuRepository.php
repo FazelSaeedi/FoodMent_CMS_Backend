@@ -230,8 +230,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
                 'menu.discount as menudiscount',
                 'menu.makeup as menumakeup',
                 'products.name as productname' ,
+                'types.name as typename' ,
                 'maingroups.name as maingroupname',
-                'subgroups.name as subgroupname ' ,
+                'subgroups.name as subgroupname' ,
             ])->where('restraunt_id' ,'=' , $restrauntId)
             ->paginate($paginationnumber);
     }
