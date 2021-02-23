@@ -213,13 +213,14 @@
         let routs = {
             getRestrauntTable :  domainWithPort +'/api/v1/restraunt/getrestraunttable/',
             getUserTable :  domainWithPort +'/api/v1/user/getusers',
-            getRestrauntId :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
+            getRestrauntphoto :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
             deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
             getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}' ,
             getProductName : domainWithPort + '/api/v1/product/getproductlist' ,
             addRestraunt  : domainWithPort + '/api/v1/restraunt/addrestraunt' ,
-            addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct'
+            addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct' ,
+            getProductPhoto : domainWithPort + '/images/{restrauntId}/food/{ProductMenuId}/{bannernumber}.jpg'
         }
 
 
@@ -485,6 +486,25 @@
             $('#restraunt-photo1 > img').hide();
             $('#restraunt-photo2 > img').hide();
             $('#restraunt-photo3 > img').hide();
+
+
+            //---
+
+            $('#menuProduct-name > input').val('');
+            $('#menuProduct-price > input').val('');
+            $('#menuProduct-discount > input').val('');
+            $('#menuProduct-makeups > input').val('');
+
+
+
+            $('#menuProduct-photo1 > input').val(null) ;
+            $('#menuProduct-photo2 > input').val(null) ;
+            $('#menuProduct-photo3 > input').val(null) ;
+
+
+            $('#menuProduct-photo1 > img').hide();
+            $('#menuProduct-photo2 > img').hide();
+            $('#menuProduct-photo3 > img').hide();
 
         }
 
@@ -768,14 +788,15 @@
 
             $('#restraunt-admin > input ' ).attr('id' , adminId);
 
-            $('#restraunt-photo1 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '1'))
+
+            $('#restraunt-photo1 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '1'))
             $('#restraunt-photo1 > img').show()
 
-            $('#restraunt-photo2 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '2'))
+            $('#restraunt-photo2 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '2'))
             $('#restraunt-photo2 > img').show()
 
 
-            $('#restraunt-photo3 > img').attr('src' , routs.getRestrauntId.replace('{restrauntId}' , trId).replace('{bannernumber}' , '3'))
+            $('#restraunt-photo3 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '3'))
             $('#restraunt-photo3 > img').show()
 
 
@@ -1595,13 +1616,60 @@
 
        function editRowMenu(e)
        {
-           alert('menu edited')
+
+
+
+           var tr = $(e).closest('tr');
+           var trId = $(e).closest('tr').attr('id');
+
+           var name = tr.find('.name').text();
+           var price = tr.find('.price').text();
+           var discount = tr.find('.discount').text();
+           var makeup = tr.find('.makeup').text();
+
+
+           var restrauntid = data.rowClickedInformation.id
+
+            console.log(name)
+
+           collapsePopup( 'container-popup-menu', true , 'ویرایش محصول' , 'edit')
+
+
+           $('#menuProduct-name > input').val(name);
+           $('#menuProduct-price > input').val(price);
+
+           $('#menuProduct-discount > input ' ).val(discount);
+           $('#menuProduct-makeups > input ' ).val(makeup);
+
+
+           $('#menu-product > input ' ).attr('id' , restrauntid);
+
+
+
+           $('#menuProduct-photo1 > img').attr('src' , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 1))
+           $('#menuProduct-photo1 > img').show()
+
+           $('#menuProduct-photo2 > img').attr('src'  , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 2))
+           $('#menuProduct-photo2 > img').show()
+
+
+           $('#menuProduct-photo3 > img').attr('src'  , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 3))
+           $('#menuProduct-photo3 > img').show()
+
+
+           $(".main-content-popup").attr("rowId",trId);
        }
 
        function deleteRowMenu(e)
        {
            alert('menu delete')
        }
+
+       function clearMenuPopup()
+       {
+
+       }
+
 
     </script>
 @endsection
