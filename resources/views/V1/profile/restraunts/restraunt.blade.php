@@ -216,7 +216,8 @@
             getRestrauntId :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
             deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
-            getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}'
+            getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}' ,
+            getProductName : domainWithPort + '/api/v1/product/getproductlist'
         }
 
 
@@ -227,12 +228,18 @@
 
         var getUsersTable = cookie.getObjectLocalStorage('usersCanBeRestrauntAdmin')
 
-        autocomplete( document.getElementById('restraunt-admin').querySelector("input") , getUsersTable )
+        autocompleteGetUserTable( document.getElementById('restraunt-admin').querySelector("input") , getUsersTable )
 
 
+        // ------------------------------------------------------------------------------------------------
 
+        getProductNameList('productsnameTabke' , routs.getProductName)
 
+        var getProductNameList = cookie.getObjectLocalStorage('productsnameTabke')
 
+        console.log(getProductNameList);
+
+        autocompleteGetProdctName( document.getElementById('menuProduct-name').querySelector("input") , getProductNameList )
 
 
 
@@ -871,7 +878,28 @@
             });
         }
 
-        function autocomplete(inp, arr) {
+
+        function getProductNameList(name , url)
+        {
+            $.ajax({
+                async : true ,
+                headers: { "Authorization": 'Bearer '+ token } ,
+                url: url ,
+                contentType: "application/json" ,
+                type: 'GET' ,
+                dataType: "json",
+                success: function (resp) {
+                    console.log(resp.data);
+                    cookie.setObjectLocalStorage(name, resp.data)
+                },
+                error: function (error) {
+                    console.log(error);
+
+                },
+            });
+        }
+
+        function autocompleteGetUserTable(inp, arr) {
 
             const isEmpty = str => !str.trim().length;
 
@@ -925,6 +953,162 @@
                         inp.value = this.getElementsByTagName("input")[0].value;
                         inp.id = this.getElementsByTagName("input")[0].id;
                         inp.setAttribute("code", this.getElementsByTagName("input")[0].getAttribute("code"));
+                        /*close the list of autocompleted values,
+                         (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+                //
+                /*for (var w in arr) {
+
+                    //alert(arr[w]['name']);
+                    /!*check if the item starts with the same letters as the text field value:*!/
+                    if (arr[w]['name'].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        /!*create a DIV element for each matching element:*!/
+                        b = document.createElement("DIV");
+                        /!*make the matching letters bold:*!/
+                        b.innerHTML = "<strong>" + arr[w]['name'].substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[w]['name'].substr(val.length);
+                        /!*insert a input field that will hold the current array item's value:*!/
+                        b.innerHTML += "<input type='hidden' id='" + arr[w]['id'] + "' value='" + arr[w]['name'] + "' code='" + arr[w]['code'] + "'>";
+                        /!*execute a function when someone clicks on the item value (DIV element):*!/
+                        b.addEventListener("click", function(e) {
+
+                            /!*insert the value for the autocomplete text field:*!/
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            inp.id = this.getElementsByTagName("input")[0].id;
+                            inp.setAttribute("code", this.getElementsByTagName("input")[0].getAttribute("code"));
+
+                            /!*close the list of autocompleted values,
+                            (or any other open lists of autocompleted values:*!/
+                            closeAllLists();
+                        });
+
+                        a.appendChild(b);
+
+                    }
+                }*/
+
+            });
+
+            /*execute a function presses a key on the keyboard:*/
+            inp.addEventListener("keydown", function(e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    /*If the arrow DOWN key is pressed,
+                    increase the currentFocus variable:*/
+                    currentFocus++;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 38) { //up
+                    /*If the arrow UP key is pressed,
+                    decrease the currentFocus variable:*/
+                    currentFocus--;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        /*and simulate a click on the "active" item:*/
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+
+
+            function addActive(x) {
+                /*a function to classify an item as "active":*/
+                if (!x) return false;
+                /*start by removing the "active" class on all items:*/
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                /*add class "autocomplete-active":*/
+                x[currentFocus].classList.add("autocomplete-active");
+            }
+
+
+            function removeActive(x) {
+                /*a function to remove the "active" class from all autocomplete items:*/
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+
+
+            function closeAllLists(elmnt) {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+
+            /*execute a function when someone clicks in the document:*/
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+
+        }
+
+        function autocompleteGetProdctName(inp, arr) {
+
+            const isEmpty = str => !str.trim().length;
+
+            /*the autocomplete function takes two arguments,
+            the text field element and an array of possible autocompleted values:*/
+            var currentFocus;
+            /*execute a function when someone writes in the text field:*/
+            inp.addEventListener("input", function(e) {
+
+                if (isEmpty(this.value))
+                {
+                    this.removeAttribute("id");
+                    this.removeAttribute("code");
+                }
+
+                var a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                if (!val) { return false;}
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items row");
+
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+
+                console.log(val)
+                let matches = Object.entries(arr).filter(([key, value]) =>  value.name.includes(val))
+                    .reduce((acc, [k, v]) =>({...acc, [k]: v}), {})
+
+
+                for (var w in matches)
+                {
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + matches[w]['name'].substr(0, val.length) + "</strong>";
+                    b.innerHTML += matches[w]['name'].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' id='" + matches[w]['id'] + "' value='" + matches[w]['name'] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+
+                    b.addEventListener("click", function(e) {
+
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        inp.id = this.getElementsByTagName("input")[0].id;
+                        inp.setAttribute("id", this.getElementsByTagName("input")[0].getAttribute("id"));
                         /*close the list of autocompleted values,
                          (or any other open lists of autocompleted values:*/
                         closeAllLists();
