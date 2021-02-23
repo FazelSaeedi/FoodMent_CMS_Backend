@@ -89,6 +89,8 @@ Route::prefix('v1')->group(function () {
         Route::get( 'getproducttable/{paginationNumber}' , [ProductController::class , 'getProductTable']);
         Route::post('deleteproduct' , [ProductController::class , 'deleteProduct']);
 
+        // just get id & name
+        Route::get('getproductlist' , [ProductController::class , 'getproductlist']);
 
     });
 

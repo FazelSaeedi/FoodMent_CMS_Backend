@@ -124,4 +124,9 @@ class ElequentProductRepository implements ProductRepositoryInterface
         $deleteProdcut = Product::destroy(intval($id));
         return $deleteProdcut ;
     }
+
+    public function getProductList()
+    {
+        return Product::all('id' , 'name');
+    }
 }

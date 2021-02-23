@@ -148,5 +148,24 @@ class ProductController extends Controller
     }
 
 
+    public function getproductlist()
+    {
+        $productList = $this->productRepository->getProductList();
+
+
+        if ($productList) {
+            return response()->json([
+                'data' => $productList ,
+                'message' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ],409);
+        }
+
+    }
+
+
 
 }
