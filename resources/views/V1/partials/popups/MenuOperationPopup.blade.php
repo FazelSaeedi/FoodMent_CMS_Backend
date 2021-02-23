@@ -104,7 +104,7 @@
 
             <button  id="submit-popup-menu" class="btn btn-default">ثبت</button>
 
-            <div id="error">
+            <div id="errorMenu">
             </div>
 
         </div>

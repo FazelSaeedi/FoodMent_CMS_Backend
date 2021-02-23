@@ -73,7 +73,7 @@
                     <div class="card">
                         <div class="card-header border-0">
 
-                            <div id="card-header-Alerts" style="text-align:center">
+                            <div id="card-header-Alerts-restraunt" style="text-align:center">
                             </div>
 
 
@@ -123,7 +123,7 @@
                     <div class="card">
                         <div class="card-header border-0">
 
-                            <div id="card-header-Alerts" style="text-align:center">
+                            <div id="card-header-Alerts-menu" style="text-align:center">
                             </div>
 
 
@@ -217,7 +217,9 @@
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
             deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
             getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}' ,
-            getProductName : domainWithPort + '/api/v1/product/getproductlist'
+            getProductName : domainWithPort + '/api/v1/product/getproductlist' ,
+            addRestraunt  : domainWithPort + '/api/v1/restraunt/addrestraunt' ,
+            addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct'
         }
 
 
@@ -265,14 +267,14 @@
                 data: JSON.stringify(data),
                 success: function (resp) {
                     console.log(resp)
-                    AddCardHeaderAlerts( 'alert-success' , 'محصول شما با موفقیت حذف گردید' , 3000)
+                    AddCardHeaderAlerts( 'alert-success' , 'محصول شما با موفقیت حذف گردید' , 3000 , 'restraunt')
                     $(`tr#${trId}`).remove();
                 },
                 error: function (error) {
                     console.log(error)
                     for ( var key in error.responseJSON.errors )
                     {
-                        AddCardHeaderAlerts( 'alert-danger' , error.responseJSON.errors[key] , 3000)
+                        AddCardHeaderAlerts( 'alert-danger' , error.responseJSON.errors[key] , 3000 , 'restraunt')
                     }
                 },
             });
@@ -568,7 +570,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: 'http://127.0.0.1:8000/api/v1/restraunt/addrestraunt',
+                    url: routs.addRestraunt ,
                     data: fd,
                     contentType: false,
                     processData: false,
@@ -577,7 +579,7 @@
 
                         addRestraunt(resp.data.id , resp.data.code , resp.data.name , resp.data.address ,  resp.data.phone , restraunt_name_value  , resp.data.adminid)
                         collapsePopup( 'container-popup' , false)
-                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+restraunt_name_value+' با موفقیت افزوده شد ' , 3000);
+                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+restraunt_name_value+' با موفقیت افزوده شد ' , 3000, 'restraunt');
 
                     },
                     error: function (error){
@@ -712,7 +714,7 @@
 
 
                         collapsePopup( 'container-popup', false)
-                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+resp.data.name+' با موفقیت ویرایش شد ' , 3000)
+                        AddCardHeaderAlerts( 'alert-success' , ' رستوران '+resp.data.name+' با موفقیت ویرایش شد ' , 3000 , 'restraunt')
 
                     },
                     error: function (error) {
@@ -840,11 +842,11 @@
 
         }
 
-        function AddCardHeaderAlerts( AlertClass  ,  message , time )
+        function AddCardHeaderAlerts( AlertClass  ,  message , time  , state)
         {
             let Randomkey = Math.random().toString(36).substring(7);
 
-            $('#card-header-Alerts').append(
+            $('#card-header-Alerts-'+state).append(
                 '<div id="'+Randomkey+'" class="alert '+AlertClass+'">' +
                 ''+message+''+
                 '<button style="float: left;" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>' +
@@ -1213,7 +1215,6 @@
 
         }
 
-
         function getRestrauntTable(paginationBatchNumber)
         {
 
@@ -1485,7 +1486,9 @@
 
        function submitAddMenuPopup()
        {
-           clearErrorsInPopup()
+           $('#errorMenu div').each(
+               function(element) { this.remove(); }
+           );
 
            var menuProduct_name_div      =   $("#menuProduct-name")       ;
            var menuProduct_price_div     =   $("#menuProduct-price")      ;
@@ -1496,9 +1499,10 @@
            var menuProduct_photo2_div    =   $("#menuProduct-photo2")     ;
            var menuProduct_photo3_div    =   $("#menuProduct-photo3")     ;
 
-
+           var restrauntId = data.rowClickedInformation.id ;
 
            var menuProduct_name_value     =  menuProduct_name_div.find("input").val()     ;
+           var menuProduct_id_value =   menuProduct_price_div.find("input").attr('id');
            var menuProduct_price_value  =  menuProduct_price_div.find("input").val()  ;
            var menuProduct_discount_value    =  menuProduct_discount_div.find("input").val()    ;
            var menuProduct_makeups_value    =  menuProduct_makeups_div.find("input").val()    ;
@@ -1511,7 +1515,6 @@
            var menuProduct_photo3_value   =  menuProduct_photo3_div.find("input").val()   ;
 
 
-
            var isValidMenuProduct = validation.isValidAddMenuProduct(
                                        menuProduct_name_value , menuProduct_price_value ,
                                        menuProduct_discount_value , menuProduct_makeups_value ,
@@ -1519,9 +1522,8 @@
                                    )
 
 
-            console.log(isValidMenuProduct);
 
-/*           if(isValidMenuProduct.valid) {
+           if(isValidMenuProduct.valid) {
 
 
                var fd = new FormData();
@@ -1535,15 +1537,55 @@
                fd.append('photo3', photo3);
 
 
-               fd.append('name', menuProduct_name_value);
+               fd.append('productid',$('#menuProduct-name').find("input").attr('id'));
+               fd.append('restrauntid', data.rowClickedInformation.id);
                fd.append('price', menuProduct_price_value);
                fd.append('discount', menuProduct_discount_value);
-               fd.append('makeup', menuProduct_makeups_value);
+               fd.append('makeups', menuProduct_makeups_value);
 
-               console.log(fd);
 
-           }*/
-           alert('added')
+
+               $.ajax({
+                   type: 'POST',
+                   headers: { "Authorization": 'Bearer '+ token } ,
+                   url: routs.addRestrauntMenu ,
+                   data: fd,
+                   contentType: false,
+                   processData: false,
+                   success: function(resp){
+                       console.log(resp.data[0])
+
+                       var finalPrice = resp.data[0].price - ((resp.data[0].price * resp.data[0].discount)/100)
+
+                       addRestrauntMenu(resp.data[0].productid , resp.data[0].productname , resp.data[0].typename ,
+                                           resp.data[0].maingroupname ,  resp.data[0].subgroupname ,
+                                           resp.data[0].price ,resp.data[0].discount, finalPrice , resp.data[0].makeup
+                       )
+
+
+                       collapsePopup( 'container-popup-menu' , false)
+                       AddCardHeaderAlerts( 'alert-success' , ' محصول '+ resp.data[0].productname +' با موفقیت افزوده شد ' , 3000 , 'menu');
+
+                   },
+                   error: function (error){
+                        console.log(error)
+                       for ( var key in error.responseJSON.errors )
+                       {
+                           var message = error.responseJSON.errors[key][0];
+                           $("#errorMenu").append("<div class='alert alert-danger' style='display: block'>"+message+"</div>")
+                       }
+
+                   }
+               });
+
+           }else {
+               for (var key in isValidMenuProduct.error)
+               {
+                    var message = isValidMenuProduct.error[key];
+                    $("#errorMenu").append("<div class='alert alert-danger' style='display: block'>"+message+"</div>")
+
+               }
+           }
        }
 
        function submitEditMenuPopup()
