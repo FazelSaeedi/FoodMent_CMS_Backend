@@ -1301,6 +1301,64 @@
 
        function submitAddMenuPopup()
        {
+           clearErrorsInPopup()
+
+           var menuProduct_name_div      =   $("#menuProduct-name")       ;
+           var menuProduct_price_div     =   $("#menuProduct-price")      ;
+           var menuProduct_discount_div  =   $("#menuProduct-discount")   ;
+           var menuProduct_makeups_div   =   $("#menuProduct-makeups")    ;
+
+           var menuProduct_photo1_div    =   $("#menuProduct-photo1")     ;
+           var menuProduct_photo2_div    =   $("#menuProduct-photo2")     ;
+           var menuProduct_photo3_div    =   $("#menuProduct-photo3")     ;
+
+
+
+           var menuProduct_name_value     =  menuProduct_name_div.find("input").val()     ;
+           var menuProduct_price_value  =  menuProduct_price_div.find("input").val()  ;
+           var menuProduct_discount_value    =  menuProduct_discount_div.find("input").val()    ;
+           var menuProduct_makeups_value    =  menuProduct_makeups_div.find("input").val()    ;
+
+
+
+
+           var menuProduct_photo1_value   =  menuProduct_photo1_div.find("input").val()   ;
+           var menuProduct_photo2_value   =  menuProduct_photo2_div.find("input").val()   ;
+           var menuProduct_photo3_value   =  menuProduct_photo3_div.find("input").val()   ;
+
+
+
+           var isValidMenuProduct = validation.isValidAddMenuProduct(
+                                       menuProduct_name_value , menuProduct_price_value ,
+                                       menuProduct_discount_value , menuProduct_makeups_value ,
+                                       menuProduct_photo1_value ,menuProduct_photo2_value , menuProduct_photo3_value
+                                   )
+
+
+            console.log(isValidMenuProduct);
+
+/*           if(isValidMenuProduct.valid) {
+
+
+               var fd = new FormData();
+
+               var photo1 = $(menuProduct_photo1_div.find("input"))[0].files[0];
+               var photo2 = $(menuProduct_photo2_div.find("input"))[0].files[0];
+               var photo3 = $(menuProduct_photo3_div.find("input"))[0].files[0];
+
+               fd.append('photo1', photo1);
+               fd.append('photo2', photo2);
+               fd.append('photo3', photo3);
+
+
+               fd.append('name', menuProduct_name_value);
+               fd.append('price', menuProduct_price_value);
+               fd.append('discount', menuProduct_discount_value);
+               fd.append('makeup', menuProduct_makeups_value);
+
+               console.log(fd);
+
+           }*/
            alert('added')
        }
 

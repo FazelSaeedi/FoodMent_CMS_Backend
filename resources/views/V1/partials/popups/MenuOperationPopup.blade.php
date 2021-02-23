@@ -64,24 +64,42 @@
 
             <h2 id="menu-title-popup" style="text-align: center ; margin-bottom: 2.0rem;"></h2>
 
-            <div id="menu-name" class="form-group" >
+            <div id="menuProduct-name" class="form-group" >
                 <div style="text-align: center;"><label  style="margin-bottom: 2.0rem;"> نام محصول  </label></div>
                 <input  type="text" class="form-control"  placeholder="نام محصول را وارد کنید" >
             </div>
 
-            <div id="menu-price" class="form-group" >
+            <div id="menuProduct-price" class="form-group" >
                 <div style="text-align: center;"><label  style="margin-bottom: 2.0rem;"> قیمت  </label></div>
                 <input  type="text" class="form-control"  placeholder="قیمت محصول را وارد کنید" >
             </div>
 
-            <div id="menu-discount" class="form-group" >
+            <div id="menuProduct-discount" class="form-group" >
                 <div style="text-align: center;"><label  style="margin-bottom: 2.0rem;"> تخفیف  </label></div>
                 <input  type="text" class="form-control"  placeholder="تخفیف محصول را وارد کنید" >
             </div>
 
-            <div id="menu-makeups" class="form-group" >
+            <div id="menuProduct-makeups" class="form-group" >
                 <div style="text-align: center;"><label  style="margin-bottom: 2.0rem;"> مواد تشکیل دهنده  </label></div>
                 <input  type="text" class="form-control"  placeholder="تخفیف محصول را وارد کنید" >
+            </div>
+
+            <div id="menuProduct-photo1" class="form-group" >
+                <label >عکس اول</label>
+                <input type="file" class="form-control-file" >
+                <img  src="#/" style="width: 100px; height: 100px">
+            </div>
+
+            <div id="menuProduct-photo2" class="form-group" >
+                <label >عکس دوم</label>
+                <input type="file" class="form-control-file" >
+                <img  src="#/" style="width: 100px; height: 100px">
+            </div>
+
+            <div id="menuProduct-photo3" class="form-group" >
+                <label >عکس سوم</label>
+                <input type="file" class="form-control-file" >
+                <img  src="#/" style="width: 100px; height: 100px">
             </div>
 
             <button  id="submit-popup-menu" class="btn btn-default">ثبت</button>

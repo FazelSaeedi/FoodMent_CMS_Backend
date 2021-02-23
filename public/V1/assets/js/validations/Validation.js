@@ -363,6 +363,73 @@ class Validation
     }
 
 
+    isValidAddMenuProduct (name , price , discount  , makeups , image1 , image2  , image3)
+    {
+        var validation = {
+            valid: true ,
+            error: {
+
+            },
+        };
+
+
+        if(name.length < 1)
+        {
+            validation.error.nameLenght = "لطفا نام را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+        if(price.length < 1 )
+        {
+            validation.error.priceLenght = "لطفا قیمت را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+        if(discount.length < 1 )
+        {
+            validation.error.discountLenght = "لطفا درصد تخفیف را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (discount.length > 2)
+        {
+            validation.error.discountIsnotPercent = "لطفا درصد تخفیف را به صورت صحیح وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if(makeups.length < 1)
+        {
+            validation.error.makeupsLenght = "لطفا مواد تشکیل دهنده را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+
+
+        if (!this.isValidAddRestrauntPhoto(image1))
+        {
+            validation.error.photo1Invalid = "لطفا فایل اول را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (!this.isValidAddRestrauntPhoto(image2))
+        {
+            validation.error.photo2Invalid = "لطفا فایل دوم را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if (!this.isValidAddRestrauntPhoto(image3))
+        {
+            validation.error.photo3Invalid = "لطفا فایل سوم را با پسوند jpg , png وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        return validation
+    }
+
+
 
     isNumber(n)
     {
