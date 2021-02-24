@@ -230,20 +230,17 @@
 
         getTables('usersCanBeRestrauntAdmin' , routs.getUserTable )
 
-        var getUsersTable = cookie.getObjectLocalStorage('usersCanBeRestrauntAdmin')
-
-        autocompleteGetUserTable( document.getElementById('restraunt-admin').querySelector("input") , getUsersTable )
+        var getUsersTable = {
+        }
 
 
         // ------------------------------------------------------------------------------------------------
 
         getProductNameList('productsnameTabke' , routs.getProductName)
 
-        var getProductNameList = cookie.getObjectLocalStorage('productsnameTabke')
+        var getProductNameList = {
 
-        console.log(getProductNameList);
-
-        autocompleteGetProdctName( document.getElementById('menuProduct-name').querySelector("input") , getProductNameList )
+        }
 
 
 
@@ -989,7 +986,7 @@
         {
 
             $.ajax({
-                async : true ,
+                // async : true ,
                 headers: { "Authorization": 'Bearer '+ token } ,
                 url: url ,
                 contentType: "application/json" ,
@@ -998,6 +995,10 @@
                 success: function (resp) {
                     console.log(resp.data);
                     cookie.setObjectLocalStorage(name, resp.data)
+
+                    getUsersTable = cookie.getObjectLocalStorage('usersCanBeRestrauntAdmin')
+                    autocompleteGetUserTable( document.getElementById('restraunt-admin').querySelector("input") , getUsersTable )
+
                 },
                 error: function (error) {
                      console.log(error);
@@ -1010,7 +1011,7 @@
         function getProductNameList(name , url)
         {
             $.ajax({
-                async : true ,
+                // async : true ,
                 headers: { "Authorization": 'Bearer '+ token } ,
                 url: url ,
                 contentType: "application/json" ,
@@ -1019,6 +1020,9 @@
                 success: function (resp) {
                     console.log(resp.data);
                     cookie.setObjectLocalStorage(name, resp.data)
+
+                    getProductNameList  = cookie.getObjectLocalStorage('productsnameTabke')
+                    autocompleteGetProdctName( document.getElementById('menuProduct-name').querySelector("input") , getProductNameList )
                 },
                 error: function (error) {
                     console.log(error);
