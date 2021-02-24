@@ -36,12 +36,14 @@ class ArtisanCommand extends Controller
 
     public function migrate()
     {
+        $this->optimize();
     	return Artisan::call('migrate');
     }
 
 
     public function remigrate()
     {
+        $this->optimize();
         Artisan::call('migrate:fresh');
     }
 
