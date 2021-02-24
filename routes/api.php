@@ -156,6 +156,7 @@ Route::prefix('v1')->group(function () {
 
         Route::get('initialize'  , [ArtisanCommand::class , 'initialize']);
         Route::get('reinitialize'  , [ArtisanCommand::class , 'reInitialize']);
+        Route::get('optimize'  , [ArtisanCommand::class , 'optimize']);
 
     });
 

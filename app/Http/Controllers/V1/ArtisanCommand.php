@@ -58,4 +58,14 @@ class ArtisanCommand extends Controller
         $setUserPassword = $this->userRepository->setUserPassword($phoneNumber , $hashPassword);
         return 'done';
     }
+
+    public function optimize()
+    {
+        Artisan::call('cache:clear');
+        Artisan::call('optimize');
+        Artisan::call('route:cache');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+        Artisan::call('config:cache');
+    }
 }
