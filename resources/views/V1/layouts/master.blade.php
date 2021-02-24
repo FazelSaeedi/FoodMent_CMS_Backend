@@ -30,6 +30,7 @@
     @yield('content')
     <!-- Argon Scripts -->
     <!-- Core -->
+    <script src="{{$url}}/V1/assets/js/Router.js"></script>
     <script src="{{$url}}/V1/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="{{$url}}/V1/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{$url}}/V1/assets/vendor/js-cookie/js.cookie.js"></script>
