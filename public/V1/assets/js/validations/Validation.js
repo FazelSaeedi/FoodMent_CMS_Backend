@@ -429,7 +429,37 @@ class Validation
         return validation
     }
 
+    isValidEditMenu ( price , discount , makeups )
+    {
+        var validation = {
+            valid: true ,
+            error: {
 
+            },
+        };
+
+
+        if(price.length < 1)
+        {
+            validation.error.priceIdLenght = "لطفا مبلغ را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if(discount.length < 1)
+        {
+            validation.error.discountLenght = "لطفا درصد تخفیف را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+        if(makeups.length < 1)
+        {
+            validation.error.makeupsLenght = "لطفا موادتشکیل دهنده را وارد نمایید" ;
+            validation.valid = false ;
+        }
+
+
+        return validation
+    }
 
     isNumber(n)
     {
