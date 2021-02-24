@@ -220,7 +220,8 @@
             getProductName : domainWithPort + '/api/v1/product/getproductlist' ,
             addRestraunt  : domainWithPort + '/api/v1/restraunt/addrestraunt' ,
             addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct' ,
-            getProductPhoto : domainWithPort + '/images/{restrauntId}/food/{ProductMenuId}/{bannernumber}.jpg'
+            getProductPhoto : domainWithPort + '/images/{restrauntId}/food/{ProductMenuId}/{bannernumber}.jpg' ,
+            editMenuRestraunt : domainWithPort + '/api/v1/menu/editmenuproduct'
         }
 
 
@@ -256,7 +257,7 @@
 
 
 
-            data ={id : trId };
+            var data ={id : trId };
 
             $.ajax({
                 type: 'POST',
@@ -451,6 +452,110 @@
         })
 
 
+        $('#menuProduct-photo1').find("input").change(function(){
+
+            var isValidateExtention = validation.isValidAddRestrauntPhoto(this.value);
+            var parent_div = $(this).parent() ;
+            var img = parent_div.find("img") ;
+
+            console.log(parent_div.find("img"))
+            if(isValidateExtention)
+            {
+
+                $("#add-secondFile-input .alert").hide();
+
+                var fd = new FormData();
+                var reader = new FileReader();
+
+                var files = $(this)[0].files[0]
+                // fd.append('image2' , files);
+
+                reader.onload = function(e) {
+                    $(img).attr('src', e.target.result);
+                    $(img).css("display", 'block');
+
+                }
+                reader.readAsDataURL(files);
+            }
+            else
+            {
+                //add_form_popup_RestrauntValidation.component["add-file2"] = false ;
+                $(this).val("");
+                $(img).css("display", 'none');
+                $("#add-secondFile-input .alert").show();
+            }
+
+        })
+
+        $('#menuProduct-photo2').find("input").change(function(){
+
+            var isValidateExtention = validation.isValidAddRestrauntPhoto(this.value);
+            var parent_div = $(this).parent() ;
+            var img = parent_div.find("img") ;
+
+            console.log(parent_div.find("img"))
+            if(isValidateExtention)
+            {
+
+                $("#add-secondFile-input .alert").hide();
+
+                var fd = new FormData();
+                var reader = new FileReader();
+
+                var files = $(this)[0].files[0]
+                // fd.append('image2' , files);
+
+                reader.onload = function(e) {
+                    $(img).attr('src', e.target.result);
+                    $(img).css("display", 'block');
+
+                }
+                reader.readAsDataURL(files);
+            }
+            else
+            {
+                //add_form_popup_RestrauntValidation.component["add-file2"] = false ;
+                $(this).val("");
+                $(img).css("display", 'none');
+                $("#add-secondFile-input .alert").show();
+            }
+
+        })
+
+        $('#menuProduct-photo3').find("input").change(function(){
+
+            var isValidateExtention = validation.isValidAddRestrauntPhoto(this.value);
+            var parent_div = $(this).parent() ;
+            var img = parent_div.find("img") ;
+
+            console.log(parent_div.find("img"))
+            if(isValidateExtention)
+            {
+
+                $("#add-secondFile-input .alert").hide();
+
+                var fd = new FormData();
+                var reader = new FileReader();
+
+                var files = $(this)[0].files[0]
+                // fd.append('image2' , files);
+
+                reader.onload = function(e) {
+                    $(img).attr('src', e.target.result);
+                    $(img).css("display", 'block');
+
+                }
+                reader.readAsDataURL(files);
+            }
+            else
+            {
+                //add_form_popup_RestrauntValidation.component["add-file2"] = false ;
+                $(this).val("");
+                $(img).css("display", 'none');
+                $("#add-secondFile-input .alert").show();
+            }
+
+        })
 
         function collapsePopup( namePopup , status , title , submitfunction)
         {
@@ -670,7 +775,7 @@
 
             console.log(editRestrauntValidation);
 
-            data = {
+           var data = {
                 id : restraunt_id ,
                 name:restraunt_name_value,
                 code:restraunt_code_value,
@@ -1412,6 +1517,7 @@
 
        $('.seeMenuButton').click(function (){
            getRestrauntMenu(data.rowClickedInformation.id , 100);
+           $('.main-content-popup').attr('restrauntid' , data.rowClickedInformation.id)
        });
 
 
@@ -1428,7 +1534,7 @@
 
        }
 
-       function addRestrauntMenu( id  , name ,type ,maingroup , subgroup  , price , discount , finalprice ,  makeup )
+       function addRestrauntMenu( id , productId , name ,type ,maingroup , subgroup  , price , discount , finalprice ,  makeup )
        {
 
 
@@ -1447,7 +1553,7 @@
                "<th class='subgroup' >"+subgroup+"</th>" +
                "<th class='maingroup'>"+maingroup+"</th>" +
                "<th class='type'>"+type+"</th>" +
-               "<th class='name'>"+name+"</th>" +
+               "<th class='name' id='"+productId+"'>"+name+"</th>" +
                "</tr>")
 
 
@@ -1472,9 +1578,9 @@
                    {
                        var MenuItem = resp.data.data[key]
                        var discount = MenuItem.menuprice-(( MenuItem.menuprice * MenuItem.menudiscount ) / 100)
-
+                        console.log(MenuItem)
                        addRestrauntMenu(
-                           MenuItem.menuid , MenuItem.productname , MenuItem.typename ,
+                           MenuItem.menuid , MenuItem.productid , MenuItem.productname , MenuItem.typename ,
                            MenuItem.maingroupname , MenuItem.subgroupname,
                            MenuItem.menuprice , MenuItem.menudiscount ,
                            discount , MenuItem.menumakeup
@@ -1578,7 +1684,7 @@
 
                        var finalPrice = resp.data[0].price - ((resp.data[0].price * resp.data[0].discount)/100)
 
-                       addRestrauntMenu(resp.data[0].productid , resp.data[0].productname , resp.data[0].typename ,
+                       addRestrauntMenu(resp.data[0].id , resp.data[0].productid , resp.data[0].productname , resp.data[0].typename ,
                                            resp.data[0].maingroupname ,  resp.data[0].subgroupname ,
                                            resp.data[0].price ,resp.data[0].discount, finalPrice , resp.data[0].makeup
                        )
@@ -1611,18 +1717,136 @@
 
        function submitEditMenuPopup()
        {
-           alert('edited')
+           $('#errorMenu div').each(
+               function(element) { this.remove(); }
+           );
+
+           var menuProduct_name_div      =   $("#menuProduct-name")       ;
+           var menuProduct_price_div     =   $("#menuProduct-price")      ;
+           var menuProduct_discount_div  =   $("#menuProduct-discount")   ;
+           var menuProduct_makeups_div   =   $("#menuProduct-makeups")    ;
+           var menuProduct_photo1_div    =   $("#menuProduct-photo1")     ;
+           var menuProduct_photo2_div    =   $("#menuProduct-photo2")     ;
+           var menuProduct_photo3_div    =   $("#menuProduct-photo3")     ;
+
+           var menuProduct_menuId            =  $(".main-content-popup").attr('rowid');
+           var menuProduct_productId         =  menuProduct_name_div.find("input").attr('id')     ;
+           var restrauntId                   =  $(".main-content-popup").attr('restrauntid')   ;
+           var menuProduct_price_value       =  menuProduct_price_div.find("input").val()           ;
+           var menuProduct_discount_value    =  menuProduct_discount_div.find("input").val()        ;
+           var menuProduct_makeups_value     =  menuProduct_makeups_div.find("input").val()         ;
+
+           var menuProduct_photo1 =    menuProduct_photo1_div.find("input").val()   ;
+           var menuProduct_photo2 =    menuProduct_photo2_div.find("input").val()   ;
+           var menuProduct_photo3 =    menuProduct_photo3_div.find("input").val()   ;
+
+
+
+           var menuProduct_img1   =  $('#menuProduct-photo1 > img').attr("src")    ;
+           var menuProduct_img2   =  $('#menuProduct-photo2 > img').attr("src")   ;
+           var menuProduct_img3   =  $('#menuProduct-photo3 > img').attr("src")   ;
+
+
+           var editMenuRestrauntValidation = validation.isValidEditMenu(menuProduct_price_value ,menuProduct_discount_value , menuProduct_makeups_value)
+
+           console.log(editMenuRestrauntValidation);
+
+           var data = {
+               id : menuProduct_menuId ,
+               productid:menuProduct_productId,
+               restrauntid:restrauntId,
+               price : menuProduct_price_value ,
+               discount : menuProduct_discount_value ,
+               makeups : menuProduct_makeups_value,
+           };
+
+
+
+            if(editMenuRestrauntValidation.valid)
+            {
+                var fd = new FormData();
+
+                var photo1 = $(menuProduct_photo1_div.find("input"))[0].files[0];
+                var photo2 = $(menuProduct_photo2_div.find("input"))[0].files[0];
+                var photo3 = $(menuProduct_photo3_div.find("input"))[0].files[0];
+
+
+                if (menuProduct_photo1)
+                    fd.append('photo1',photo1);
+                else
+                    fd.append('srcphoto1' , menuProduct_img1)
+
+
+                if (menuProduct_photo2)
+                    fd.append('photo2',photo2);
+                else
+                    fd.append('srcphoto2' , menuProduct_img2)
+
+
+                if (menuProduct_photo3)
+                    fd.append('photo3',photo3);
+                else
+                    fd.append('srcphoto3' , menuProduct_img3)
+
+
+
+                fd.append('id',    menuProduct_menuId );
+                fd.append('productid',    menuProduct_productId );
+                fd.append('restrauntid',    restrauntId );
+                fd.append('price', menuProduct_price_value );
+                fd.append('discount',   menuProduct_discount_value );
+                fd.append('makeups',   menuProduct_makeups_value );
+
+                $.ajax({
+                    type: 'POST',
+                    headers: { "Authorization": 'Bearer '+ token } ,
+                    url: routs.editMenuRestraunt,
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(resp){
+
+                        console.log(resp.data)
+                        var response = resp
+                        editMenuProductRow(
+                            response.data.id ,response.data.productname , response.data.productid ,
+                            response.data.typename ,response.data.maingroupname , response.data.subgroupname ,
+                            response.data.price ,response.data.discount , response.data.finalprice ,
+                            response.data.makeup
+                        )
+                        collapsePopup( 'container-popup-menu' , false)
+                        AddCardHeaderAlerts( 'alert-success' , ' محصول  با موفقیت ویرایش شد ' , 3000 , 'menu');
+
+                    },
+                    error: function (error) {
+
+                        console.log(error)
+
+                        for ( var key in error.responseJSON.errors )
+                        {
+                            addErrorToPopup(error.responseJSON.errors[key])
+                        }
+
+                    },
+                });
+
+            }else {
+                for (var key in editMenuRestrauntValidation.error)
+                {
+                    var message = editMenuRestrauntValidation.error[key];
+                    $("#errorMenu").append("<div class='alert alert-danger' style='display: block'>"+message+"</div>")
+                }
+            }
+
        }
 
        function editRowMenu(e)
        {
-
-
-
            var tr = $(e).closest('tr');
            var trId = $(e).closest('tr').attr('id');
 
            var name = tr.find('.name').text();
+           var nameId = tr.find('.name').attr('id');
            var price = tr.find('.price').text();
            var discount = tr.find('.discount').text();
            var makeup = tr.find('.makeup').text();
@@ -1630,19 +1854,20 @@
 
            var restrauntid = data.rowClickedInformation.id
 
-            console.log(name)
+           console.log(nameId)
 
            collapsePopup( 'container-popup-menu', true , 'ویرایش محصول' , 'edit')
 
 
            $('#menuProduct-name > input').val(name);
+           $('#menuProduct-name > input').attr('id' , nameId);
            $('#menuProduct-price > input').val(price);
 
            $('#menuProduct-discount > input ' ).val(discount);
            $('#menuProduct-makeups > input ' ).val(makeup);
 
 
-           $('#menu-product > input ' ).attr('id' , restrauntid);
+           //$('#menu-product > input ' ).attr('id' , restrauntid);
 
 
 
@@ -1658,6 +1883,8 @@
 
 
            $(".main-content-popup").attr("rowId",trId);
+
+
        }
 
        function deleteRowMenu(e)
@@ -1665,8 +1892,33 @@
            alert('menu delete')
        }
 
-       function clearMenuPopup()
+       function editMenuProductRow( rowId  , productName, productId , typeName , mainGroupName , subGroupName  , price , discount , finalPrice , makeup )
        {
+            console.log(rowId)
+            console.log(productName)
+            console.log(productId)
+            console.log(typeName)
+            console.log(mainGroupName)
+            console.log(subGroupName)
+            console.log(price)
+            console.log(discount)
+            console.log(finalPrice)
+            console.log(makeup)
+
+           var table = $('#menu_table');
+           var tbody = table.find('tbody');
+           var tr = tbody.find('#'+rowId);
+
+           console.log(tr)
+           var nameth = tr.find('.name').text(productName.toString()).attr('id' , productId);
+           var typeth = tr.find('.type').text(typeName.toString());
+           var maingroupth = tr.find('.maingroup').text(mainGroupName.toString());
+           var subgroupth = tr.find('.subgroup').text(subGroupName.toString());
+           var price = tr.find('.price').text(price.toString());
+           var discount = tr.find('.discount').text(discount.toString());
+           var finalprice = tr.find('.finalprice').text(finalPrice.toString());
+           var makeup = tr.find('.makeup').text(makeup.toString());
+
 
        }
 
