@@ -6,9 +6,20 @@ class Router
 
     ROUTS = {
 
+        home :{
+            home : '/v1/profile/home',
+        } ,
+
+
         type : {
             gettype : 'gettype'
-        }
+        },
+
+
+        auth : {
+            login : '/api/v1/user/login'
+        },
+
 
     }
 
