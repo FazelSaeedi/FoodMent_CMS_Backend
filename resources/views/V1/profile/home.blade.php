@@ -48,11 +48,12 @@
         var token = cookie.getCookie('token') ;
         let ajax = new Ajax(token);
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+        var GlobalRouter = new Router(domainWithPort);
 
         // check cookie and token for get Information
         if(token == "")
         {
-            window.location.href = domainWithPort+"/v1/auth/login";
+            window.location.href = GlobalRouter.Rout('auth' , 'login');
         }else{
             if(!ajax.checkToken())
                 cookie.logout()
