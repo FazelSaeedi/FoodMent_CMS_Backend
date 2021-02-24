@@ -143,6 +143,13 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'success'
             ],200);
+        }else{
+            return response()->json([
+                'message' => 'fail',
+                'errors' => [
+                    'isExistinMenuRestraunt' => 'محصول شما در منو یکی از رستوران ها مورد استفاده قرار گرفته است'
+                ]
+            ],409);
         }
 
     }

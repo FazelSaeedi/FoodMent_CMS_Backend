@@ -3,8 +3,11 @@
 namespace App\Repository\ProductRepository;
 
 
+use App\Models\Menu;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ElequentProductRepository implements ProductRepositoryInterface
 {
@@ -121,8 +124,14 @@ class ElequentProductRepository implements ProductRepositoryInterface
 
     public function deleteProduct($id)
     {
-        $deleteProdcut = Product::destroy(intval($id));
-        return $deleteProdcut ;
+        $existMenuItenByThisProductId = Menu::where('product_id', '=', $id )->exists();
+
+        if ($existMenuItenByThisProductId)
+            return false;
+        else{
+            return Product::destroy(intval($id));
+        }
+
     }
 
     public function getProductList()
