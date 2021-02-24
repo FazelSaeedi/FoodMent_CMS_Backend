@@ -20,7 +20,8 @@ class Router
 
 
         auth : {
-            login : '/api/v1/user/login'
+            APIlogin : '/api/v1/user/login' ,
+            login : '/v1/auth/login'
         },
 
 

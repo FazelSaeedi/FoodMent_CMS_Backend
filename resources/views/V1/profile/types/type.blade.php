@@ -106,18 +106,14 @@
 
 
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+        var GlobalRouter = new Router(domainWithPort);
 
-        let routs = {
-            gettypestable:  domainWithPort +'/api/v1/category/gettypestable/' ,
-            addtype:        domainWithPort +'/api/v1/category/addtype' ,
-            edittype:       domainWithPort +'/api/v1/category/edittype' ,
-            deletetype:     domainWithPort +'/api/v1/category/deletetype' ,
-        }
+
 
 
         // check cookie and token for get Information
         if(token == "")
-            window.location.href = domainWithPort+"/v1/auth/login";
+            window.location.href = GlobalRouter.Rout('auth' , 'login');
         else
         {
             if(!ajax.checkToken())
@@ -191,7 +187,7 @@
 
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.gettypestable +paginationBatchNumber ,
+                url: GlobalRouter.Rout('type' , 'gettypestable') + paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",
@@ -251,7 +247,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.deletetype,
+                    url: GlobalRouter.Rout('type' , 'deletetype'),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -373,7 +369,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.addtype,
+                    url: GlobalRouter.Rout('type' , 'addtype'),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -423,7 +419,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.edittype ,
+                    url: GlobalRouter.Rout('type' , 'edittype') ,
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
