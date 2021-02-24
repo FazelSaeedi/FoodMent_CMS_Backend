@@ -119,7 +119,7 @@
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
-                    url: GlobalRouter.Rout('auth' , 'login') ,
+                    url: GlobalRouter.Rout('auth' , 'APIlogin') ,
                     success: function(resultData) {  chertopert = resultData } ,
                     error: function(data){
                         // console.log(data.responseJSON);

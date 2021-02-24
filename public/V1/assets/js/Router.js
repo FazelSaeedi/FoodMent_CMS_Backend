@@ -12,7 +12,10 @@ class Router
 
 
         type : {
-            gettype : 'gettype'
+            gettypestable : '/api/v1/category/gettypestable/',
+            addtype : '/api/v1/category/addtype' ,
+            edittype : '/api/v1/category/edittype' ,
+            deletetype: '/api/v1/category/deletetype' ,
         },
 
 
