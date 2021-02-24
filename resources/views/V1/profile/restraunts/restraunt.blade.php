@@ -221,7 +221,8 @@
             addRestraunt  : domainWithPort + '/api/v1/restraunt/addrestraunt' ,
             addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct' ,
             getProductPhoto : domainWithPort + '/images/{restrauntId}/food/{ProductMenuId}/{bannernumber}.jpg' ,
-            editMenuRestraunt : domainWithPort + '/api/v1/menu/editmenuproduct'
+            editMenuRestraunt : domainWithPort + '/api/v1/menu/editmenuproduct' ,
+            deleteMenuProduct : domainWithPort + '/api/v1/menu/deletemenuproduct'
         }
 
 
@@ -1893,7 +1894,34 @@
 
        function deleteRowMenu(e)
        {
-           alert('menu delete')
+           var tr = $(e).closest('tr');
+           var trId = $(e).closest('tr').attr('id');
+
+
+           var data ={id : trId };
+
+           $.ajax({
+               type: 'POST',
+               headers: { "Authorization": 'Bearer '+ token } ,
+               url: routs.deleteMenuProduct,
+               contentType: "application/json",
+               type: 'POST',
+               dataType: "json",
+               data: JSON.stringify(data),
+               success: function (resp) {
+                   console.log(resp)
+                   AddCardHeaderAlerts( 'alert-success' , 'آیتم منو شما با موفقیت حذف گردید' , 3000 , 'restraunt')
+                   $(`tr#${trId}`).remove();
+               },
+               error: function (error) {
+                   console.log(error)
+                   for ( var key in error.responseJSON.errors )
+                   {
+                       AddCardHeaderAlerts( 'alert-danger' , error.responseJSON.errors[key] , 3000 , 'restraunt')
+                   }
+               },
+           });
+           console.log(trId)
        }
 
        function editMenuProductRow( rowId  , productName, productId , typeName , mainGroupName , subGroupName  , price , discount , finalPrice , makeup )
