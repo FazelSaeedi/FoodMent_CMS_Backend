@@ -230,6 +230,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface
                 'menu.discount as menudiscount',
                 'menu.makeup as menumakeup',
                 'products.name as productname' ,
+                'menu.product_id as productid' ,
                 'types.name as typename' ,
                 'maingroups.name as maingroupname',
                 'subgroups.name as subgroupname' ,
