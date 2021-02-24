@@ -23,4 +23,6 @@ interface MenuRepositoryInterface
     // this is for CMS that return with pagination
     public function getMenuTable($restrauntId , $paginationnumber );
 
+    public function getJoinAbleMenuProduct( $menuProductId );
+
 }

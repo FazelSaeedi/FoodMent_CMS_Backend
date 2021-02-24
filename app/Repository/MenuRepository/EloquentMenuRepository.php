@@ -109,6 +109,8 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         $editMenuProduct->discount = $discount ;
         $editMenuProduct->makeup = $makeups ;
 
+        $getJoinableMenuProduct =  $this->getJoinAbleMenuProduct($menuProductId);
+
         if($editMenuProduct->save())
         {
             $uploadPhoto = $this->uploadEditMenuProduct($restrauntId , $menuProductId , $editgalleryRestraunt);
@@ -122,6 +124,11 @@ class EloquentMenuRepository implements MenuRepositoryInterface
                     'price' => $editMenuProduct->price ,
                     'discount' => $editMenuProduct->discount ,
                     'makeup' => $editMenuProduct->makeup ,
+                    'productname' => $getJoinableMenuProduct[0]->productname ,
+                    'typename' => $getJoinableMenuProduct[0]->typename ,
+                    'maingroupname' => $getJoinableMenuProduct[0]->maingroupname ,
+                    'subgroupname' => $getJoinableMenuProduct[0]->subgroupname ,
+                    'finalprice' => $getJoinableMenuProduct[0]->finalprice ,
                 ];
             }
             else
@@ -236,5 +243,27 @@ class EloquentMenuRepository implements MenuRepositoryInterface
                 'subgroups.name as subgroupname' ,
             ])->where('restraunt_id' ,'=' , $restrauntId)
             ->paginate($paginationnumber);
+    }
+
+    public function getJoinAbleMenuProduct($menuProductId)
+    {
+        return DB::select(
+            "select
+                        `menu`.`id`  as `menuId`,
+                        `products`.`name` as `productname`,
+                        `types`.`name` as `typename`,
+                        `maingroups`.`name` as `maingroupname`,
+                        `subgroups`.`name` as `subgroupname` ,
+                        `menu`.`price` - ((`menu`.`price` * `menu`.`discount`)/100) as `finalprice`
+
+                    from `menu`
+
+                    inner join `products` on `products`.`id` = `menu`.`product_id`
+                    inner join `types` on `types`.`id` = `products`.`type`
+                    inner join `maingroups` on `maingroups`.`id` = `products`.`maingroup`
+                    inner join `subgroups` on `subgroups`.`id` = `products`.`subgroup`
+
+                    WHERE `menu`.`id` = ?"
+            , ["{$menuProductId}"]);
     }
 }
