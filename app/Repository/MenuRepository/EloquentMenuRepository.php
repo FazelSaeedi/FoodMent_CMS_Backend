@@ -109,10 +109,11 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         $editMenuProduct->discount = $discount ;
         $editMenuProduct->makeup = $makeups ;
 
-        $getJoinableMenuProduct =  $this->getJoinAbleMenuProduct($menuProductId);
 
         if($editMenuProduct->save())
         {
+            $getJoinableMenuProduct =  $this->getJoinAbleMenuProduct($menuProductId);
+
             $uploadPhoto = $this->uploadEditMenuProduct($restrauntId , $menuProductId , $editgalleryRestraunt);
 
             if ($uploadPhoto)
