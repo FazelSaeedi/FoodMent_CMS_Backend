@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+$index_php_path = '/..';
 /*
 |--------------------------------------------------------------------------
 | Check If Application Is Under Maintenance
@@ -16,8 +17,8 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
-    require __DIR__.'/../storage/framework/maintenance.php';
+if (file_exists(__DIR__.$index_php_path.'/storage/framework/maintenance.php')) {
+    require __DIR__.$index_php_path.'/storage/framework/maintenance.php';
 }
 
 /*
@@ -31,7 +32,7 @@ if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.$index_php_path.'/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.$index_php_path.'/bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
