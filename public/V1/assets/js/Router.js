@@ -31,6 +31,12 @@ let Router = {
                 addtype        :  'api/v1/category/addtype',
                 edittype       :  'api/v1/category/edittype',
                 deletetype     :  'api/v1/category/deletetype',
+
+
+                getMainGroupTable      : 'api/v1/category/getmaingrouptable',
+                deleteMainGroupTable   : 'api/v1/category/deletemaingroup',
+                addMainGroup           : 'api/v1/category/addmaingroup',
+                editMainGroup          : 'api/v1/category/editmaingroup',
             },
 
             product :{

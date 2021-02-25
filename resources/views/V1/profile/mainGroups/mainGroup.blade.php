@@ -139,7 +139,7 @@
 
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.getMainGroupTable +paginationBatchNumber ,
+                url: Rout(Router.api.v1.category.getMainGroupTable) +'/'+paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",
@@ -247,7 +247,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.deleteMainGroupTable,
+                    url: Rout(Router.api.v1.category.deleteMainGroupTable),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -319,7 +319,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.addMainGroup,
+                    url: Rout(Router.api.v1.category.addMainGroup),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -376,7 +376,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.editMainGroup ,
+                    url: Rout(Router.api.v1.category.editMainGroup) ,
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
