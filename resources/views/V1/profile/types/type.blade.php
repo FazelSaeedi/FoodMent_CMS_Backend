@@ -186,7 +186,7 @@
 
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: Rout(Router.api.v1.category.gettypestable)+ paginationBatchNumber ,
+                url: Rout(Router.api.v1.category.gettypestable)+ '/' + paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",

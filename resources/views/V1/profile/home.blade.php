@@ -55,9 +55,30 @@
         {
             window.location.href = Rout(Router.web.v1.auth.login);
         }else{
-            if(!ajax.checkToken())
-                cookie.logout()
+            $.ajax({
+                type: 'POST',
+                async : false ,
+                headers: { "Authorization": 'Bearer '+this.token } ,
+                url: Rout(Router.api.v1.user.getuserinfo) ,
+                data: 'data to send',
+                success: function (resp) {
+
+                },
+                error: function () {
+                    cookie.logout()
+                },
+                statusCode: {
+                    200: function (response) {
+                        statusCode = 200 ;
+                    },
+                    401: function (response) {
+                        statusCode = 401 ;
+                    }
+                }
+            });
         }
+
+
 
         $("#logout").click(function (){
             cookie.logout()
