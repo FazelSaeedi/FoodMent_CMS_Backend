@@ -1,3 +1,6 @@
+<?php
+$url = Config::get('app.base_url');
+?>
 <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -49,7 +52,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="/V1/assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                                        <img alt="Image placeholder" src="{{$url}}/V1/assets/img/theme/team-1.jpg" class="avatar rounded-circle">
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -68,7 +71,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="/V1/assets/img/theme/team-2.jpg" class="avatar rounded-circle">
+                                        <img alt="Image placeholder" src="{{$url}}/V1/assets/img/theme/team-2.jpg" class="avatar rounded-circle">
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -87,7 +90,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="/V1/assets/img/theme/team-3.jpg" class="avatar rounded-circle">
+                                        <img alt="Image placeholder" src="{{$url}}/V1/assets/img/theme/team-3.jpg" class="avatar rounded-circle">
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -106,7 +109,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="/V1/assets/img/theme/team-4.jpg" class="avatar rounded-circle">
+                                        <img alt="Image placeholder" src="{{$url}}/V1/assets/img/theme/team-4.jpg" class="avatar rounded-circle">
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -125,7 +128,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="/V1/assets/img/theme/team-5.jpg" class="avatar rounded-circle">
+                                        <img alt="Image placeholder" src="{{$url}}/V1/assets/img/theme/team-5.jpg" class="avatar rounded-circle">
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
