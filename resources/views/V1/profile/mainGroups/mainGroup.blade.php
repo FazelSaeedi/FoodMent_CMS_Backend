@@ -116,7 +116,7 @@
 
         // check cookie and token for get Information
         if(token == "")
-            window.location.href = domainWithPort+"/v1/auth/login";
+            window.location.href = Rout(Router.web.v1.auth.login);
         else
         {
             if(!ajax.checkToken())
