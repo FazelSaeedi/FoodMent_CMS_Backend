@@ -104,18 +104,12 @@
         let validation = new Validation();
         var paginationBatchNumber = 5;
 
-        domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
 
-        let routs = {
-            getSubGroupTable    :  domainWithPort +'/api/v1/category/getsubgrouptable/' ,
-            deleteSubGroupTable :  domainWithPort +'/api/v1/category/deletesubgroup' ,
-            addSubGroup :          domainWithPort +'/api/v1/category/addsubgroup' ,
-            editSubGroup :         domainWithPort +'/api/v1/category/editsubgroup' ,
-        }
+
 
         // check cookie and token for get Information
         if(token == "")
-            window.location.href = domainWithPort+"/v1/auth/login";
+            window.location.href = Rout(Router.web.v1.auth.login);
         else
         {
             if(!ajax.checkToken())
@@ -136,7 +130,7 @@
 
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.getSubGroupTable +paginationBatchNumber ,
+                url: Rout(Router.api.v1.category.getSubGroupTable) + '/' +paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",
@@ -244,7 +238,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.deleteSubGroupTable,
+                    url: Rout(Router.api.v1.category.deleteSubGroupTable),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -299,7 +293,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.addSubGroup,
+                    url: Rout(Router.api.v1.category.addSubGroup),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -402,7 +396,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.editSubGroup ,
+                    url: Rout(Router.api.v1.category.editSubGroup) ,
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",

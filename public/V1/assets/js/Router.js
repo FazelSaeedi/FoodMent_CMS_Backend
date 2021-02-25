@@ -1,6 +1,5 @@
-
 let Router = {
-    domainWithPort : location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+'/',
+    domainWithPort: location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/',
     web: {
         v1: {
             auth: {
@@ -21,37 +20,47 @@ let Router = {
 
     api: {
         v1: {
-            user : {
-                login : 'api/v1/user/login' ,
+            user: {
+                login: 'api/v1/user/login',
             },
 
 
-            category :{
-                gettypestable  :  'api/v1/category/gettypestable/',
-                addtype        :  'api/v1/category/addtype',
-                edittype       :  'api/v1/category/edittype',
-                deletetype     :  'api/v1/category/deletetype',
+            category: {
+                gettypestable: 'api/v1/category/gettypestable/',
+                addtype: 'api/v1/category/addtype',
+                edittype: 'api/v1/category/edittype',
+                deletetype: 'api/v1/category/deletetype',
 
 
-                getMainGroupTable      : 'api/v1/category/getmaingrouptable',
-                deleteMainGroupTable   : 'api/v1/category/deletemaingroup',
-                addMainGroup           : 'api/v1/category/addmaingroup',
-                editMainGroup          : 'api/v1/category/editmaingroup',
-            },
+                getMainGroupTable: 'api/v1/category/getmaingrouptable',
+                deleteMainGroupTable: 'api/v1/category/deletemaingroup',
+                addMainGroup: 'api/v1/category/addmaingroup',
+                editMainGroup: 'api/v1/category/editmaingroup',
 
-            product :{
 
-            },
-
-            restraunt :{
-
-            },
-
-            menu :{
+                getSubGroupTable: 'api/v1/category/getsubgrouptable',
+                deleteSubGroupTable: 'api/v1/category/deletesubgroup',
+                addSubGroup: 'api/v1/category/addsubgroup',
+                editSubGroup: 'api/v1/category/editsubgroup',
 
             },
 
-            artisan : {
+            product: {
+
+            },
+
+
+            restraunt: {
+
+            },
+
+
+            menu: {
+
+            },
+
+
+            artisan: {
 
             },
 
@@ -60,10 +69,9 @@ let Router = {
 }
 
 
-function Rout( alias )
-{
+function Rout(alias) {
     var prefix = Router.domainWithPort;
-    return prefix + alias ;
+    return prefix + alias;
 }
 
 
