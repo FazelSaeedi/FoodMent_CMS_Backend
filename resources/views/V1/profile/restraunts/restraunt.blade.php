@@ -211,16 +211,19 @@
 
 
         let routs = {
-            getRestrauntTable :  domainWithPort +'/api/v1/restraunt/getrestraunttable/',
             getUserTable :  domainWithPort +'/api/v1/user/getusers',
+
+            getRestrauntTable :  domainWithPort +'/api/v1/restraunt/getrestraunttable/',
             getRestrauntphoto :  domainWithPort +'/images/{restrauntId}/banner/banner{bannernumber}.jpg',
             editRestraunt :  domainWithPort +'/api/v1/restraunt/editrestraunt',
             deleteRestraunt :  domainWithPort +'/api/v1/restraunt/deleterestraunt',
-            getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}' ,
-            getProductName : domainWithPort + '/api/v1/product/getproductlist' ,
             addRestraunt  : domainWithPort + '/api/v1/restraunt/addrestraunt' ,
-            addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct' ,
+
             getProductPhoto : domainWithPort + '/images/{restrauntId}/food/{ProductMenuId}/{bannernumber}.jpg' ,
+            getProductName : domainWithPort + '/api/v1/product/getproductlist' ,
+
+            getMenuRestraunt : domainWithPort + '/api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}' ,
+            addRestrauntMenu : domainWithPort + '/api/v1/menu/addmenuproduct' ,
             editMenuRestraunt : domainWithPort + '/api/v1/menu/editmenuproduct' ,
             deleteMenuProduct : domainWithPort + '/api/v1/menu/deletemenuproduct'
         }
@@ -229,7 +232,7 @@
         getRestrauntTable(paginationBatchNumber)
 
 
-        getTables('usersCanBeRestrauntAdmin' , routs.getUserTable )
+        getTables('usersCanBeRestrauntAdmin' , Rout(Router.api.v1.user.getUserTable) )
 
         var getUsersTable = {
         }
@@ -237,7 +240,7 @@
 
         // ------------------------------------------------------------------------------------------------
 
-        getProductNameList('productsnameTabke' , routs.getProductName)
+        getProductNameList('productsnameTabke' , Rout(Router.api.v1.product.getProductName));
 
         var getProductNameList = {
 
@@ -260,7 +263,7 @@
             $.ajax({
                 type: 'POST',
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.deleteRestraunt,
+                url: Rout(Router.api.v1.restraunt.deleteRestraunt) ,
                 contentType: "application/json",
                 type: 'POST',
                 dataType: "json",
@@ -693,7 +696,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.addRestraunt ,
+                    url: Rout(Router.api.v1.restraunt.addRestraunt) ,
                     data: fd,
                     contentType: false,
                     processData: false,
@@ -820,7 +823,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.editRestraunt,
+                    url: Rout(Router.api.v1.restraunt.editRestraunt),
                     data: fd,
                     contentType: false,
                     processData: false,
@@ -892,14 +895,14 @@
             $('#restraunt-admin > input ' ).attr('id' , adminId);
 
 
-            $('#restraunt-photo1 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '1'))
+            $('#restraunt-photo1 > img').attr('src' , Rout(Router.api.v1.restraunt.getRestrauntphoto).replace('{restrauntId}' , trId).replace('{bannernumber}' , '1'))
             $('#restraunt-photo1 > img').show()
 
-            $('#restraunt-photo2 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '2'))
+            $('#restraunt-photo2 > img').attr('src' , Rout(Router.api.v1.restraunt.getRestrauntphoto).replace('{restrauntId}' , trId).replace('{bannernumber}' , '2'))
             $('#restraunt-photo2 > img').show()
 
 
-            $('#restraunt-photo3 > img').attr('src' , routs.getRestrauntphoto.replace('{restrauntId}' , trId).replace('{bannernumber}' , '3'))
+            $('#restraunt-photo3 > img').attr('src' , Rout(Router.api.v1.restraunt.getRestrauntphoto).replace('{restrauntId}' , trId).replace('{bannernumber}' , '3'))
             $('#restraunt-photo3 > img').show()
 
 
@@ -1352,6 +1355,7 @@
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
                 url: routs.getRestrauntTable + paginationBatchNumber ,
+                url:  Rout(Router.api.v1.restraunt.getRestrauntTable) + '/' + paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",
@@ -1568,7 +1572,7 @@
        {
            emptyTable('menu_table tbody')
 
-           var menuURL = routs.getMenuRestraunt.replace('{restrauntid}' , restrauntid ).replace( '{paginationnumber}' , paginationnumber ) ;
+           var menuURL = Rout(Router.api.v1.menu.getMenuRestraunt).replace('{restrauntid}' , restrauntid ).replace( '{paginationnumber}' , paginationnumber ) ;
 
            $.ajax({
                headers: { "Authorization": 'Bearer '+ token } ,
@@ -1680,7 +1684,7 @@
                $.ajax({
                    type: 'POST',
                    headers: { "Authorization": 'Bearer '+ token } ,
-                   url: routs.addRestrauntMenu ,
+                   url: Rout(Router.api.v1.menu.addRestrauntMenu) ,
                    data: fd,
                    contentType: false,
                    processData: false,
@@ -1805,7 +1809,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: routs.editMenuRestraunt,
+                    url: Rout(Router.api.v1.menu.editMenuRestraunt),
                     data: fd,
                     contentType: false,
                     processData: false,
@@ -1876,14 +1880,14 @@
 
 
 
-           $('#menuProduct-photo1 > img').attr('src' , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 1))
+           $('#menuProduct-photo1 > img').attr('src' , Rout(Router.api.v1.product.getProductPhoto).replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 1))
            $('#menuProduct-photo1 > img').show()
 
-           $('#menuProduct-photo2 > img').attr('src'  , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 2))
+           $('#menuProduct-photo2 > img').attr('src'  , Rout(Router.api.v1.product.getProductPhoto).replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 2))
            $('#menuProduct-photo2 > img').show()
 
 
-           $('#menuProduct-photo3 > img').attr('src'  , routs.getProductPhoto.replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 3))
+           $('#menuProduct-photo3 > img').attr('src'  , Rout(Router.api.v1.product.getProductPhoto).replace('{restrauntId}' , restrauntid).replace('{ProductMenuId}' , trId).replace('{bannernumber}' , 3))
            $('#menuProduct-photo3 > img').show()
 
 
@@ -1903,7 +1907,7 @@
            $.ajax({
                type: 'POST',
                headers: { "Authorization": 'Bearer '+ token } ,
-               url: routs.deleteMenuProduct,
+               url: Rout( Router.api.v1.menu.deleteMenuProduct ) ,
                contentType: "application/json",
                type: 'POST',
                dataType: "json",
