@@ -134,7 +134,7 @@
 
     // check cookie and token for get Information
     if(token == "")
-        window.location.href = domainWithPort+"/v1/auth/login";
+        window.location.href = Rout(Router.web.v1.auth.login);
     else
     {
         if(!ajax.checkToken())
@@ -160,9 +160,9 @@
     getProductTable(paginationBatchNumber)
 
 
-    getTables('type' , routs.getTypeTable , 300)
-    getTables('mainGroup' , routs.getMainGroupTable , 300)
-    getTables('subGroup' , routs.getSubGroupTable , 300)
+    getTables(  'type'       ,   Rout(Router.api.v1.category.gettypestable)      ,   300 )
+    getTables(  'mainGroup'  ,   Rout(Router.api.v1.category.getMainGroupTable)  ,   300 )
+    getTables(  'subGroup'   ,   Rout(Router.api.v1.category.getSubGroupTable)   ,   300 )
 
     var typeTable = cookie.getObjectLocalStorage('type')
     var mainGroupTable = cookie.getObjectLocalStorage('mainGroup')
@@ -442,7 +442,7 @@
             $.ajax({
                 type: 'POST',
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.addProduct,
+                url: Rout(Router.api.v1.product.addProduct),
                 contentType: "application/json",
                 type: 'POST',
                 dataType: "json",
@@ -530,7 +530,7 @@
             $.ajax({
                 type: 'POST',
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.editProduct ,
+                url: Rout(Router.api.v1.product.editProduct) ,
                 contentType: "application/json",
                 type: 'POST',
                 dataType: "json",
@@ -630,7 +630,7 @@
             $.ajax({
                 type: 'POST',
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: routs.deleteProduct,
+                url:  Rout(Router.api.v1.product.deleteProduct),
                 contentType: "application/json",
                 type: 'POST',
                 dataType: "json",
@@ -729,7 +729,7 @@
         $.ajax({
             async : false ,
             headers: { "Authorization": 'Bearer '+ token } ,
-            url: url + paginationBatchNumber ,
+            url: url + '/' + paginationBatchNumber ,
             contentType: "application/json" ,
             type: 'GET' ,
             dataType: "json",
@@ -752,7 +752,7 @@
 
         $.ajax({
             headers: { "Authorization": 'Bearer '+ token } ,
-            url: routs.getProduct + paginationBatchNumber ,
+            url: Rout(Router.api.v1.product.getProduct) + '/' + paginationBatchNumber ,
             contentType: "application/json" ,
             type: 'GET' ,
             dataType: "json",

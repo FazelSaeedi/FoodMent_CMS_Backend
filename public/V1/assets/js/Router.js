@@ -26,7 +26,7 @@ let Router = {
 
 
             category: {
-                gettypestable: 'api/v1/category/gettypestable/',
+                gettypestable: 'api/v1/category/gettypestable',
                 addtype: 'api/v1/category/addtype',
                 edittype: 'api/v1/category/edittype',
                 deletetype: 'api/v1/category/deletetype',
@@ -46,7 +46,10 @@ let Router = {
             },
 
             product: {
-
+                getProduct    : 'api/v1/product/getproducttable' ,
+                addProduct    : 'api/v1/product/addproduct' ,
+                editProduct   : 'api/v1/product/editproduct' ,
+                deleteProduct : 'api/v1/product/deleteproduct' ,
             },
 
 
