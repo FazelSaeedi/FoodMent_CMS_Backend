@@ -106,14 +106,13 @@
 
 
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var GlobalRouter = new Router(domainWithPort);
 
 
 
 
         // check cookie and token for get Information
         if(token == "")
-            window.location.href = GlobalRouter.Rout('auth' , 'login');
+            window.location.href = Rout(Router.web.v1.auth.login);
         else
         {
             if(!ajax.checkToken())
@@ -187,7 +186,7 @@
 
             $.ajax({
                 headers: { "Authorization": 'Bearer '+ token } ,
-                url: GlobalRouter.Rout('type' , 'gettypestable') + paginationBatchNumber ,
+                url: Rout(Router.api.v1.category.gettypestable)+ paginationBatchNumber ,
                 contentType: "application/json" ,
                 type: 'GET' ,
                 dataType: "json",
@@ -247,7 +246,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: GlobalRouter.Rout('type' , 'deletetype'),
+                    url: Rout( Router.api.v1.category.deletetype),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -369,7 +368,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: GlobalRouter.Rout('type' , 'addtype'),
+                    url: Rout (Router.api.v1.category.addtype),
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
@@ -419,7 +418,7 @@
                 $.ajax({
                     type: 'POST',
                     headers: { "Authorization": 'Bearer '+ token } ,
-                    url: GlobalRouter.Rout('type' , 'edittype') ,
+                    url: Rout( Router.api.v1.category.edittype) ,
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",

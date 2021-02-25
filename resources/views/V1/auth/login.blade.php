@@ -91,12 +91,11 @@
         let validation = new Validation();
         var isValidateUI = false ;
         domainWithPort = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var GlobalRouter = new Router(domainWithPort);
 
 
         if(cookie.getCookie('token') != "")
         {
-            window.location.href = GlobalRouter.Rout('home' , 'home');
+            window.location.href = Rout( Router.web.v1.profile.home);
         }
 
 
@@ -119,7 +118,7 @@
                     contentType: "application/json",
                     type: 'POST',
                     dataType: "json",
-                    url: GlobalRouter.Rout('auth' , 'APIlogin') ,
+                    url: Rout(Router.api.v1.user.login) ,
                     success: function(resultData) {  chertopert = resultData } ,
                     error: function(data){
                         // console.log(data.responseJSON);
@@ -135,7 +134,7 @@
 
                     // console.log(token);
                     // alert('every think is  ok ')
-                    window.location.href = GlobalRouter.Rout('home' , 'home');
+                    window.location.href = Rout( Router.web.v1.profile.home);
 
                 }
                 else
