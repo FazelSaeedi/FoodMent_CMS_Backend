@@ -7,7 +7,6 @@ class Cookie
     {
         this.delete_cookie('token');
         this.delete_cookie('menuActive');
-        window.location = this.domainWithPort+'/v1/auth/login';
         window.location = Rout(Router.web.v1.auth.login);
     }
 
