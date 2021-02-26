@@ -32,7 +32,7 @@ Route::prefix('v1')->group(function () {
 
 
     Route::get('/welcome', function (){
-        return 'Welcome To foodment.ir' ;
+        return 'Welcome To FoodMent_CMS_Backend.ir' ;
     });
 
 

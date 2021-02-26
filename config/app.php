@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'base_url' => env('BASE_URL', 'https://www.kalament.ir/foodment'),
+    'base_url' => env('BASE_URL', 'https://www.kalament.ir/FoodMent_CMS_Backend'),
 
     /*
     |--------------------------------------------------------------------------
