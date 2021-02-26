@@ -31,7 +31,34 @@
         <div class="container-fluid mt--6">
 
             <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header border-0">
 
+                            <div id="card-header-Alerts" style="text-align:center">
+                            </div>
+
+
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3 style="text-align: center;" class="mb-0 ">صفحه اصلی</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <div class="col mt-5 text" style="text-align: center; font-size: 30px">
+                                به پلتفرم فروش غذای آنلاین
+                                کالامنت خوش آمدید
+                            </div>
+                        </div>
+                    </div>
+                    <nav style="font-family: 'BYekan'" aria-label="...">
+                        <ul class="pagination justify-content-center">
+
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
 

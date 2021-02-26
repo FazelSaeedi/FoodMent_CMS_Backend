@@ -19,7 +19,7 @@ $url = Config::get('app.base_url');
                     <span aria-hidden="true">×</span>
                 </button>
             </form>
-
+{{--ni ni-button-power--}}
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center  ml-md-auto ">
                 <li class="nav-item d-xl-none">
@@ -38,7 +38,7 @@ $url = Config::get('app.base_url');
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="ni ni-bell-55"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
@@ -196,7 +196,7 @@ $url = Config::get('app.base_url');
             </ul>
             <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                 <li class="nav-item dropdown">
-                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="ni ni-button-power" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
                         <div class="media align-items-center">
 {{--                  <span class="avatar avatar-sm rounded-circle">--}}
 {{--                    <img alt="Image placeholder" src="/V1/assets/img/theme/team-4.jpg">--}}

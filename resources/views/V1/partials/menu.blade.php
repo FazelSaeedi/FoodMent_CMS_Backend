@@ -8,7 +8,7 @@ $url = Config::get('app.base_url');
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class = "navbar-brand" href="javascript:void(0)">
-                <img src="{{$url}}/V1/assets/img/brand/foodment.png" class="navbar-brand-img" alt="...">
+                <img src="http://kalament.ir/foodment/public/V1/assets/img/brand/foodment.png" class="navbar-brand-img" alt="...">
             </a>
         </div>
         <style>
@@ -74,7 +74,7 @@ $url = Config::get('app.base_url');
 @section('menujs')
     <script>
 
-        let menuCookie = new Cookie();
+ /*       let menuCookie = new Cookie();
 
         $('.navbar-nav > li ').click(function (){
             var menuItemClick = $(this).attr("id")
@@ -92,7 +92,7 @@ $url = Config::get('app.base_url');
             $('#' + menuActive + ' > a').addClass( "active" )
         }else {
             $('#' + 'menu-panel' + ' > a').addClass( "active" )
-        }
+        }*/
 
 
 
