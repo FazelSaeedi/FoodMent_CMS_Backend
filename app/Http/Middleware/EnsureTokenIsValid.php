@@ -83,7 +83,7 @@ class EnsureTokenIsValid
         }
 
         return response()->json([
-            'error' => 'Unauthenticated'
+            'errors' => 'Unauthenticated'
         ],401);
 
     }
