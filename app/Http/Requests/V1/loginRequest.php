@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\V1;
 
+use App\Exceptions\V1\TestException;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class loginRequest extends FormRequest
 {
@@ -27,5 +30,13 @@ class loginRequest extends FormRequest
             'phone' => 'required',
             'password' => 'required',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        //$errors = $validator->errors();
+
+        //throw new HttpResponseException(response()->json(['errors' => $errors],200));
+        //throw new TestException('This is Test Exception' , 200);
     }
 }
