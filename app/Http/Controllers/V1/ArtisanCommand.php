@@ -52,7 +52,8 @@ class ArtisanCommand extends Controller
     {
         $phoneNumber = '09112223333' ;
         $password = '111' ;
-        $creatUser_Level = DB::statement("INSERT INTO `users_level` (`id`, `level`, `title`) VALUES ('1', '10', 'admin')");
+        $creatUser_Level = DB::statement("INSERT INTO `users_level` (`id`, `level`, `title`) VALUES ('1', '9', 'admin')");
+        $creatUser_Level = DB::statement("INSERT INTO `users_level` (`id`, `level`, `title`) VALUES ('2', '5', 'restrauntAdmin')");
         $createUser =  $this->userRepository->createUser($phoneNumber);
         $smsCode = rand ( 1001 , 9999 );
         $setSmsCode = $this->userRepository->setSmsCode($smsCode , $phoneNumber);
