@@ -18,7 +18,7 @@ class CreateRestrauntTable extends Migration
             $table->integer("id" , true)->unique();
             $table->string("name" , '25');
             $table->bigInteger("adminid")->unsigned();
-            $table->integer("code")->unique();
+            $table->bigInteger("code" )->unique();
             $table->string("address" , '225');
             $table->bigInteger("phone");
             $table->bigInteger("update_at")->nullable();
