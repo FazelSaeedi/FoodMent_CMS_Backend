@@ -180,13 +180,16 @@ class UserController extends Controller
                 'data' => [
                     'token' => $token
                 ] ,
-                'message' => 'success'
+                'status' => '200'
             ],200);
         }
         else
             return response()->json([
-                'message' => 'your information is invalid'
-            ],422);
+                'errors' => [
+                    1 => 'your information is invalid'
+                ],
+                'status' => '422' ,
+            ],200);
 
     }
 
