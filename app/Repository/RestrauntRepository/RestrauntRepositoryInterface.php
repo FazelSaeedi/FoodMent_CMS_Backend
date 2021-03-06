@@ -19,4 +19,6 @@ interface RestrauntRepositoryInterface
 
     public function getRestrauntId( $userId );
 
+    public function getRestrauntInfo( $restrauntCode );
+
 }

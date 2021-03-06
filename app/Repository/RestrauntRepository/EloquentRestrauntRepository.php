@@ -3,6 +3,7 @@
 namespace App\Repository\RestrauntRepository;
 
 use App\Models\Restraunt;
+use http\Env\Response;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use RecursiveDirectoryIterator;
@@ -186,5 +187,19 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
     public function getRestrauntId($userId)
     {
         return Restraunt::where('adminid' , '=' , $userId)->get('code');
+    }
+
+
+
+    public function getRestrauntInfo( $restrauntCode )
+    {
+
+        $restrauntInformation =  Restraunt::where('code' , '=' , $restrauntCode)->get(['name' , 'code' , 'address' , 'phone'])->first();
+
+        if ($restrauntInformation)
+            return $restrauntInformation ;
+
+        return false ;
+
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AddRestrauntRequest;
 use App\Http\Requests\V1\DeleteRestrauntRequest;
 use App\Http\Requests\V1\EditRestrauntRequest;
+use App\Http\Requests\V1\GetRestrauntInfoRequest;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
@@ -194,5 +195,25 @@ class RestrauntController extends Controller
     }
 
 
+    public function getRestrauntInfo(GetRestrauntInfoRequest $request , $restrauntCode)
+    {
+        $restrauntInformation =  $this->restrauntRepository->getRestrauntInfo($restrauntCode);
+
+        if ($restrauntInformation)
+            return response()->json([
+                'data' => [
+                    $restrauntInformation
+                ] ,
+                'status' => '200'
+            ],200);
+        else
+            return response()->json([
+                'errors' => [
+                    1 => 'Error in database'
+                ],
+                'status' => '500' ,
+            ],200);
+
+    }
 
 }
