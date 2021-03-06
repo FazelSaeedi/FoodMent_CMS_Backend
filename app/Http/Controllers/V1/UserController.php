@@ -7,6 +7,7 @@ use App\Http\Requests\V1\ConfirmSmsCode;
 use App\Http\Requests\V1\loginRequest;
 use App\Http\Requests\V1\RegisterRequest;
 use App\Models\User;
+use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use App\Repository\UserRepository\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,16 +18,17 @@ class UserController extends Controller
 
 {
     protected $userRepository ;
-
+    protected $restrauntRepository;
 
 
     /**
      * UserController constructor.
      * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository , RestrauntRepositoryInterface $restrauntRepository)
     {
         $this->userRepository = $userRepository ;
+        $this->restrauntRepository = $restrauntRepository ;
     }
 
 
@@ -150,9 +152,12 @@ class UserController extends Controller
     public function getUserInfo(Request $request)
     {
         $user_id =  $request->get('id');
+
+
         return response()->json([
             'data' => [
-                'id' => $user_id
+                'id' => $user_id ,
+                'restrauntsCode' => $this->getUserRestraunt($user_id)
             ]
         ],200);
     }
@@ -246,4 +251,11 @@ class UserController extends Controller
         ],200);
     }
 
+
+
+    public function getUserRestraunt($user_id)
+    {
+
+        return $this->restrauntRepository->getRestrauntId($user_id);
+    }
 }
