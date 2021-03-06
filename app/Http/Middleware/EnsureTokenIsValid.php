@@ -117,7 +117,7 @@ class EnsureTokenIsValid
 
         if ($userid)
         {
-            $this->setUserId($userid[0]->id);
+            $this->setUserId($userid);
             return true;
         }
 
