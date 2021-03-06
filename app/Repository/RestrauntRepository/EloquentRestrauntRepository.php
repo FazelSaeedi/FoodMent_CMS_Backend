@@ -106,6 +106,7 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
             return false;
     }
 
+
     public function uploadeditRestraunt($restrauntId, $editgalleryRestraunt)
     {
 
@@ -181,4 +182,9 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
 
     }
 
+
+    public function getRestrauntId($userId)
+    {
+        return Restraunt::where('adminid' , '=' , $userId)->get('code');
+    }
 }

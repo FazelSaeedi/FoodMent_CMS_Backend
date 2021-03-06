@@ -17,4 +17,6 @@ interface RestrauntRepositoryInterface
 
     public function deleteRestraunt( $id );
 
+    public function getRestrauntId( $userId );
+
 }
