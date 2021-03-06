@@ -102,11 +102,11 @@ class ElequentsUserRepository implements UserRepositoryInterface
     public function getUserId($token)
     {
 
-        $userId = User::where('token', $token)->first();
+        $userId = User::where('token' , '=' , $token)->get();
 
         if ($userId) {
             // It exists
-            return $userId->get(['id']);
+            return $userId->first()->id;
         } else {
             // It does not exist
             return false;
@@ -140,6 +140,9 @@ class ElequentsUserRepository implements UserRepositoryInterface
 
         return $setUserPassword;
     }
+
+
+
 
     public function getusers()
     {
