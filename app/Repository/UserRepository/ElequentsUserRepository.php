@@ -104,14 +104,12 @@ class ElequentsUserRepository implements UserRepositoryInterface
 
         $userId = User::where('token' , '=' , $token)->get();
 
-        if ($userId) {
-            // It exists
+        if (!empty($userId->first())) {
+            // Is exists
             return $userId->first()->id;
-        } else {
-            // It does not exist
-            return false;
-
         }
+
+        return false;
 
 
     }
