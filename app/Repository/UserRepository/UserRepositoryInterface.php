@@ -31,4 +31,7 @@ interface UserRepositoryInterface
 
     public function getusers();
 
+
+    public function getUserAccessLevel( $userId );
+
 }

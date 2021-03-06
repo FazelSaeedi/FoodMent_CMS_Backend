@@ -148,4 +148,14 @@ class ElequentsUserRepository implements UserRepositoryInterface
     {
         return User::get(['id' , 'phone'])->all();
     }
+
+
+
+    public function getUserAccessLevel($userId)
+    {
+        return DB::table('users')
+            ->where('users.id' , '=' , $userId)
+            ->join('users_level', 'users_level.id', '=', 'users.level_id')
+            ->get('level as accessLevel')->first()->accessLevel;
+    }
 }
