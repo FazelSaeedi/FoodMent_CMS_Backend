@@ -142,7 +142,7 @@ class UserController extends Controller
      */
     public function genarateToken()
     {
-        return Str::random(500);
+        return Str::random(50);
     }
 
 
