@@ -52,7 +52,12 @@ class ProductController extends Controller
             ],200);
         }else{
             return response()->json([
-                'message' => ' محصول مورد نظر موجود است '
+                'message' => ' محصول مورد نظر موجود است ',
+                "errors" => [
+                    "isexist" => [
+                        ' محصول مورد نظر موجود است'
+                    ]
+                ]
             ],409);
         }
 
