@@ -279,4 +279,25 @@ class MenuController extends Controller
 
     }
 
+
+    public function getMenuJsonRequestList()
+    {
+        $getMenuJsonRequestList = $this->watingToBuildMenuJsonRepo->getMenuJsonRequestList();
+
+
+        if ($getMenuJsonRequestList)
+            return response()->json([
+                'data' => $getMenuJsonRequestList  ,
+                'message' => 'success' ,
+                'status' => '200'
+            ],200);
+        else
+            return response()->json([
+                'errors' => [
+                    1 => [" Request fail "]
+                ],
+                'status' => '409' ,
+            ],200);
+    }
+
 }
