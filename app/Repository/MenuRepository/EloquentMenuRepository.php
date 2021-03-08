@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use function Symfony\Component\Translation\t;
+use Hekmatinasser\Verta\Verta;
 
 class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildMenuJsonRepositoryInterface
 {
@@ -303,7 +304,16 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
 
     public function updateCreateMenuJson($restrauntId)
     {
-        // TODO: Implement updateCreateMenuJson() method.
+
+        $updateMenuJsonRequest = DB::table('wating_to_build_menu_jsons')
+                                     ->where('restraunt_id', $restrauntId)
+                                     ->update(['timestamp' => time()]);
+
+         if ($updateMenuJsonRequest)
+             return true ;
+         else
+             return false ;
+
     }
 
 
