@@ -79,7 +79,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // as default  'timezone' => 'UTC',
+    'timezone' => 'Asia/Tehran',
 
     /*
     |--------------------------------------------------------------------------
