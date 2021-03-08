@@ -339,4 +339,20 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
     }
 
 
+    public function getMenuJsonRequestList()
+    {
+        $getMenuJsonRequestList =  DB::table('wating_to_build_menu_jsons')
+                                    ->join('restraunts', 'restraunts.id', '=', 'wating_to_build_menu_jsons.restraunt_id')
+                                    ->get([
+                                        'wating_to_build_menu_jsons.restraunt_id' ,
+                                        'restraunts.name' ,
+                                        'restraunts.code' ,
+                                        'wating_to_build_menu_jsons.timestamp as menujsoncreatetimestamp' ,
+                                    ]);
+
+        if ($getMenuJsonRequestList)
+            return $getMenuJsonRequestList ;
+        else
+            return false;
+    }
 }

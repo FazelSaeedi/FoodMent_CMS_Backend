@@ -17,4 +17,6 @@ interface WatingToBuildMenuJsonRepositoryInterface
     public function IsExistCreateMenuJsonRequest( $restrauntId );
 
 
+    public function getMenuJsonRequestList();
+
 }
