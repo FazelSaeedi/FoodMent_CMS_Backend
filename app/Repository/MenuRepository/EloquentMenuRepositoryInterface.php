@@ -12,8 +12,9 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use function Symfony\Component\Translation\t;
 
-class EloquentMenuRepository implements MenuRepositoryInterface
+class EloquentMenuRepositoryInterface implements MenuRepositoryInterface , WatingToBuildMenuJsonRepositoryInterface
 {
+
 
     public function addProductMenu($productId, $restrauntId, $price, $discount, $makeups , $photo1 , $photo2 , $photo3)
     {
@@ -79,6 +80,8 @@ class EloquentMenuRepository implements MenuRepositoryInterface
     }
 
 
+
+
     public function uploadAddProductMenu( $restrauntId , $productMenuId , $photo1 , $photo2 , $photo3 )
     {
         // Pattern
@@ -96,6 +99,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         else
             return true ;
     }
+
+
+
 
     public function editMenuProduct($menuProductId, $productId, $restrauntId, $price, $discount, $makeups, $editgalleryRestraunt)
     {
@@ -141,6 +147,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
     }
 
+
+
+
     public function uploadEditMenuProduct($restrauntId , $productMenuId ,  $editgalleryMenuProduct)
     {
         $imagePath = "/images/{$restrauntId}/food/{$productMenuId}/" ;
@@ -161,6 +170,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
         return $uploadStatus ;
 
     }
+
+
+
 
     public function deleteMenuProduct($menuProductId)
     {
@@ -198,6 +210,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
     }
 
+
+
+
     public function getRestrauntMenuTable($restrauntId)
     {
 
@@ -225,6 +240,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
 
     }
 
+
+
+
     public function getMenuTable($restrauntId, $paginationnumber)
     {
         return DB::table('menu')
@@ -245,6 +263,9 @@ class EloquentMenuRepository implements MenuRepositoryInterface
             ])->where('restraunt_id' ,'=' , $restrauntId)
             ->paginate($paginationnumber);
     }
+
+
+
 
     public function getJoinAbleMenuProduct($menuProductId)
     {
@@ -267,4 +288,30 @@ class EloquentMenuRepository implements MenuRepositoryInterface
                     WHERE `menu`.`id` = ?"
             , ["{$menuProductId}"]);
     }
+
+
+
+
+    public function insertCreateMenuJson($restrauntId)
+    {
+        // TODO: Implement insertCreateMenuJson() method.
+    }
+
+
+
+
+    public function updateCreateMenuJson($restrauntId)
+    {
+        // TODO: Implement updateCreateMenuJson() method.
+    }
+
+
+
+
+    public function IsExistCreateMenuJsonRequest($restrauntId)
+    {
+        // TODO: Implement IsExistCreateMenuJsonRequest() method.
+    }
+
+
 }
