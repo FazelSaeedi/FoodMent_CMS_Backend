@@ -6,13 +6,14 @@ namespace App\Repository\MenuRepository;
 
 use App\Models\Menu;
 use App\Models\Product;
+use App\Models\WatingToBuildMenuJson;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use function Symfony\Component\Translation\t;
 
-class EloquentMenuRepositoryInterface implements MenuRepositoryInterface , WatingToBuildMenuJsonRepositoryInterface
+class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildMenuJsonRepositoryInterface
 {
 
 
@@ -310,7 +311,7 @@ class EloquentMenuRepositoryInterface implements MenuRepositoryInterface , Watin
 
     public function IsExistCreateMenuJsonRequest($restrauntId)
     {
-        // TODO: Implement IsExistCreateMenuJsonRequest() method.
+        return WatingToBuildMenuJson::where('restraunt_id' , '=' , $restrauntId)->exists();
     }
 
 
