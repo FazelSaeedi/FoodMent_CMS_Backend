@@ -296,7 +296,21 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
 
     public function insertCreateMenuJson($restrauntId)
     {
-        // TODO: Implement insertCreateMenuJson() method.
+
+
+        $createMenuJsonRequest = new WatingToBuildMenuJson();
+
+
+        $createMenuJsonRequest->timestamp    =   time()    ;
+        $createMenuJsonRequest->restraunt_id =   $restrauntId  ;
+
+
+        if ($createMenuJsonRequest->save())
+            return true  ;
+        else
+            return false ;
+
+
     }
 
 
