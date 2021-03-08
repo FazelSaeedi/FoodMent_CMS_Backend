@@ -13,7 +13,7 @@ class WatingToBuildMenuJson extends Model
 
     protected $fillable = [
         'id',
-        'phone',
+        'restraunt_id',
         'timestamp',
     ];
 }
