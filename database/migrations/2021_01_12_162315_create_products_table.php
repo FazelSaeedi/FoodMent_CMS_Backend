@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
 
             $table->integer("id" , true)->unique();
-            $table->string("name" , '25');
+            $table->string("name" , '128');
             $table->integer("code");
             $table->integer("type");
             $table->integer("maingroup");
