@@ -10,6 +10,7 @@ use App\Http\Requests\V1\EditMenuProductRequest;
 use App\Http\Requests\V1\getRestrauntMenuTable;
 use App\Http\Requests\V1\getRestrauntMenuTableRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
+use App\Repository\MenuRepository\WatingToBuildMenuJsonRepositoryInterface;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
 
@@ -18,11 +19,14 @@ class MenuController extends Controller
 
     protected $menuRepository ;
 
+    protected $watingToBuildMenuJsonRepo ;
 
 
-    public function __construct(MenuRepositoryInterface $menuRepository)
+    public function __construct(MenuRepositoryInterface $menuRepository , WatingToBuildMenuJsonRepositoryInterface $watingToBuildMenuJsonRepository)
     {
         $this->menuRepository = $menuRepository ;
+
+        $this->watingToBuildMenuJsonRepo = $watingToBuildMenuJsonRepository ;
     }
 
 
@@ -229,6 +233,49 @@ class MenuController extends Controller
         fclose($fp);
 
         return $data ;
+
+    }
+
+
+
+    public function createMenuJsonRequest(CreateMenuJsonRequest $request)
+    {
+
+
+        $isExistCreateMenuRequest =  $this->watingToBuildMenuJsonRepo->IsExistCreateMenuJsonRequest($request->restrauntid);
+
+        $state  =  '' ;
+        $action = '' ;
+
+
+
+        if ($isExistCreateMenuRequest)
+        {
+            $action = $updateCreateMenuJson =  $this->watingToBuildMenuJsonRepo->updateCreateMenuJson($request->restrauntid);
+            $state = 'update';
+        }
+        else{
+            $action = $insertCreateMenuJson =  $this->watingToBuildMenuJsonRepo->insertCreateMenuJson($request->restrauntid);
+            $state = 'insert';
+        }
+
+
+
+
+        if ($action)
+            return response()->json([
+                'message' => $state.' successfull',
+                'status' => '200'
+            ],200);
+        else
+            return response()->json([
+                'errors' => [
+                    1 => [" Request fail "]
+                ],
+                'status' => '409' ,
+            ],200);
+
+
 
     }
 
