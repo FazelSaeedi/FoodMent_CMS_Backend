@@ -164,3 +164,26 @@ Route::prefix('v1')->group(function () {
 
 });
 
+
+
+
+Route::prefix('v.1')->group(function () {
+
+    Route::prefix('test_unit')->group(function () {
+
+        Route::get('test_jason_model_139912172208' , function (Request $request){
+            return response()->json([
+                'Email' => 'james@example.com',
+                'Active'=> true,
+                'CreatedDate'=> '2013-01-20T00:00:00Z',
+                'Roles'=> [
+                    'User',
+                    'Admin'
+                ]
+            ]) ;
+        });
+
+    });
+
+});
+
