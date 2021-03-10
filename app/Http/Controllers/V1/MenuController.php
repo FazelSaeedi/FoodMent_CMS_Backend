@@ -12,6 +12,7 @@ use App\Http\Requests\V1\getRestrauntMenuTableRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
 use App\Repository\MenuRepository\WatingToBuildMenuJsonRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Object_;
 
 class MenuController extends Controller
@@ -224,7 +225,7 @@ class MenuController extends Controller
             'information' => [
                 'restrauntid' => $request->restrauntid ,
                 'create_at' => time(),
-                'key' => '$851das2e12651'
+                'key' => Str::random(10)
             ],
             'data' => json_decode($menuArray)
         ];
