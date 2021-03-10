@@ -216,23 +216,40 @@ class MenuController extends Controller
 
     public function createMenuJson(CreateMenuJsonRequest $request)
     {
-        $menuJson = $this->getMenuJson($request->restrauntid);
+
+
+        $menuArray = $this->getMenuJson($request->restrauntid);
 
         $data = [
             'information' => [
-                'restrauntid' => 1 ,
-                'create_at' => 132654984,
+                'restrauntid' => $request->restrauntid ,
+                'create_at' => time(),
                 'key' => '$851das2e12651'
             ],
-            'data' => json_decode($menuJson)
+            'data' => json_decode($menuArray)
         ];
 
 
-        $fp = fopen("../public/images/{$request->restrauntid}/menu.json", 'w');
-        fwrite($fp, json_encode($data) );
-        fclose($fp);
+        $witeMenuToJson = $this->WriteMenuToFile($data , $request->restrauntid) ;
 
-        return $data ;
+
+
+        if ($witeMenuToJson)
+        {
+            $createMenuJsonTransaction =  $this->menuRepository->createMenuJsonTransaction($request->restrauntid);
+
+            if ($createMenuJsonTransaction)
+                return $data;
+        }
+
+
+
+        return response()->json([
+            'message' => 'Error in DB',
+            'status' => 502
+        ], 200) ;
+
+
 
     }
 
