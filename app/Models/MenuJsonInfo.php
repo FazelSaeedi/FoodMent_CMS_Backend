@@ -16,4 +16,6 @@ class MenuJsonInfo extends Model
         'restraunt_id',
         'create_timestamp',
     ];
+
+    protected $table = 'menu_json_info';
 }
