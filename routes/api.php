@@ -172,6 +172,7 @@ Route::prefix('v1.0')->group(function () {
 
     Route::prefix('test_unit')->group(function () {
 
+
         Route::get('test_jason_model_139912172208' , function (Request $request){
             return response()->json([
                 'Email' => 'james@example.com',
@@ -182,6 +183,29 @@ Route::prefix('v1.0')->group(function () {
                     'Admin'
                 ]
             ]) ;
+        });
+
+        Route::get('TEST_GET_SAMPLE_MESSAGE_139912200115' , function (Request $request) {
+
+            function toJsonString ( $email , $active , $CreateDate , $firstname , $lastname   )
+            {
+                return "{\"Email\":\"{$email}\",\"Active\":{$active},\"CreatedDate\":\"{$CreateDate}\",\"Roles\":[\"{$firstname}\",\"{$lastname}\"]}";
+            }
+
+            return response()->json([
+                'statusCode'   => 200    ,
+                'datetime'     => time() ,
+                'packetcount'  => 2      ,
+                "data"         => [
+
+                    '{"Email":"fazelsaeedi@example.com","Active":true,"CreatedDate":"2013-01-20T00:00:00Z","Roles":["fazel","saeedi"]}' ,
+                    '{"Email":"omidsaeedi@example.com","Active":true,"CreatedDate":"2013-01-20T00:00:00Z","Roles":["omid","saeedi"]}',
+                    toJsonString('bitasaeedu@example.com' , 'true' , '2013-01-20T00:00:00Z' , 'bita' , 'saeedi') ,
+                    toJsonString('elaheheydari@example.com' , 'true' , '2013-01-20T00:00:00Z' , 'elahe' , 'heydari')
+                ]     ,
+
+            ]);
+
         });
 
     });
