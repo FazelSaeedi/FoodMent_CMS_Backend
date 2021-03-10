@@ -300,4 +300,32 @@ class MenuController extends Controller
             ],200);
     }
 
+
+
+    public function checkFileJsonisExist( $path )
+    {
+        if(file_exists(public_path($path)))
+            return true ;
+        else
+            return false ;
+    }
+
+
+
+    public function WriteMenuToFile( $menuJson , $restrauntId )
+    {
+
+        $fpOpen = fopen(public_path("/images/{$restrauntId}/menu.json") , 'w');
+        fwrite($fpOpen, json_encode($menuJson) );
+        fclose($fpOpen);
+
+
+
+        if($this->checkFileJsonisExist("/images/{$restrauntId}/menu.json"))
+            return true ;
+        else
+            return false ;
+
+    }
+
 }
