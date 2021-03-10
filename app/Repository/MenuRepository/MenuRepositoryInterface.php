@@ -25,4 +25,6 @@ interface MenuRepositoryInterface
 
     public function getJoinAbleMenuProduct( $menuProductId );
 
+    public function createMenuJsonTransaction( $restrauntId );
+
 }

@@ -5,6 +5,7 @@ namespace App\Repository\MenuRepository;
 
 
 use App\Models\Menu;
+use App\Models\MenuJsonInfo;
 use App\Models\Product;
 use App\Models\WatingToBuildMenuJson;
 use Illuminate\Filesystem\Filesystem;
@@ -355,4 +356,37 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
         else
             return false;
     }
+
+
+
+    public function createMenuJsonTransaction($restrauntId)
+    {
+
+        $menuInMenuJsonInfo =  MenuJsonInfo::where('restraunt_id' , $restrauntId);
+
+
+        DB::beginTransaction();
+
+        try {
+
+            DB::delete('delete from wating_to_build_menu_jsons where restraunt_id = ?',[$restrauntId]);
+
+
+            if($menuInMenuJsonInfo->exists())
+                DB::update('UPDATE `menu_json_info` SET  `restraunt_id` = ?, `create_timestamp` = ? WHERE `menu_json_info`.`restraunt_id` = ?; ' ,[  $restrauntId , time() , $restrauntId , $menuInMenuJsonInfo->get()->first()->id]);
+            else
+                DB::insert('INSERT INTO `menu_json_info` (`id`, `restraunt_id`, `create_timestamp`) VALUES (null ,?,?)' , [$restrauntId , time()]);
+
+
+            DB::commit();
+            return true ;
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return false ;
+        }
+
+    }
+
 }
