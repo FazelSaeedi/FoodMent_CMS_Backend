@@ -20,7 +20,7 @@ Route::get('/', function () {
      abort(404);
 });
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1.0')->group(function () {
 
     Route::get('templateExample' , function (){return view('V1.templateExample');});
 

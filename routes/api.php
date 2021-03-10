@@ -28,7 +28,7 @@ use App\Http\Controllers\V1\SubGroupController;
 });*/
 
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1.0')->group(function () {
 
 
     Route::get('/welcome', function (){
@@ -163,13 +163,6 @@ Route::prefix('v1')->group(function () {
 
     });
 
-});
-
-
-
-
-Route::prefix('v1.0')->group(function () {
-
     Route::prefix('test_unit')->group(function () {
 
 
@@ -211,4 +204,9 @@ Route::prefix('v1.0')->group(function () {
     });
 
 });
+
+
+
+
+
 

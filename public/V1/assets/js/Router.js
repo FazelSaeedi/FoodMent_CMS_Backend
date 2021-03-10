@@ -3,16 +3,16 @@ let Router = {
     web: {
         v1: {
             auth: {
-                login: 'v1/auth/login',
-                register: 'v1/auth/register',
+                login:      'v1.0/auth/login'           ,
+                register:   'v1.0/auth/register'        ,
             },
             profile: {
-                home: 'v1/profile/home',
-                types: 'v1/profile/types',
-                maingroups: 'v1/profile/maingroups',
-                subgroups: 'v1/profile/subgroups',
-                products: 'v1/profile/products',
-                restraunts: 'v1/profile/restraunt',
+                home:       'v1.0/profile/home'         ,
+                types:      'v1.0/profile/types'        ,
+                maingroups: 'v1.0/profile/maingroups'   ,
+                subgroups:  'v1.0/profile/subgroups'    ,
+                products:   'v1.0/profile/products'     ,
+                restraunts: 'v1.0/profile/restraunt'    ,
             },
         },
     },
@@ -21,61 +21,61 @@ let Router = {
     api: {
         v1: {
             user: {
-                login                      :   'api/v1/user/login'                                                 ,
-                getUserTable               :   'api/v1/user/getusers'                                              ,
-                getuserinfo                :   'api/v1/user/getuserinfo'                                           ,
+                login                      :   'api/v1.0/user/login'                                                 ,
+                getUserTable               :   'api/v1.0/user/getusers'                                              ,
+                getuserinfo                :   'api/v1.0/user/getuserinfo'                                           ,
             },
 
 
             category: {
 
-                gettypestable              :   'api/v1/category/gettypestable'                                     ,
-                addtype                    :   'api/v1/category/addtype'                                           ,
-                edittype                   :   'api/v1/category/edittype'                                          ,
-                deletetype                 :   'api/v1/category/deletetype'                                        ,
+                gettypestable              :   'api/v1.0/category/gettypestable'                                     ,
+                addtype                    :   'api/v1.0/category/addtype'                                           ,
+                edittype                   :   'api/v1.0/category/edittype'                                          ,
+                deletetype                 :   'api/v1.0/category/deletetype'                                        ,
 
 
-                getMainGroupTable          :   'api/v1/category/getmaingrouptable'                                 ,
-                deleteMainGroupTable       :   'api/v1/category/deletemaingroup'                                   ,
-                addMainGroup               :   'api/v1/category/addmaingroup'                                      ,
-                editMainGroup              :   'api/v1/category/editmaingroup'                                     ,
+                getMainGroupTable          :   'api/v1.0/category/getmaingrouptable'                                 ,
+                deleteMainGroupTable       :   'api/v1.0/category/deletemaingroup'                                   ,
+                addMainGroup               :   'api/v1.0/category/addmaingroup'                                      ,
+                editMainGroup              :   'api/v1.0/category/editmaingroup'                                     ,
 
 
-                getSubGroupTable           :   'api/v1/category/getsubgrouptable'                                  ,
-                deleteSubGroupTable        :   'api/v1/category/deletesubgroup '                                   ,
-                addSubGroup                :   'api/v1/category/addsubgroup'                                       ,
-                editSubGroup               :   'api/v1/category/editsubgroup'                                      ,
+                getSubGroupTable           :   'api/v1.0/category/getsubgrouptable'                                  ,
+                deleteSubGroupTable        :   'api/v1.0/category/deletesubgroup '                                   ,
+                addSubGroup                :   'api/v1.0/category/addsubgroup'                                       ,
+                editSubGroup               :   'api/v1.0/category/editsubgroup'                                      ,
 
             },
 
             product: {
 
-                getProduct                 :   'api/v1/product/getproducttable'                                    ,
-                addProduct                 :   'api/v1/product/addproduct'                                         ,
-                editProduct                :   'api/v1/product/editproduct'                                        ,
-                deleteProduct              :   'api/v1/product/deleteproduct'                                      ,
-                getProductName             :   'api/v1/product/getproductlist'                                     ,
+                getProduct                 :   'api/v1.0/product/getproducttable'                                    ,
+                addProduct                 :   'api/v1.0/product/addproduct'                                         ,
+                editProduct                :   'api/v1.0/product/editproduct'                                        ,
+                deleteProduct              :   'api/v1.0/product/deleteproduct'                                      ,
+                getProductName             :   'api/v1.0/product/getproductlist'                                     ,
                 getProductPhoto            :   'images/{restrauntId}/food/' +
-                                                         '{ProductMenuId}/{bannernumber}.jpg'                      ,
+                                                         '{ProductMenuId}/{bannernumber}.jpg'                        ,
             },
 
 
             restraunt: {
 
-                getRestrauntphoto          :   'images/{restrauntId}/banner/banner{bannernumber}.jpg'              ,
-                getRestrauntTable          :   'api/v1/restraunt/getrestraunttable'                                ,
-                editRestraunt              :   'api/v1/restraunt/editrestraunt'                                    ,
-                deleteRestraunt            :   'api/v1/restraunt/deleterestraunt'                                  ,
-                addRestraunt               :   'api/v1/restraunt/addrestraunt'                                     ,
+                getRestrauntphoto          :   'images/{restrauntId}/banner/banner{bannernumber}.jpg'                ,
+                getRestrauntTable          :   'api/v1.0/restraunt/getrestraunttable'                                ,
+                editRestraunt              :   'api/v1.0/restraunt/editrestraunt'                                    ,
+                deleteRestraunt            :   'api/v1.0/restraunt/deleterestraunt'                                  ,
+                addRestraunt               :   'api/v1.0/restraunt/addrestraunt'                                     ,
 
             },
 
 
             menu: {
-                getMenuRestraunt           :   'api/v1/menu/getmenutable/{restrauntid}/{paginationnumber}'         ,
-                addRestrauntMenu           :   'api/v1/menu/addmenuproduct'                                        ,
-                editMenuRestraunt          :   'api/v1/menu/editmenuproduct'                                       ,
-                deleteMenuProduct          :   'api/v1/menu/deletemenuproduct'                                     ,
+                getMenuRestraunt           :   'api/v1.0/menu/getmenutable/{restrauntid}/{paginationnumber}'         ,
+                addRestrauntMenu           :   'api/v1.0/menu/addmenuproduct'                                        ,
+                editMenuRestraunt          :   'api/v1.0/menu/editmenuproduct'                                       ,
+                deleteMenuProduct          :   'api/v1.0/menu/deletemenuproduct'                                     ,
             },
 
 
