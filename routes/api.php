@@ -115,6 +115,7 @@ Route::prefix('v1')->group(function () {
         Route::post('createmenujson' , [MenuController::class , 'createMenuJson']);
         Route::get( 'getmenutable/{restrauntid}/{paginationNumber}' , [MenuController::class , 'getMenuTable']);
         Route::post('createmenujsonrequest' , [MenuController::class , 'createMenuJsonRequest']);
+        Route::get( 'getmenujsonrequestList' , [MenuController::class , 'getMenuJsonRequestList']);
 
     });
 
@@ -167,7 +168,7 @@ Route::prefix('v1')->group(function () {
 
 
 
-Route::prefix('v.1')->group(function () {
+Route::prefix('v1.0')->group(function () {
 
     Route::prefix('test_unit')->group(function () {
 
