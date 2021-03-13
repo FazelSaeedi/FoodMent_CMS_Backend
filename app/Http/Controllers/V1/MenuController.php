@@ -49,8 +49,13 @@ class MenuController extends Controller
             ],200);
         else
             return response()->json([
-                'message' => 'محصول مورد نظر موجود میباشد'
-            ],409);
+                'errors' => [
+                    '1' => [
+                        'محصول مورد نظر موجود میباشد'
+                    ]
+                ],
+                'status' => '422' ,
+            ],200);
     }
 
 
