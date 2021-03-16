@@ -25,13 +25,8 @@ class LoginView implements BaseMessage
 
     public function getJsonMobileView()
     {
-        $array = array();
 
-        foreach ($this->data as $row)
-        {
-            array_push($array , json_encode($row));
-        }
-        return $array ;
+        return [json_encode($this->data)];
     }
 
 

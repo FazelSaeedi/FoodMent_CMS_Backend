@@ -9,6 +9,8 @@ use App\Http\Requests\V1\RegisterRequest;
 use App\Models\User;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use App\Repository\UserRepository\UserRepositoryInterface;
+use App\ToViewGenerator\MessageController;
+use App\ToViewGenerator\Views\LoginView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -181,12 +183,10 @@ class UserController extends Controller
         {
             $token = $this->genarateToken();
             $this->userRepository->setTokenCode($phone , $token);
-            return response()->json([
-                'data' => [
-                    'token' => $token
-                ] ,
-                'status' => '200'
-            ],200);
+
+            return MessageController::sendMessage(200 , [] , [
+               'token' => $token
+            ] , LoginView::class );
         }
         else
             return response()->json([
