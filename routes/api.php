@@ -7,10 +7,13 @@ use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\RestrauntController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\typeController;
+use App\ToViewGenerator\Views\LoginView;
+use App\ToViewGenerator\Views\TestView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\MainGroupController;
 use App\Http\Controllers\V1\SubGroupController;
+use App\ToViewGenerator\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,7 +155,18 @@ Route::prefix('v1.0')->group(function () {
 
 
     Route::get('test' , function (Request $request){
-        return 'get test is ok ' ;
+        //return 'get test is ok ' ;
+
+
+        //$response = Response::json(['s' => 's']);
+        //$response->header('Content-Type', 'application/json');
+        return MessageController::sendMessage(409 , [] , [
+            ["token" => random_int(10 , 99999999999999999) , '2' => 'salam'],
+            ["token" => random_int(10 , 99999999999999999) , '2' => 'salam'],
+            ["token" => random_int(10 , 99999999999999999) , '2' => 'salam']
+        ] , LoginView::class ,$request->header('User-Agent'));
+
+
     });
 
     Route::prefix('artisan')->group(function (){
@@ -198,6 +212,31 @@ Route::prefix('v1.0')->group(function () {
                 ]     ,
 
             ]);
+
+        });
+
+        Route::get('TEST_GET_SAMPLE_FROM_MESSAGE_CONTROLLER_139912221230' , function () {
+
+
+            function toJsonString ( $email , $active , $CreateDate , $firstname , $lastname   )
+            {
+                return "{\"Email\":\"{$email}\",\"Active\":{$active},\"CreatedDate\":\"{$CreateDate}\",\"Roles\":[\"{$firstname}\",\"{$lastname}\"]}";
+            }
+
+
+            $errors = [] ;
+
+
+            return MessageController::sendMessage(409 , $errors , [
+                ['Email' => 'fazelsaeedi@example.com'  , 'Active' => true , 'CreatedDate' => "2013-01-20T00:00:00Z"  , "Roles" =>["fazel" , "saeedi"]] ,
+                ['Email' => 'omidsaeedi@example.com'   , 'Active' => true , 'CreatedDate' => "2013-01-20T00:00:00Z"  , "Roles" =>["omid" , "saeedi"]] ,
+                ['Email' => 'bitasaeedi@example.com'   , 'Active' => true , 'CreatedDate' => "2013-01-20T00:00:00Z"  , "Roles" =>["bita" , "saeedi"]] ,
+                ['Email' => 'elaheheydari@example.com' , 'Active' => true , 'CreatedDate' => "2013-01-20T00:00:00Z"  , "Roles" =>["elahe" , "heydari"]] ,
+
+            ] , TestView::class );
+
+
+
 
         });
 
