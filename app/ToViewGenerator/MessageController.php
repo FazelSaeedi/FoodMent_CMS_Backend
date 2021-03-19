@@ -55,7 +55,8 @@ class MessageController
 
 
             default:
-                return 'FAIL';
+                $message->setData($view->getJsonWebBrowserView());
+                return $message->getJsonWebBrowserView();
 
         }
 
