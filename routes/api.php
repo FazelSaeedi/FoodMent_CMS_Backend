@@ -43,7 +43,7 @@ Route::prefix('v1.0')->group(function () {
 
         Route::post('register' , [UserController::class , 'register']);
         Route::post('checksmscode' , [UserController::class , 'confirmSmsCode']);
-        Route::post('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
+        Route::get('getuserinfo' , [UserController::class , 'getUserInfo'])->middleware('authentication');
         Route::post('login' , [UserController::class , 'login']);
         Route::post('setuserpassword' , [UserController::class , 'setUserPassword']);
         Route::get('getusers' , [UserController::class , 'getusers'])->middleware('authentication');
