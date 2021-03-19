@@ -26,7 +26,10 @@ class MessageController
                 ->setPacketcount( count($data) )
                 ->setErrors($errors);
 
-        $type = $_SERVER['HTTP_USER_AGENT'];
+        if (isset($_SERVER['HTTP_USER_AGENT']))
+            $type = $_SERVER['HTTP_USER_AGENT'];
+        else
+            $type = 'WEB';
 
 
 
