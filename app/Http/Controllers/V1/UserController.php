@@ -11,6 +11,7 @@ use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use App\Repository\UserRepository\UserRepositoryInterface;
 use App\ToViewGenerator\MessageController;
 use App\ToViewGenerator\Views\LoginView;
+use App\ToViewGenerator\Views\userInfoViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -154,6 +155,12 @@ class UserController extends Controller
     public function getUserInfo(Request $request)
     {
         $user_id =  $request->get('id');
+
+
+        return MessageController::sendMessage(200 , [] , [
+            'id' => $user_id ,
+            'restrauntCode' => $this->getUserRestraunt($user_id)
+        ] , userInfoViewModel::class );
 
 
         return response()->json([
