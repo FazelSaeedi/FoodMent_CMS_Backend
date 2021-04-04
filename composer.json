@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "fideloper/proxy": "^4.4",
+        "firebase/php-jwt": "^5.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hekmatinasser/verta": "^1.11",
