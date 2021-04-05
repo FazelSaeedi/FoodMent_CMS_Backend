@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Repository\UserRepository\UserRepositoryInterface;
 use Closure;
 use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
 
 class EnsureTokenIsValid
 {
@@ -22,7 +23,11 @@ class EnsureTokenIsValid
     protected $_userId;
     protected $userRepository ;
 
-
+    // Claims
+    protected $userId ;
+    protected $userphone ;
+    protected $userLevel ;
+    protected $restrauntCode ;
 
     public function __construct(Request $request , UserRepositoryInterface $userRepository)
     {
@@ -77,7 +82,14 @@ class EnsureTokenIsValid
         {
             if ( $this->checkValidToken($this->parsToken($this->_token))) {
 
-                $request->attributes->add(['id' => $this->getUserId()]);
+
+
+                $request->attributes->add(['id' => $this->userId]);
+                $request->attributes->add(['userPhone' => $this->userphone]);
+                $request->attributes->add(['userLevel' => $this->userLevel]);
+                $request->attributes->add(['restrauntCode' => $this->restrauntCode]);
+
+
                 return $next($request) ;
             }
         }
@@ -113,7 +125,25 @@ class EnsureTokenIsValid
     // get from DB
     public function checkValidToken($token)
     {
-        $userid = $this->userRepository->getUserId($token);
+
+
+        $key =  config('app.jwt_secret_key') ;
+
+        $decoded = JWT::decode($token, $key, array('HS256'));
+
+
+        $this->userId        =  $decoded->userId ;
+        $this->userphone     =  $decoded->userId ;
+        $this->userLevel     =  $decoded->userId ;
+        $this->restrauntCode =  $decoded->userId ;
+
+
+        return true ;
+
+        //todo : later we should attend to in line comments
+        // this was a traditional method that now it become Obsolete
+
+        /*$userid = $this->userRepository->getUserId($token);
 
         if ($userid)
         {
@@ -122,7 +152,7 @@ class EnsureTokenIsValid
         }
 
 
-        return false;
+        return false;*/
     }
 
 
