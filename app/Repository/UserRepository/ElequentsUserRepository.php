@@ -6,6 +6,7 @@ namespace App\Repository\UserRepository;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\exactly;
 
 class ElequentsUserRepository implements UserRepositoryInterface
 {
@@ -121,13 +122,23 @@ class ElequentsUserRepository implements UserRepositoryInterface
 
         $user = DB::table('users')
             ->join('users_level' , 'users.level_id' , '=' , 'users_level.id' )
-            ->join('restraunts' , 'restraunts.adminid' , '=' , 'users.id')
             ->where('users.phone', $phone)
-            ->select('users.id' , 'users.phone' , 'users_level.level' , 'restraunts.code' , 'users.password')
+            ->select('users.id' , 'users.phone' , 'users_level.level' , 'users.password')
             ->first();
 
-        //print_r($user);
-        //exit ;
+        $userIsRestrauntAdmin = DB::table('users')
+            ->join('restraunts' , 'restraunts.adminid' , '=' , 'users.id')
+            ->where('users.phone' , $phone)
+            ->select('code')
+            ->first();
+
+
+
+        if (isset($userIsRestrauntAdmin->code))
+             $user->code = $userIsRestrauntAdmin->code ;
+        else
+            $user->code = null ;
+
 
         if ($user === null)
             return false;

@@ -186,7 +186,10 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
 
     public function getRestrauntId($userId)
     {
-        return Restraunt::where('adminid' , '=' , $userId)->get('code')->first()['code'];
+        //todo : later we must edit this function name from get restraunt Id to getRestrauntCode
+        // here our mean is Code not Id
+        $restrauntCode = Restraunt::where('adminid' , '=' , $userId)->get('code')->first();
+        return isset($restrauntCode) ? $restrauntCode->code : null ;
     }
 
 
