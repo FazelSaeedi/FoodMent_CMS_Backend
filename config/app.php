@@ -15,6 +15,17 @@ return [
     'base_url' => env('BASE_URL', 'https://www.kalament.ir/FoodMent_CMS_Backend'),
 
     /*
+   |--------------------------------------------------------------------------
+   | JWT Secret Key
+   |--------------------------------------------------------------------------
+   |
+   | This value is JWT Secret Key for Generate Json Web Token
+   |
+   */
+
+    'jwt_secret_key' => env('JWT_SECRET_KEY', '3D93FErFazyKndaFpWo1y10hqMKef9s4HtSsg5OgSnXkxcyWkA'),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Name
     |--------------------------------------------------------------------------

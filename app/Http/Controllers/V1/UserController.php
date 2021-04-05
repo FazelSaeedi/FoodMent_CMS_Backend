@@ -15,7 +15,7 @@ use App\ToViewGenerator\Views\userInfoViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use Firebase\JWT\JWT;
 
 class UserController extends Controller
 
@@ -153,7 +153,22 @@ class UserController extends Controller
      */
     public function genarateToken()
     {
-        return Str::random(50);
+        $JWT_SECRET_KEY = config('app.jwt_secret_key') ;
+
+        $payload = array(
+            /*"iss" => "http://example.org",
+            "aud" => "http://example.com",
+            "iat" => 1356999524,
+            "nbf" => 1357000000,*/
+            "userId" => $this->userId ,
+            "userPhone" => $this->userphone ,
+            "userLevel" => $this->userLevel ,
+            "restrauntCode" => $this->restrauntCode ,
+            //"exp" => time() + 10 ,
+            "time" => time()
+        );
+        return $jwt = JWT::encode($payload, $JWT_SECRET_KEY);
+
     }
 
 
@@ -195,6 +210,8 @@ class UserController extends Controller
         if ($checkUserIsValid)
         {
             $token = $this->genarateToken();
+
+
             $this->userRepository->setTokenCode($phone , $token);
 
             return MessageController::sendMessage(200 , [] , [
@@ -227,7 +244,7 @@ class UserController extends Controller
                 $this->userId = $userInfoForClaims->id ;
                 $this->userphone = $userInfoForClaims->phone ;
                 $this->userLevel = $userInfoForClaims->level ;
-                $this->userId= $userInfoForClaims->id ;
+                $this->restrauntCode= $userInfoForClaims->code ;
 
                 return true;
             }
