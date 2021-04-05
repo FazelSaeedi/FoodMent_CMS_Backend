@@ -116,16 +116,23 @@ class ElequentsUserRepository implements UserRepositoryInterface
 
 
 
-    public function chechUserIsValid($phone, $password)
+    public function getUserInfoForClaims($phone, $password)
     {
 
-        $user = DB::table('users')->where('phone', $phone)->first();
+        $user = DB::table('users')
+            ->join('users_level' , 'users.level_id' , '=' , 'users.id' )
+            ->join('restraunts' , 'restraunts.adminid' , '=' , 'users.id')
+            ->where('users.phone', $phone)
+            ->select('users.id' , 'users.phone' , 'users_level.level' , 'restraunts.code' , 'users.password')
+            ->first();
 
+        //print_r($user);
+        //exit ;
 
         if ($user === null)
             return false;
         else
-            return $user->password;
+            return $user;
 
     }
 

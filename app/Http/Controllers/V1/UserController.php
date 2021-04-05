@@ -24,6 +24,12 @@ class UserController extends Controller
     protected $restrauntRepository;
 
 
+    protected $userId ;
+    protected $userphone ;
+    protected $userLevel ;
+    protected $restrauntCode ;
+
+
     /**
      * UserController constructor.
      * @param UserRepositoryInterface $userRepository
@@ -210,14 +216,21 @@ class UserController extends Controller
     public function checkUserIsValid($phone , $password)
     {
 
-        $validation = $this->userRepository->chechUserIsValid($phone , $password);
+        // checkUserIsValid -> return info of user for claims
+        $userInfoForClaims = $this->userRepository->getUserInfoForClaims($phone , $password);
 
 
-
-        if (strlen($validation) > 1)
+        if ($userInfoForClaims and strlen($userInfoForClaims->password) > 1)
         {
-            if (Hash::check($password, $validation) == 1)
+            if (Hash::check($password, $userInfoForClaims->password) == 1)
+            {
+                $this->userId = $userInfoForClaims->id ;
+                $this->userphone = $userInfoForClaims->phone ;
+                $this->userLevel = $userInfoForClaims->level ;
+                $this->userId= $userInfoForClaims->id ;
+
                 return true;
+            }
             else
                 return false;
         }

@@ -23,7 +23,7 @@ interface UserRepositoryInterface
     public function getUserId($token);
 
 
-    public function chechUserIsValid($username , $password);
+    public function getUserInfoForClaims($username , $password);
 
 
     public function setUserPassword($phone , $password);
