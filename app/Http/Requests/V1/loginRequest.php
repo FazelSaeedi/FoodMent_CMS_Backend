@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use App\Exceptions\V1\TestException;
+use App\ToViewGenerator\ErrorExceptionValue;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -32,11 +33,37 @@ class loginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'phone.required' => ErrorExceptionValue::REQUIRED,
+            'password.required' => ErrorExceptionValue::REQUIRED,
+
+        ];
+    }
+
     public function failedValidation(Validator $validator)
     {
-        //$errors = $validator->errors();
 
-        //throw new HttpResponseException(response()->json(['errors' => $errors],200));
+        $errors = $validator->errors();
+        $response = response()->json(['errors' => $errors],200);
+
+
+        $array = [];
+        foreach ($errors->toArray() as $keyErrorBag => $errorBag)
+        {
+            foreach ($errorBag as  $error)
+            {
+                array_push($array , ErrorExceptionValue::$fields[$keyErrorBag].$error);
+            }
+        }
+
+        echo '<pre>';
+        print_r($array);
+        echo '<pre>';
+        exit;
+
+        //throw new HttpResponseException(response());
         //throw new TestException('This is Test Exception' , 200);
     }
 }
