@@ -11,6 +11,8 @@ use App\Http\Requests\V1\getRestrauntMenuTable;
 use App\Http\Requests\V1\getRestrauntMenuTableRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
 use App\Repository\MenuRepository\WatingToBuildMenuJsonRepositoryInterface;
+use App\ToViewGenerator\MessageController;
+use App\ToViewGenerator\Views\MenuTableViewModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Object_;
@@ -163,6 +165,13 @@ class MenuController extends Controller
     public function getMenuTable( $restrauntid , $paginationnumber )
     {
         $restrauntMenuTable =   $this->menuRepository->getMenuTable( $restrauntid , $paginationnumber );
+
+
+
+        return MessageController::sendMessage(200 , [] , [
+            $restrauntMenuTable
+        ] , MenuTableViewModel::class );
+
 
         return response()->json([
             'data' => $restrauntMenuTable ,
