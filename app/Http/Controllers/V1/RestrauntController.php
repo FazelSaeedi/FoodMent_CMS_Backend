@@ -8,6 +8,8 @@ use App\Http\Requests\V1\DeleteRestrauntRequest;
 use App\Http\Requests\V1\EditRestrauntRequest;
 use App\Http\Requests\V1\GetRestrauntInfoRequest;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
+use App\ToViewGenerator\MessageController;
+use App\ToViewGenerator\Views\restrauntInfoViewModel;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
 
@@ -198,6 +200,15 @@ class RestrauntController extends Controller
     public function getRestrauntInfo(GetRestrauntInfoRequest $request , $restrauntCode)
     {
         $restrauntInformation =  $this->restrauntRepository->getRestrauntInfo($restrauntCode);
+
+        $menuURL  = "api(v1.0(menu(getmenutable(${restrauntInformation['id']}(10000";
+
+        $restrauntInformation['menuURL'] = $menuURL ;
+
+        return MessageController::sendMessage(200 , [] , [
+            $restrauntInformation
+        ] , restrauntInfoViewModel::class );
+
 
         if ($restrauntInformation)
             return response()->json([
