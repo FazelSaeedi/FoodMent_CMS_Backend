@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('isCanceled')->default(0); // when order canceled from user                    --- ok
             $table->boolean('ispaid')->default(0); // when user pay money                                  --- ok
             $table->boolean('isdelivered')->default(0); // when user receive                               --- ok
+            $table->boolean('isrestrauntconfirmed')->default(0); // when order canceled or delivered       --- ok
 
             $table->bigInteger('refid')->nullable();
 
