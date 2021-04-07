@@ -17,7 +17,7 @@ class CreateOrderItemsTable extends Migration
 
 
             $table->integer("id" , true)->unique();
-            $table->integer('orderid');
+            $table->integer('order_id');
             $table->integer('menuproductid');
 
             $table->integer("count");
@@ -28,7 +28,7 @@ class CreateOrderItemsTable extends Migration
             $table->timestamps();
 
 
-            $table->foreign('orderid')
+            $table->foreign('order_id')
                 ->references('id')->on('orders');
 
 
