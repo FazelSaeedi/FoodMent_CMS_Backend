@@ -36,7 +36,7 @@ class CreateOrdersTable extends Migration
                 ->references('id')->on('restraunts');
 
             $table->foreign('restraunt_code')
-                ->references('code')->on('restraunts');
+                ->references('code')->on('restraunts')->onUpdate('CASCADE');
 
             $table->foreign('userid')
                 ->references('id')->on('users');
