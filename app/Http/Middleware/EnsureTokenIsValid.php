@@ -84,10 +84,10 @@ class EnsureTokenIsValid
 
 
 
-                $request->attributes->add(['id' => $this->userId]);
-                $request->attributes->add(['userPhone' => $this->userphone]);
-                $request->attributes->add(['userLevel' => $this->userLevel]);
-                $request->attributes->add(['restrauntCode' => $this->restrauntCode]);
+                $request->request->add(['Claimid' => $this->userId]);
+                $request->request->add(['ClaimuserPhone' => $this->userphone]);
+                $request->request->add(['ClaimuserLevel' => $this->userLevel]);
+                $request->request->add(['ClaimrestrauntCode' => $this->restrauntCode]);
 
 
                 return $next($request) ;
@@ -133,9 +133,9 @@ class EnsureTokenIsValid
 
 
         $this->userId        =  $decoded->userId ;
-        $this->userphone     =  $decoded->userId ;
-        $this->userLevel     =  $decoded->userId ;
-        $this->restrauntCode =  $decoded->userId ;
+        $this->userphone     =  $decoded->userPhone ;
+        $this->userLevel     =  $decoded->userLevel ;
+        $this->restrauntCode =  $decoded->restrauntCode ;
 
 
         return true ;
