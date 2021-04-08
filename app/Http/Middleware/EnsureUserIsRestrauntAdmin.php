@@ -25,7 +25,7 @@ class EnsureUserIsRestrauntAdmin
     public function __construct(Request $request , UserRepositoryInterface $userRepository)
     {
 
-        $this->userId = $request->get('id') ;
+        $this->userId = $request->get('Claimid') ;
 
         $this->restrauntCode = $request->code ;
 
