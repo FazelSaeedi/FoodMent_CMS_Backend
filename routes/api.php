@@ -126,8 +126,8 @@ Route::prefix('v1.0')->group(function () {
     Route::prefix('order')->middleware('authentication')->group(function (){
 
         Route::get('getorders/{restrantCode} ' , [OrderController::class , 'getOrders']);
-        Route::get('getnewrestrauntorders/{restrantCode} ' , [OrderController::class , 'getNewRestrauntOrders']);
-        Route::get('getallrestrauntorders/{restrantCode} ' , [OrderController::class , 'getAllRestrauntOrders']);
+        Route::get('getnewrestrauntorders/{restrauntCode} ' , [OrderController::class , 'getNewRestrauntOrders']);
+        Route::get('getallrestrauntorders/{restrauntCode} ' , [OrderController::class , 'getAllRestrauntOrders']);
 
     });
 
