@@ -10,6 +10,7 @@ class OrderController extends Controller
 {
 
 
+
     public function getOrders( $restrauntCode )  // TEST()
     {
 
@@ -40,6 +41,13 @@ class OrderController extends Controller
 
 
         return $orders ;
+    }
+
+
+
+    public function getNewRestrauntOrders( $restrauntCode )
+    {
+        return 'getNewRestrauntOrders';
     }
 
 }
