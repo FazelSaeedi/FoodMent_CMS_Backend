@@ -50,4 +50,10 @@ class OrderController extends Controller
         return 'getNewRestrauntOrders';
     }
 
+
+    public function getAllRestrauntOrders( $restrauntCode )
+    {
+        return 'getAllRestrauntOrders';
+    }
+
 }
