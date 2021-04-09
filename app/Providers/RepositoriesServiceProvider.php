@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repository\OrderRepository\EloquentOrderRepository;
+use App\Repository\OrderRepository\OrderRepositoryInterface;
 use App\Repository\CategoryRepositiry\CategoryRepositoryInterface;
 use App\Repository\CategoryRepositiry\ElequentsCategoryRepository;
 use App\Repository\MainGroupRepository\ElequentMainGroupRepository;
@@ -62,6 +64,8 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(MenuRepositoryInterface::class , EloquentMenuRepository::class);
 
         $this->app->bind(WatingToBuildMenuJsonRepositoryInterface::class , EloquentMenuRepository::class);
+
+        $this->app->bind(OrderRepositoryInterface::class , EloquentOrderRepository::class);
 
 
     }
