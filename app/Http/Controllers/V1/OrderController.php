@@ -56,15 +56,20 @@ class OrderController extends Controller
 
     public function getNewRestrauntOrders( GetNewRestrauntOrdersRequest $request , $restrauntCode)
     {
-        return $this->orderRepository->getAllRestrauntOrders();
-       // return 'getNewRestrauntOrders';
+
+        $getNewRestrauntOrders = $this->orderRepository->getNewRestrauntOrders( $restrauntCode );
+
+        return $getNewRestrauntOrders ;
+
     }
 
 
     public function getAllRestrauntOrders( GetAllRestrauntOrdersRequest $request , $restrauntCode )
     {
-        return $this->orderRepository->getNewRestrauntOrders();
-        // return 'getAllRestrauntOrders';
+
+        $getAllRestrauntOrders = $this->orderRepository->getAllRestrauntOrders( $restrauntCode );
+
+        return $getAllRestrauntOrders ;
     }
 
 }

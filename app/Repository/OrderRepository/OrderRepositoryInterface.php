@@ -7,8 +7,8 @@ namespace App\Repository\OrderRepository;
 interface OrderRepositoryInterface
 {
 
-    public function getNewRestrauntOrders();
+    public function getNewRestrauntOrders( $restrauntCode );
 
-    public function getAllRestrauntOrders();
+    public function getAllRestrauntOrders( $restrauntCode );
 
 }
