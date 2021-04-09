@@ -123,6 +123,11 @@ Route::prefix('v1.0')->group(function () {
 
     });
 
+    Route::prefix('order')->middleware('authentication')->group(function (){
+
+        Route::get('getorders/{restrantCode} ' , [OrderController::class , 'getOrders']);
+
+    });
 
     // Get Test Ajax JavaScript
     Route::get('testgetajax' , function (Request $request){
