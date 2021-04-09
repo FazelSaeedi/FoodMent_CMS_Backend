@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\ArtisanCommand;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\V1\MenuController;
+use App\Http\Controllers\V1\OrderController;
 use App\Http\Controllers\V1\ProductController;
 use App\Http\Controllers\V1\RestrauntController;
 use App\Http\Controllers\V1\UserController;
@@ -174,6 +175,7 @@ Route::prefix('v1.0')->group(function () {
         Route::get('initialize'  , [ArtisanCommand::class , 'initialize']);
         Route::get('reinitialize'  , [ArtisanCommand::class , 'reInitialize']);
         Route::get('optimize'  , [ArtisanCommand::class , 'optimize']);
+        Route::get('migrate'  , [ArtisanCommand::class , 'migrate']);
 
     });
 
