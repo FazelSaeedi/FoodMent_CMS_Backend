@@ -7,6 +7,9 @@ use App\Http\Requests\V1\GetAllRestrauntOrdersRequest;
 use App\Http\Requests\V1\GetNewRestrauntOrdersRequest;
 use App\Models\Order;
 use App\Repository\OrderRepository\OrderRepositoryInterface;
+use App\ToViewGenerator\MessageController;
+use App\ToViewGenerator\Views\allRestrauntOrdersViewModel;
+use App\ToViewGenerator\Views\newRestrauntOrdersViewModel;
 
 
 class OrderController extends Controller
@@ -59,7 +62,9 @@ class OrderController extends Controller
 
         $getNewRestrauntOrders = $this->orderRepository->getNewRestrauntOrders( $restrauntCode );
 
-        return $getNewRestrauntOrders ;
+        return MessageController::sendMessage(200 , [] , [
+            $getNewRestrauntOrders
+        ] , newRestrauntOrdersViewModel::class );
 
     }
 
@@ -69,7 +74,10 @@ class OrderController extends Controller
 
         $getAllRestrauntOrders = $this->orderRepository->getAllRestrauntOrders( $restrauntCode );
 
-        return $getAllRestrauntOrders ;
+        return MessageController::sendMessage(200 , [] , [
+            $getAllRestrauntOrders
+        ] , allRestrauntOrdersViewModel::class );
+
     }
 
 }
