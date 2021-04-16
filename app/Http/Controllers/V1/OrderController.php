@@ -72,10 +72,16 @@ class OrderController extends Controller
     public function getAllRestrauntOrders( GetAllRestrauntOrdersRequest $request , $restrauntCode )
     {
 
-        $getAllRestrauntOrders = $this->orderRepository->getAllRestrauntOrders( $restrauntCode );
+        $getAllOrders = $this->orderRepository->getAllOrders( $restrauntCode );
+        $getAllOrderItems = $this->orderRepository->getAllOrderItems( $restrauntCode );
+
+        /*return [$getAllOrders , $getAllOrderItems];
+        exit();*/
+
+        //$getAllRestrauntOrders = $this->orderRepository->getAllRestrauntOrders( $restrauntCode );
 
         return MessageController::sendMessage(200 , [] , [
-            $getAllRestrauntOrders
+            $getAllOrders , $getAllOrderItems
         ] , allRestrauntOrdersViewModel::class );
 
     }

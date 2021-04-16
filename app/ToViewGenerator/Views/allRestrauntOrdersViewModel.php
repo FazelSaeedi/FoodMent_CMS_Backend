@@ -21,13 +21,18 @@ class allRestrauntOrdersViewModel implements BaseMessage
 
     public function getJsonMobileView()
     {
-        $array = [];
+        $array0 = [];
+        $array1 = [];
 
         foreach ($this->data[0] as $row) {
-            array_push($array, $row);
+            array_push($array0, $row);
         }
 
-        return [json_encode($array)];
+        foreach ($this->data[1] as $row) {
+            array_push($array1, $row);
+        }
+
+        return [ json_encode($array0) , json_encode($array1) ];
 
    /*     $data = json_encode($this->data);
         $data = json_decode($data, true);
@@ -53,13 +58,18 @@ class allRestrauntOrdersViewModel implements BaseMessage
 
     public function getJsonWebBrowserView()
     {
-        $array = [];
+        $array0 = [];
+        $array1 = [];
 
         foreach ($this->data[0] as $row) {
-            array_push($array, $row);
+            array_push($array0, $row);
         }
 
-        return $array;
+        foreach ($this->data[1] as $row) {
+            array_push($array1, $row);
+        }
+
+        return [ $array0 , $array1 ];
     }
 
 
