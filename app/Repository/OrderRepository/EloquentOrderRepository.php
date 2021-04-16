@@ -12,6 +12,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
 
 
+    // get collection of getNewRestrauntOrders ( with orderItems)
     public function getNewRestrauntOrders( $restrauntCode )
     {
         return 'this is getNewRestrauntOrders from Eloquent Repository' ;
@@ -19,6 +20,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
 
 
+    // get collection of getAllRestrauntOrders ( with orderItems)
     public function getAllRestrauntOrders( $restrauntCode )
     {
         $getAllRestrauntOrders = Order::with(['OrderItems' => function($q){
@@ -44,16 +46,24 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     }
 
 
+
+    // get NewOrders Alone
     public function getNewOrders($restrauntCode)
     {
         // TODO: Implement getNewOrders() method.
     }
 
+
+
+    // get NewOrderItem Alone
     public function getNewOrderItems($restrauntCode)
     {
         // TODO: Implement getNewOrderItems() method.
     }
 
+
+
+    // get all Order alone
     public function getAllOrders($restrauntCode)
     {
         $getAllOrders = Order::where('restraunt_code' , $restrauntCode )
@@ -67,6 +77,9 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         return $getAllOrders ;
     }
 
+
+
+    // get all OrderItems alone
     public function getAllOrderItems($restrauntCode)
     {
         $getAllOrderItems = OrderItem::join('orders', 'orders.id', '=', 'order_items.order_id')
@@ -78,4 +91,6 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
         return $getAllOrderItems ;
     }
+
+
 }

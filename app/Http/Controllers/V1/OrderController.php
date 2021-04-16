@@ -15,13 +15,17 @@ use App\ToViewGenerator\Views\newRestrauntOrdersViewModel;
 class OrderController extends Controller
 {
 
+
     protected $orderRepository ;
+
 
 
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository = $orderRepository ;
     }
+
+
 
     public function getOrders( $restrauntCode )  // TEST()
     {
@@ -67,6 +71,7 @@ class OrderController extends Controller
         ] , newRestrauntOrdersViewModel::class );
 
     }
+
 
 
     public function getAllRestrauntOrders( GetAllRestrauntOrdersRequest $request , $restrauntCode )
