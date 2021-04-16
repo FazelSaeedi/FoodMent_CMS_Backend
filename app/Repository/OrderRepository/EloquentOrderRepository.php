@@ -5,6 +5,7 @@ namespace App\Repository\OrderRepository;
 
 
 use App\Models\Order;
+use App\Models\OrderItem;
 
 class EloquentOrderRepository implements OrderRepositoryInterface
 {
@@ -43,5 +44,38 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     }
 
 
+    public function getNewOrders($restrauntCode)
+    {
+        // TODO: Implement getNewOrders() method.
+    }
 
+    public function getNewOrderItems($restrauntCode)
+    {
+        // TODO: Implement getNewOrderItems() method.
+    }
+
+    public function getAllOrders($restrauntCode)
+    {
+        $getAllOrders = Order::where('restraunt_code' , $restrauntCode )
+                        ->where('isrestrauntconfirmed' , false)
+                        ->get([
+                            'id' , 'userid' , 'totalamount' , 'totalprice'
+                            , 'isuserrequested', 'isrestrauntaccepted', 'isCanceled' ,
+                            'ispaid' , 'isdelivered' , 'isrestrauntconfirmed'
+                        ]);
+
+        return $getAllOrders ;
+    }
+
+    public function getAllOrderItems($restrauntCode)
+    {
+        $getAllOrderItems = OrderItem::join('orders', 'orders.id', '=', 'order_items.order_id')
+                                       ->where('restraunt_code' , $restrauntCode )
+                                       ->get([
+                                           'order_id' , 'menuproductId' , 'count' ,
+                                           'order_items.price' , 'discountrate' , 'order_items.totalprice'
+                                       ]);
+
+        return $getAllOrderItems ;
+    }
 }

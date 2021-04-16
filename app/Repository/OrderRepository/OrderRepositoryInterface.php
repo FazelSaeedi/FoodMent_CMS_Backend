@@ -11,4 +11,12 @@ interface OrderRepositoryInterface
 
     public function getAllRestrauntOrders( $restrauntCode );
 
+    public function getNewOrders($restrauntCode);
+
+    public function getNewOrderItems($restrauntCode);
+
+    public function getAllOrders($restrauntCode);
+
+    public function getAllOrderItems($restrauntCode);
+
 }
