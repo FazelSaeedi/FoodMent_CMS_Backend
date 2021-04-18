@@ -6,10 +6,16 @@ namespace App\Repository\OrderRepository;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\DB;
 
 class EloquentOrderRepository implements OrderRepositoryInterface
 {
 
+    public $ISUSERREQUEST          = 10 ;
+    public $ISRESTAURANTACCEPT     = 20 ;
+    public $ISPAYEDCOAST           = 30 ;
+    public $ISBAKING               = 40 ;
+    public $ISSENT                 = 50 ;
 
 
     // get collection of getNewRestrauntOrders ( with orderItems)
@@ -50,7 +56,19 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     // get NewOrders Alone
     public function getNewOrders($restrauntCode)
     {
-        // TODO: Implement getNewOrders() method.
+
+        return DB::select(
+            "SELECT orders.id , totalamount , totalprice , refid ,
+                          CASE
+                               WHEN orders.isuserrequested = 1 AND orders.isrestrauntaccepted = 0 AND orders.ispaid = 0 AND orders.isbaking = 0 AND orders.issend = 0  THEN $this->ISUSERREQUEST
+                               WHEN orders.isuserrequested = 1 AND orders.isrestrauntaccepted = 1 AND orders.ispaid = 0 AND orders.isbaking = 0 AND orders.issend = 0  THEN $this->ISRESTAURANTACCEPT
+                               WHEN orders.isuserrequested = 1 AND orders.isrestrauntaccepted = 1 AND orders.ispaid = 1 AND orders.isbaking = 0 AND orders.issend = 0  THEN $this->ISPAYEDCOAST
+                               WHEN orders.isuserrequested = 1 AND orders.isrestrauntaccepted = 1 AND orders.ispaid = 1 AND orders.isbaking = 1 AND orders.issend = 0  THEN $this->ISBAKING
+                               WHEN orders.isuserrequested = 1 AND orders.isrestrauntaccepted = 1 AND orders.ispaid = 1 AND orders.isbaking = 1 AND orders.issend = 1  THEN $this->ISSENT
+                          ELSE 'Fail'
+                          END AS Status
+
+                  FROM `orders`");
     }
 
 
@@ -58,7 +76,14 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     // get NewOrderItem Alone
     public function getNewOrderItems($restrauntCode)
     {
-        // TODO: Implement getNewOrderItems() method.
+
+        return DB::select("
+            select `order_id`, `menuproductId`, `count`, `order_items`.`price`, `discountrate`, `order_items`.`totalprice`
+            from `order_items`
+            inner join `orders` on `orders`.`id` = `order_items`.`order_id`
+            where `restraunt_code` = 18 AND `orders`.`issend` = 0
+        ") ;
+
     }
 
 

@@ -63,11 +63,13 @@ class OrderController extends Controller
 
     public function getNewRestrauntOrders( GetNewRestrauntOrdersRequest $request , $restrauntCode)
     {
+        $getNewOrders = $this->orderRepository->getNewOrders( $restrauntCode );
+        $getNewOrderItems = $this->orderRepository->getNewOrderItems( $restrauntCode );
 
-        $getNewRestrauntOrders = $this->orderRepository->getNewRestrauntOrders( $restrauntCode );
+        // $getNewRestrauntOrders = $this->orderRepository->getNewRestrauntOrders( $restrauntCode );
 
         return MessageController::sendMessage(200 , [] , [
-            $getNewRestrauntOrders
+            $getNewOrders , $getNewOrderItems
         ] , newRestrauntOrdersViewModel::class );
 
     }
