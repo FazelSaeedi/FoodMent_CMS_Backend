@@ -24,10 +24,10 @@ class CreateOrdersTable extends Migration
 
             $table->boolean('isuserrequested')->default(0); // when user request for submit order          --- ok
             $table->boolean('isrestrauntaccepted')->default(0); // when restraunt accept ures Request      --- ok
-            $table->boolean('isCanceled')->default(0); // when order canceled from user                    --- ok
             $table->boolean('ispaid')->default(0); // when user pay money                                  --- ok
-            $table->boolean('isdelivered')->default(0); // when user receive                               --- ok
-            $table->boolean('isrestrauntconfirmed')->default(0); // when order canceled or delivered       --- ok
+            $table->boolean('isbaking')->default(0); // when user pay money                                --- ok // new
+            $table->boolean('issend')->default(0); // when restaurant send food                            --- ok // new
+
 
             $table->bigInteger('refid')->nullable();
 
