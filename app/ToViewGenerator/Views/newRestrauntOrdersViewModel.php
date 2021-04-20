@@ -23,14 +23,27 @@ class newRestrauntOrdersViewModel implements BaseMessage
 
     public function getJsonMobileView()
     {
-        $data = json_encode($this->data);
-        $data = json_decode($data, true);
+        $array0 = [];
+        $array1 = [];
 
-        return [json_encode($data[0]['data'])];
+        foreach ($this->data[0] as $row) {
+            array_push($array0, $row);
+        }
+
+        foreach ($this->data[1] as $row) {
+            array_push($array1, $row);
+        }
+
+        return [ json_encode($array0) , json_encode($array1) ];
+
+        /*     $data = json_encode($this->data);
+             $data = json_decode($data, true);
+
+             return [json_encode($this->data)];*/
 
         $array = [];
 
-        foreach ($data[0]['data'] as $row) {
+        foreach ($this->data as $row) {
             array_push($array, json_encode($row));
         }
 

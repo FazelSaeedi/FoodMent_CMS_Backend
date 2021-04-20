@@ -41,11 +41,10 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
         }])
             ->where('restraunt_code' , $restrauntCode )
-            ->where('isrestrauntconfirmed' , false)
             ->get([
                 'id' , 'userid' , 'totalamount' , 'totalprice'
                 , 'isuserrequested', 'isrestrauntaccepted', 'isCanceled' ,
-                'ispaid' , 'isdelivered' , 'isrestrauntconfirmed'
+                'ispaid' , 'isdelivered'
             ]);
 
         return $getAllRestrauntOrders ;
@@ -69,7 +68,8 @@ class EloquentOrderRepository implements OrderRepositoryInterface
                           END AS Status
 
                   FROM `orders`
-                  where `orders`.`issend` = 0
+                  where `orders`.`restraunt_code` = $restrauntCode
+                  AND `orders`.`issend` = 0
                   ");
     }
 
@@ -83,7 +83,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             select `order_id`, `menuproductId`, `count`, `order_items`.`price`, `discountrate`, `order_items`.`totalprice`
             from `order_items`
             inner join `orders` on `orders`.`id` = `order_items`.`order_id`
-            where `restraunt_code` = 18 AND `orders`.`issend` = 0
+            where `restraunt_code` = $restrauntCode AND `orders`.`issend` = 0
         ") ;
 
     }
@@ -94,11 +94,10 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     public function getAllOrders($restrauntCode)
     {
         $getAllOrders = Order::where('restraunt_code' , $restrauntCode )
-                        ->where('isrestrauntconfirmed' , false)
                         ->get([
                             'id' , 'userid' , 'totalamount' , 'totalprice'
-                            , 'isuserrequested', 'isrestrauntaccepted', 'isCanceled' ,
-                            'ispaid' , 'isdelivered' , 'isrestrauntconfirmed'
+                            , 'isuserrequested', 'isrestrauntaccepted',
+                            'ispaid'
                         ]);
 
         return $getAllOrders ;
