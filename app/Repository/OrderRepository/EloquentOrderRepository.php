@@ -119,4 +119,41 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     }
 
 
+
+    // --- Order Processing
+
+
+
+    public function userRequestOrder($orderId)
+    {
+        // TODO: Implement userRequestOrder() method.
+    }
+
+
+
+    public function restaurantAcceptOrder($orderId)
+    {
+        // TODO: Implement restrauntAcceptOrder() method.
+    }
+
+
+
+    public function userPayOrder($orderId)
+    {
+        // TODO: Implement userPayOrder() method.
+    }
+
+
+
+    public function restaurantBakeOrder($orderId)
+    {
+        // TODO: Implement restrauntBakeOrder() method.
+    }
+
+
+
+    public function restaurantSendOrder($orderId)
+    {
+        // TODO: Implement restrauntSendOrder() method.
+    }
 }

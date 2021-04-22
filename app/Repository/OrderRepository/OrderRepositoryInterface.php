@@ -31,5 +31,27 @@ interface OrderRepositoryInterface
     public function getAllOrderItems($restrauntCode);
 
 
+    // --- Order Processing
+
+
+    public function userRequestOrder( $orderId );
+
+
+
+    public function restaurantAcceptOrder( $orderId );
+
+
+
+    public function userPayOrder( $orderId );
+
+
+
+    public function restaurantBakeOrder( $orderId );
+
+
+
+    public function restaurantSendOrder( $orderId );
+
+
 
 }
