@@ -69,7 +69,8 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
                   FROM `orders`
                   where `orders`.`restraunt_code` = $restrauntCode
-                  AND `orders`.`issend` = 0
+                     AND `orders`.`isrestrauntaccepted` > -1
+                     AND `orders`.`issend` = 0
                   ");
     }
 
@@ -83,7 +84,9 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             select `order_id`, `menuproductId`, `count`, `order_items`.`price`, `discountrate`, `order_items`.`totalprice`
             from `order_items`
             inner join `orders` on `orders`.`id` = `order_items`.`order_id`
-            where `restraunt_code` = $restrauntCode AND `orders`.`issend` = 0
+            where `restraunt_code` = $restrauntCode
+              AND `orders`.`issend` = 0
+              AND `orders`.`isrestrauntaccepted` > -1
         ") ;
 
     }
@@ -133,7 +136,55 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
     public function restaurantAcceptOrder($orderId)
     {
-        // TODO: Implement restrauntAcceptOrder() method.
+
+        $editMainGroup = Order::where('id' ,$orderId)
+            ->where('isuserrequested' , 1)
+            ->where('isrestrauntaccepted' , 0)
+            ->where('ispaid'   , 0 )
+            ->where('isbaking' , 0 )
+            ->where('issend'   , 0 )
+            ->first();
+
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->isrestrauntaccepted = 1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
+
+
+    }
+
+
+
+    public function restaurantCanselOrder($orderId)
+    {
+        $editMainGroup = Order::where('id' ,$orderId)
+            ->where('isuserrequested' , 1)
+            ->where('isrestrauntaccepted' , 0)
+            ->where('ispaid'   , 0 )
+            ->where('isbaking' , 0 )
+            ->where('issend'   , 0 )
+            ->first();
+
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->isrestrauntaccepted = -1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
     }
 
 

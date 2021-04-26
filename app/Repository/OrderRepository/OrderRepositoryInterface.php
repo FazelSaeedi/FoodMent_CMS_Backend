@@ -54,4 +54,5 @@ interface OrderRepositoryInterface
 
 
 
+    public function restaurantCanselOrder( $orderId );
 }
