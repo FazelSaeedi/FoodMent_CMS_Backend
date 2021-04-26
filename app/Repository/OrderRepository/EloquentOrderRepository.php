@@ -70,6 +70,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
                   FROM `orders`
                   where `orders`.`restraunt_code` = $restrauntCode
                      AND `orders`.`isrestrauntaccepted` > -1
+                     AND `orders`.`ispaid` > -1
                      AND `orders`.`issend` = 0
                   ");
     }
@@ -87,6 +88,8 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             where `restraunt_code` = $restrauntCode
               AND `orders`.`issend` = 0
               AND `orders`.`isrestrauntaccepted` > -1
+              AND `orders`.`ispaid` > -1
+
         ") ;
 
     }
@@ -191,10 +194,51 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
     public function userPayOrder($orderId)
     {
-        // TODO: Implement userPayOrder() method.
+        $editMainGroup = Order::where('id' ,$orderId)
+            ->where('isuserrequested' , 1)
+            ->where('isrestrauntaccepted' , 1)
+            ->where('ispaid'   , 0 )
+            ->where('isbaking' , 0 )
+            ->where('issend'   , 0 )
+            ->first();
+
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->ispaid = 1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
     }
 
+    public function userCancelpayOrder($orderId)
+    {
+        $editMainGroup = Order::where('id' ,$orderId)
+            ->where('isuserrequested' , 1)
+            ->where('isrestrauntaccepted' , 1)
+            ->where('ispaid'   , 0 )
+            ->where('isbaking' , 0 )
+            ->where('issend'   , 0 )
+            ->first();
 
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->ispaid = -1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
+    }
 
     public function restaurantBakeOrder($orderId)
     {
