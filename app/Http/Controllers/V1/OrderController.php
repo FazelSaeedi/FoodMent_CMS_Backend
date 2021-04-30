@@ -7,6 +7,7 @@ use App\Http\Requests\V1\GetAllRestrauntOrdersRequest;
 use App\Http\Requests\V1\GetNewRestrauntOrdersRequest;
 use App\Http\Requests\V1\restaurantAcceptOrderRequest;
 use App\Http\Requests\V1\RestaurantBakeOrderRequest;
+use App\Http\Requests\V1\RestaurantCanselOrderRequest;
 use App\Http\Requests\V1\RestaurantSendOrderRequest;
 use App\Http\Requests\V1\UserPayOrderRequest;
 use App\Models\Order;
@@ -16,6 +17,7 @@ use App\ToViewGenerator\Views\AcceptRestrauntOrderViewModel;
 use App\ToViewGenerator\Views\allRestrauntOrdersViewModel;
 use App\ToViewGenerator\Views\newRestrauntOrdersViewModel;
 use App\ToViewGenerator\Views\RestaurantBakeOrderViewModel;
+use App\ToViewGenerator\Views\RestaurantCanselOrderViewModel;
 use App\ToViewGenerator\Views\UserPayOrderViewModel;
 use Illuminate\Http\Response;
 
@@ -176,4 +178,22 @@ class OrderController extends Controller
 
     }
 
+
+
+    public function restaurantCanselOrder ( RestaurantCanselOrderRequest $request , $restaurantCode , $orderId )
+    {
+
+        // return $request->description ."-".$restaurantCode."-".$orderId;
+
+
+        $result  = $this->orderRepository->cansel( $orderId , $request->description );
+
+
+        if ($result)
+            return MessageController::sendMessage(Response::HTTP_OK , [] , [] , RestaurantCanselOrderViewModel::class );
+        else
+            return MessageController::sendMessage(Response::HTTP_INTERNAL_SERVER_ERROR , [] , [] , RestaurantCanselOrderViewModel::class );
+
+
+    }
 }

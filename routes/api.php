@@ -133,6 +133,8 @@ Route::prefix('v1.0')->group(function () {
         Route::get('userpayorder/{restaurantCode}/{OrderId}/{status}' , [OrderController::class , 'userPayOrder']);
         Route::get('restaurantbakeorder/{restaurantCode}/{OrderId}/{status}' , [OrderController::class , 'restaurantBakeOrder']);
         Route::get('restaurantsendorder/{restaurantCode}/{OrderId}/{status}' , [OrderController::class , 'restaurantSendOrder']);
+        Route::post('restaurantcanselorder/{restaurantCode}/{OrderId}' , [OrderController::class , 'restaurantCanselOrder']);
+
     });
 
     // Get Test Ajax JavaScript

@@ -72,6 +72,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
                      AND `orders`.`isrestrauntaccepted` > -1
                      AND `orders`.`ispaid` > -1
                      AND `orders`.`issend` = 0
+                     AND `orders`.`iscansel` = 0
                   ");
     }
 
@@ -89,6 +90,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
               AND `orders`.`issend` = 0
               AND `orders`.`isrestrauntaccepted` > -1
               AND `orders`.`ispaid` > -1
+              AND `orders`.`iscansel` = 0
 
         ") ;
 
@@ -146,6 +148,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 0 )
             ->where('isbaking' , 0 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -174,6 +177,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 0 )
             ->where('isbaking' , 0 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -200,6 +204,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 0 )
             ->where('isbaking' , 0 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -226,6 +231,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 0 )
             ->where('isbaking' , 0 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -253,6 +259,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 1 )
             ->where('isbaking' , 0 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -281,6 +288,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             ->where('ispaid'   , 1 )
             ->where('isbaking' , 1 )
             ->where('issend'   , 0 )
+            ->where('iscansel' , 0 )
             ->first();
 
 
@@ -296,5 +304,28 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         }else
             return false ;
 
+    }
+
+
+
+    public function cansel( $orderId , $description )
+    {
+        $order =Order::where( 'id' , $orderId )
+            ->where('iscansel'  , 0 )
+            ->first();
+
+
+
+        if ($order)
+        {
+            $order->iscansel = 1 ;
+            $order->description = $description ;
+
+            if($order->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
     }
 }

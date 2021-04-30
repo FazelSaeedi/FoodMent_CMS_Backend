@@ -59,4 +59,7 @@ interface OrderRepositoryInterface
 
 
     public function userCancelpayOrder ($orderId ) ;
+
+
+    public function cansel( $orderId , $description ) ;
 }
