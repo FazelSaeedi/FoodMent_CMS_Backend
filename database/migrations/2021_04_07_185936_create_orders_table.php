@@ -27,6 +27,8 @@ class CreateOrdersTable extends Migration
             $table->boolean('ispaid')->default(0); // when user pay money                                  --- ok
             $table->boolean('isbaking')->default(0); // when user pay money                                --- ok // new
             $table->boolean('issend')->default(0); // when restaurant send food                            --- ok // new
+            $table->boolean('iscansel')->default(0); // when restaurant send food                            --- ok // new
+            $table->string('description','255');      // when Restaurant cansel Order In any case
 
 
             $table->bigInteger('refid')->nullable();
