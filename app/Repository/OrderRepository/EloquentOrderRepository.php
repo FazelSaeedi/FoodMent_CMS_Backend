@@ -216,6 +216,8 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             return false ;
     }
 
+
+
     public function userCancelpayOrder($orderId)
     {
         $editMainGroup = Order::where('id' ,$orderId)
@@ -240,15 +242,59 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             return false ;
     }
 
+
+
     public function restaurantBakeOrder($orderId)
     {
-        // TODO: Implement restrauntBakeOrder() method.
+
+        $editMainGroup = Order::where('id' ,$orderId)
+            ->where('isuserrequested' , 1)
+            ->where('isrestrauntaccepted' , 1)
+            ->where('ispaid'   , 1 )
+            ->where('isbaking' , 0 )
+            ->where('issend'   , 0 )
+            ->first();
+
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->isbaking = 1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
+
     }
 
 
 
     public function restaurantSendOrder($orderId)
     {
-        // TODO: Implement restrauntSendOrder() method.
+
+        $editMainGroup = Order::where( 'id' , $orderId)
+            ->where('isuserrequested' , 1 )
+            ->where('isrestrauntaccepted' , 1 )
+            ->where('ispaid'   , 1 )
+            ->where('isbaking' , 1 )
+            ->where('issend'   , 0 )
+            ->first();
+
+
+
+        if ($editMainGroup)
+        {
+            $editMainGroup->issend = 1 ;
+
+            if($editMainGroup->save())
+                return true ;
+            else
+                return false ;
+        }else
+            return false ;
+
     }
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\GetAllRestrauntOrdersRequest;
 use App\Http\Requests\V1\GetNewRestrauntOrdersRequest;
 use App\Http\Requests\V1\restaurantAcceptOrderRequest;
+use App\Http\Requests\V1\RestaurantBakeOrderRequest;
+use App\Http\Requests\V1\RestaurantSendOrderRequest;
 use App\Http\Requests\V1\UserPayOrderRequest;
 use App\Models\Order;
 use App\Repository\OrderRepository\OrderRepositoryInterface;
@@ -13,6 +15,7 @@ use App\ToViewGenerator\MessageController;
 use App\ToViewGenerator\Views\AcceptRestrauntOrderViewModel;
 use App\ToViewGenerator\Views\allRestrauntOrdersViewModel;
 use App\ToViewGenerator\Views\newRestrauntOrdersViewModel;
+use App\ToViewGenerator\Views\RestaurantBakeOrderViewModel;
 use App\ToViewGenerator\Views\UserPayOrderViewModel;
 use Illuminate\Http\Response;
 
@@ -134,4 +137,43 @@ class OrderController extends Controller
             return MessageController::sendMessage(Response::HTTP_INTERNAL_SERVER_ERROR , [] , [] , UserPayOrderViewModel::class );
 
     }
+
+
+
+    public function restaurantBakeOrder (RestaurantBakeOrderRequest $request , $restaurantCode , $orderId , $status)
+    {
+        $result = false ;
+
+        if ($status == true)
+            $result  = $this->orderRepository->restaurantBakeOrder( $orderId );
+        else
+            $result = false;
+
+
+        if ($result)
+            return MessageController::sendMessage(Response::HTTP_OK , [] , [] , RestaurantBakeOrderViewModel::class );
+        else
+            return MessageController::sendMessage(Response::HTTP_INTERNAL_SERVER_ERROR , [] , [] , RestaurantBakeOrderViewModel::class );
+
+    }
+
+
+
+    public function restaurantSendOrder (RestaurantSendOrderRequest $request , $restaurantCode , $orderId , $status)
+    {
+        $result = false ;
+
+        if ($status == true)
+            $result  = $this->orderRepository->restaurantSendOrder( $orderId );
+        else
+            $result = false;
+
+
+        if ($result)
+            return MessageController::sendMessage(Response::HTTP_OK , [] , [] , RestaurantBakeOrderViewModel::class );
+        else
+            return MessageController::sendMessage(Response::HTTP_INTERNAL_SERVER_ERROR , [] , [] , RestaurantBakeOrderViewModel::class );
+
+    }
+
 }
