@@ -389,4 +389,16 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
 
     }
 
+
+    public function setStockStatus ( $id ,  $status )
+    {
+       $result =  DB::update('UPDATE `menu` SET `isexist` = ? WHERE `menu`.`id` = ?; ' ,[  $status , $id] );
+
+
+       if ($result)
+           return true  ;
+       else
+           return false ;
+    }
+
 }

@@ -27,4 +27,6 @@ interface MenuRepositoryInterface
 
     public function createMenuJsonTransaction( $restrauntId );
 
+    public function setStockStatus ( $id ,  $status );
+
 }

@@ -9,11 +9,14 @@ use App\Http\Requests\V1\DeleteMenuProductRequest;
 use App\Http\Requests\V1\EditMenuProductRequest;
 use App\Http\Requests\V1\getRestrauntMenuTable;
 use App\Http\Requests\V1\getRestrauntMenuTableRequest;
+use App\Http\Requests\V1\setStockStatusRequest;
 use App\Repository\MenuRepository\MenuRepositoryInterface;
 use App\Repository\MenuRepository\WatingToBuildMenuJsonRepositoryInterface;
 use App\ToViewGenerator\MessageController;
 use App\ToViewGenerator\Views\MenuTableViewModel;
+use App\ToViewGenerator\Views\setStockStatusViewModel;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Object_;
 
@@ -359,5 +362,22 @@ class MenuController extends Controller
             return false ;
 
     }
+
+
+
+    public function setStockStatus( setStockStatusRequest $request , $restaurantCode , $id , $status)
+    {
+
+
+        $result = $this->menuRepository->setStockStatus( $id , $status ) ;
+
+        if ($result)
+            return MessageController::sendMessage(Response::HTTP_OK , [] , [] , setStockStatusViewModel::class );
+        else
+            return MessageController::sendMessage(Response::HTTP_INTERNAL_SERVER_ERROR , [] , [] , setStockStatusViewModel::class );
+
+
+    }
+
 
 }
