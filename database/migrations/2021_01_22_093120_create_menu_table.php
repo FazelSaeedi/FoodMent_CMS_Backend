@@ -21,6 +21,7 @@ class CreateMenuTable extends Migration
             $table->integer('price');
             $table->integer('discount');
             $table->string('makeup','255');
+            $table->boolean(' isexist')->default(0);
 
 
             $table->foreign('product_id')
