@@ -134,6 +134,7 @@ Route::prefix('v1.0')->group(function () {
         Route::get('restaurantbakeorder/{restaurantCode}/{OrderId}/{status}' , [OrderController::class , 'restaurantBakeOrder']);
         Route::get('restaurantsendorder/{restaurantCode}/{OrderId}/{status}' , [OrderController::class , 'restaurantSendOrder']);
         Route::post('restaurantcanselorder/{restaurantCode}/{OrderId}' , [OrderController::class , 'restaurantCanselOrder']);
+        Route::get('getpayerinformation/{restaurantCode}/{OrderId}' , [OrderController::class , 'getPayerInformation']);
 
     });
 
