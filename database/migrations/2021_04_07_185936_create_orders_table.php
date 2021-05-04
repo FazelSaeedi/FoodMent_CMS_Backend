@@ -21,6 +21,8 @@ class CreateOrdersTable extends Migration
             $table->integer("totalprice");
             $table->integer("restraunt_id");
             $table->bigInteger("restraunt_code");
+            $table->integer('address_id');
+
 
             $table->boolean('isuserrequested')->default(0); // when user request for submit order          --- ok
             $table->boolean('isrestrauntaccepted')->default(0); // when restraunt accept ures Request      --- ok
@@ -34,6 +36,10 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('refid')->nullable();
 
             $table->timestamps();
+
+
+            $table->foreign('address_id')
+                ->references('id')->on('orders');
 
             $table->foreign('restraunt_id')
                 ->references('id')->on('restraunts');
