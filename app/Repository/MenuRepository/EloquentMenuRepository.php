@@ -263,6 +263,7 @@ class EloquentMenuRepository implements MenuRepositoryInterface , WatingToBuildM
                 'types.name as typename' ,
                 'maingroups.name as maingroupname',
                 'subgroups.name as subgroupname' ,
+                'menu.isexist' ,
             ])->where('restraunt_id' ,'=' , $restrauntId)
             ->paginate($paginationnumber);
     }
