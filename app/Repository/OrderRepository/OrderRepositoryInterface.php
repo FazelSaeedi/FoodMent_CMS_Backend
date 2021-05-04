@@ -62,4 +62,7 @@ interface OrderRepositoryInterface
 
 
     public function cansel( $orderId , $description ) ;
+
+
+    public function getPayerInformation( $orderId ) ;
 }

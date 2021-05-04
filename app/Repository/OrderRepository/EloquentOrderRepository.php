@@ -328,4 +328,30 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         }else
             return false ;
     }
+
+
+
+    public function getPayerInformation($orderId)
+    {
+
+       $result =  Order::where('orders.id' , '=' , $orderId)
+             ->where('orders.ispaid' , 1)
+             ->join('users', 'users.id', '=', 'orders.userid')
+             ->join('addresses', 'addresses.id', '=', 'orders.address_id')
+             ->join('provinces' , 'provinces.id' , '=' , 'addresses.province_id')
+             ->join('cities' , 'cities.id' , '=' , 'addresses.city_id')
+            ->get([
+                 'firstname' , 'lastname' ,
+                 'address' , 'phone' , 'location' ,
+                 'cities.name as city',
+                 'provinces.name as province'
+            ])->first();
+
+
+        if ($result)
+            return $result ;
+        else
+            return false   ;
+
+    }
 }
