@@ -9,6 +9,7 @@ use App\Http\Requests\V1\EditRestrauntRequest;
 use App\Http\Requests\V1\GetRestrauntInfoRequest;
 use App\Repository\RestrauntRepository\RestrauntRepositoryInterface;
 use App\ToViewGenerator\MessageController;
+use App\ToViewGenerator\Views\GetRestaurantListViewModel;
 use App\ToViewGenerator\Views\restrauntInfoViewModel;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
@@ -189,6 +190,11 @@ class RestrauntController extends Controller
     public function getrestraunttable($paginationnumber)
     {
         $restrauntTableList =  $this->restrauntRepository->getRestrauntTable( $paginationnumber );
+
+
+        return MessageController::sendMessage(200 , [] , [
+            $restrauntTableList
+        ] , GetRestaurantListViewModel::class );
 
         return response()->json([
             'data' => $restrauntTableList ,
