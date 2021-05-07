@@ -19,6 +19,10 @@ class CreateOrdersTable extends Migration
             $table->bigInteger("userid")->unsigned();
             $table->integer("totalamount");
             $table->integer("totalprice");
+            $table->integer("discountprice");
+            $table->integer("taxprice");
+            $table->integer("finalprice");
+            $table->integer("deliveryprice");
             $table->integer("restraunt_id");
             $table->bigInteger("restraunt_code");
             $table->integer('address_id');
@@ -31,6 +35,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('issend')->default(0); // when restaurant send food                            --- ok // new
             $table->boolean('iscansel')->default(0); // when restaurant send food                            --- ok // new
             $table->string('description','255');      // when Restaurant cansel Order In any case
+            $table->string('userdescription','255');      // when Restaurant cansel Order In any case
 
 
             $table->bigInteger('refid')->nullable();

@@ -335,7 +335,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
     {
 
        $result =  Order::where('orders.id' , '=' , $orderId)
-             ->where('orders.ispaid' , 1)
+            // ->where('orders.ispaid' , 1)
              ->join('users', 'users.id', '=', 'orders.userid')
              ->join('addresses', 'addresses.id', '=', 'orders.address_id')
              ->join('provinces' , 'provinces.id' , '=' , 'addresses.province_id')
