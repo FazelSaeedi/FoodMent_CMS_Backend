@@ -24,6 +24,8 @@ class CreateOrderItemsTable extends Migration
             $table->integer('price');
             $table->integer('discountrate');
             $table->integer('totalprice');
+            $table->integer('finalprice');
+            $table->integer('taxrate');
 
             $table->timestamps();
 
