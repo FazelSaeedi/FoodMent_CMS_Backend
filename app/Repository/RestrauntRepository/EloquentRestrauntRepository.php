@@ -197,7 +197,7 @@ class EloquentRestrauntRepository implements RestrauntRepositoryInterface
     public function getRestrauntInfo( $restrauntCode )
     {
 
-        $restrauntInformation =  Restraunt::where('code' , '=' , $restrauntCode)->get([ 'id' ,'name' , 'code' , 'address' , 'phone'])->first();
+        $restrauntInformation =  Restraunt::where('code' , '=' , $restrauntCode)->get([ 'id' ,'name' , 'code' , 'address' , 'phone' , 'worktimes'])->first();
 
         if ($restrauntInformation)
             return $restrauntInformation ;
