@@ -354,4 +354,24 @@ class EloquentOrderRepository implements OrderRepositoryInterface
             return false   ;
 
     }
+
+
+
+    public function getOrderItemsInfo($OrderItemIdListArray, $restaurantId)
+    {
+        $result = DB::table('menu')
+            ->where('isexist' , 1)
+            ->where('restraunt_id' , $restaurantId)
+            ->whereIn('id', $OrderItemIdListArray)
+            ->get([
+                'id' , 'price' , 'restraunt_id' , 'discount' , 'isexist'
+            ]);
+
+        if ($result)
+            return $result;
+        else
+            return false;
+    }
+
+
 }

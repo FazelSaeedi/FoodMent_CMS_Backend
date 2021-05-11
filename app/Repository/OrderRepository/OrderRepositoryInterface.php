@@ -65,4 +65,7 @@ interface OrderRepositoryInterface
 
 
     public function getPayerInformation( $orderId ) ;
+
+
+    public function getOrderItemsInfo( $OrderItemIdListArray , $restaurantId );
 }
