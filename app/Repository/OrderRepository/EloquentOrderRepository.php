@@ -139,7 +139,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
 
 
 
-    public function restaurantAcceptOrder($orderId)
+    public function restaurantAcceptOrder($orderId , $description)
     {
 
         $editMainGroup = Order::where('id' ,$orderId)
@@ -156,6 +156,7 @@ class EloquentOrderRepository implements OrderRepositoryInterface
         if ($editMainGroup)
         {
             $editMainGroup->isrestrauntaccepted = 1 ;
+            $editMainGroup->description = $description ;
 
             if($editMainGroup->save())
                 return true ;

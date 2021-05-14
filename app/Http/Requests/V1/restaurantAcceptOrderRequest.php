@@ -39,6 +39,7 @@ class restaurantAcceptOrderRequest extends FormRequest
             'restaurantCode' => 'required|numeric|exists:restraunts,code',
             'OrderId' => 'required|numeric|exists:orders,id',
             'status' => 'required|numeric|boolean',
+            'description' => 'required|string',
         ];
     }
 }

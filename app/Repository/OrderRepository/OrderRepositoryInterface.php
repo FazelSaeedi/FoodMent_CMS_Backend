@@ -38,7 +38,7 @@ interface OrderRepositoryInterface
 
 
 
-    public function restaurantAcceptOrder( $orderId );
+    public function restaurantAcceptOrder( $orderId , $description );
 
 
 

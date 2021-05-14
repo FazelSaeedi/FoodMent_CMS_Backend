@@ -118,9 +118,9 @@ class OrderController extends Controller
         $result = false ;
 
         if ($status == true)
-            $result  = $this->orderRepository->restaurantAcceptOrder($orderId);
+            $result  = $this->orderRepository->restaurantAcceptOrder($orderId , $request->description );
         else
-            $result = $this->orderRepository->restaurantCanselOrder($orderId);
+            $result = $this->orderRepository->restaurantCanselOrder($orderId , $request->description );
 
         if ($result)
             return MessageController::sendMessage(200 , [] , [] , AcceptRestrauntOrderViewModel::class );
