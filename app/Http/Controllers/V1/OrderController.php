@@ -312,7 +312,7 @@ class OrderController extends Controller
 
 
 
-                DB::update('UPDATE `orders` SET `totalamount` = ? , `totalprice` = ? , `discountprice` = ? , `taxPrice` = ? , `finalprice` = ? WHERE `orders`.`id` = ?;' , [$totalamount , $wholePrice , $wholeDiscountPrice , $wholeTaxPrice , $wholeFinalPrice , $createAndGetOrderId]);
+                DB::update('UPDATE `orders` SET `totalamount` = ? , `totalprice` = ? , `discountprice` = ? , `taxPrice` = ? , `finalprice` = ? , `refid` = ?  WHERE `orders`.`id` = ?;' , [$totalamount , $wholePrice , $wholeDiscountPrice , $wholeTaxPrice , $wholeFinalPrice , 44444 , $createAndGetOrderId]);
                 DB::table('order_items')->insert($finalResult); // Query Builder approach*/
                 DB::commit();
 
